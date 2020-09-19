@@ -9,14 +9,15 @@ html {
 }
 
 .wrapper {
-  width: 1600px;  
+  width: 1600px;
+  margin-left: auto;  
+  margin-right: auto;
 }
 
 .container {
   /* width: 1600px; */
   height: 744px;
   background: url('asserts/img/bg-image-wrapper.jpg') ;
-
 }
 
 header {
@@ -31,11 +32,17 @@ h1 {
 header img {
   position: absolute;
   top: 25px;
-  left: 778px;  
+  left: 778px; 
+  transition-duration: 1s; 
+}
+
+header img:hover {
+  transform: scale(1.2);
+  cursor: pointer;
 }
 
 nav {
-  padding-top: 35px;
+  padding-top: 39px;
 }
 
 ul li {
@@ -44,33 +51,42 @@ ul li {
   font-size: 14px;  
   color: #FFFFFF;
   opacity: 0.8; 
-  vertical-align: middle; 
+  vertical-align: middle;
+  padding-bottom: 3px; 
 }
 
 li:nth-child(1) {
-  padding-left: 502px;
-  text-decoration: underline;
+  margin-left: 502px;
+  border-bottom: 1px solid white;
   opacity: 1.0;
   
 }
 
 li:nth-child(2) {
-  padding-left: 85px;
+  margin-left: 82px;
 }
 
 li:nth-child(3) {
-  padding-left: 245px;
+  margin-left: 242px;
 }
 
 li:nth-child(4) {
-  padding-left: 83px;
+  margin-left: 80px;
+}
+
+li:hover {
+  cursor: pointer;
+  opacity: 1.0;
+  border-bottom: 1px solid white;
+
 }
 
 h2 {  
   font-weight: bold;
   font-size: 64px;
   line-height: 75px;
-  text-align: center;
+  /* text-align: center; */
+  margin-left: 435px;
   letter-spacing: 4.5px;
   text-transform: uppercase;
   color: #FFFFFF;
@@ -117,6 +133,11 @@ button:hover {
   margin-left: 715px;
   margin-right: 715px;
   margin-top: 183px;
+}
+
+.icons img:hover {
+  transform: scale(1.2);
+  cursor: pointer;
 }
 
 .rappresent {
@@ -210,17 +231,17 @@ h4 {
   height: 10px;
   display: inline-block;
   border-top: 2px solid #373737;
-  border-right: 2px solid #373737;
-  
+  border-right: 2px solid #373737;  
 }
-
 
 #prev {
   transform: rotate(-135deg);
+  border-color: #373737 ;
 }
 
 #next {
-  transform: rotate(45deg);
+  transform: rotate(45deg); 
+  border-color: #373737 ; 
 } 
 
 #prev:hover, #next:hover {
@@ -236,12 +257,10 @@ h4 {
   overflow: hidden;
   top: 120px;
   left: 706px;
-
 }
 
 .slider_counter {
   position: absolute;
- 
   width:79px;
   height: 20px;
   margin-left: 546px;
@@ -258,7 +277,236 @@ h4 {
   margin-right: 30px;
 }
 
+.implement {
+  width: 100%;
+  height: 842px;
+  position: relative;
+}
 
+.implement__content {
+  width: 407px;
+  height: 184px;
+  position: absolute;
+  top: 319px;
+  right: 378px;
+}
+
+.implement img {
+  position: absolute;
+  top: 120px;
+  left: 269px;
+}
+
+.implement__content p {
+  height: 60px;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  color: #4E4E4E;
+  margin-top: 20px;
+}
+
+.implement button {
+  margin-top: 30px;
+  width: 180px;
+}
+
+.subscribe {
+  height: 598px;
+  background-image: url('asserts/img/image-bg-5.jpg');
+}
+
+.subscribe h3 {
+  color: #FFFFFF;
+  text-align: center;
+  padding-top: 217px;
+}
+
+form {
+  display: flex;
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  width: 406px;
+  height: 46px;
+}
+
+form input {
+  width: 340px;
+  height: 100%;
+  border: none;
+  padding-left: 24px;  
+}
+
+input::placeholder {
+  color: #373737;
+}
+
+form button {
+  width: 66px;
+  height: 100%;
+  border: none;
+  outline: none;
+}
+
+.download {
+  width: 100%;
+  height: 468px;
+  background-color: #F5F6F7;
+}
+
+.download h3 {
+  text-align: center;
+  padding-top: 120px;
+}
+
+.download p {
+  width: 483px;
+  height: 40px;
+  text-align: center;
+  margin-top: 20px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #4E4E4E;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.buttons__stores {
+  width: 406px;
+  height: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  margin-top: 31px;
+  justify-content: space-between;
+}
+
+.btn__apple, .btn__android {
+  width: 188px;
+  height: 100%;
+  display: flex;
+  overflow: hidden;  
+}
+
+#btn__apple__text, #btn__android__text {
+  width: 128px;
+  height: 100%;
+  font-stretch: ultra-condensed;
+}
+
+#btn__apple__img, #btn__android__img {
+  width: 60px;
+  height: 100%;
+  background-color: #009CC2 ;  
+}
+
+#btn__apple__img img {
+  transition-duration: 1s;
+}
+
+#btn__apple__img img:hover {
+  transform: rotate(360deg);
+}
+
+#btn__android__img img {
+  transition-duration: 1s;
+}
+
+#btn__android__img img:hover {
+  transform: rotate(360deg);
+}
+
+.footer {
+  position: relative;
+  width: 100%;
+  height: 184px;
+  background-color: black;
+}
+
+.footer_container {
+  display: flex;
+  margin-left: 160px;
+  margin-right: 160px;
+  padding-top: 74px;
+  justify-content: space-between;
+}
+
+.footer_nav {  
+  width: 236px;
+  height: 16px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 20px;
+  color: #FFFFFF;
+  opacity: 0.98;
+}
+
+.copyright {
+  width: 170px;
+  height: 20px;
+  font-weight: 300;
+  font-size: 14px;
+  text-align: center;
+  color: #818181;
+}
+
+.footer_nav_text:hover {
+  color: red;
+  cursor: default;
+}
+
+.footer img {
+  position: absolute;
+  margin-left: 778px;
+  margin-top: 60px;
+  transition-duration: 1s; 
+}
+
+footer img:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.verticalline {
+  color: #4E4E4E;
+  font-size: 12px;
+  font-weight: bold;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* background: linear-gradient(to right, #00afdb 68%, #009cc2 32%) */
 
 
 

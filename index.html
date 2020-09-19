@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
   <title>Webdev</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,7 +20,7 @@
             <li>FAQ</li>
           </ul>
         </nav>
-        <img src="asserts/icons/logo.svg" alt="logo">
+        <img class="logo" src="asserts/icons/logo.svg" alt="logo">
       </header>
       <section class="your_life">
         <h2>your life is WebDev</h2>
@@ -34,117 +34,85 @@
         </div>
        </section>
     </div>
-    <!-- <header>
-      <nav>
-        
-        <div>About</div>
-        <div>Syllabus</div>
-        <img src="asserts/icons/logo.svg" alt="logo">
-        <div>Projects</div>
-        <div>FAQ</div>
-      </nav>  
-      <h1>Webdev</h1> 
-         
-    </header> -->
-     
-
+  
     <section class="rappresent">
       <div class="rappresent_text">
         <h3>Rappresent your idea with <br>
           a smart Design</h3>
         <p>Tasks accompanying and related to programming include: testing, debugging, source code maintenance, <strong>implementation of build systems,</strong> and management of derived artifacts, such as the machine code of computer programs. </p>    
         <button id="start2">Get started</button>
-      
-          
-
       </div>
       <img src="asserts/img/content-image-1.jpg" alt="image_1">
-
     </section>
+    
     <section class="our_community">
       <div class="community_description">
         <img src="asserts/icons/icon-girl.png" alt="girl">
         <h4>Our community</h4>
         <p>A hacker is any skilled computer expert that uses their technical knowledge to overcome a problem, but it can also mean a security hacker in common language</p>
       </div>
-      
+      <!-- слайдер -->
       <div class="slider_counter">
-        <div id="prev"></div>
-        <!-- <span id="prev"><b>&lt;</b>&nbsp;</span> -->
+        <div id="prev"></div>      
         <span id="current">&nbsp;1</span>
         <span>/</span>
         <span id="total">5&nbsp;</span>
-        <div id="next"></div>
-
-        <!-- <span id="next">&nbsp;<b>&gt;</b>&nbsp;</span> -->
+        <div id="next"></div>  
       </div>
       <div class="slider_images">
         <img src="asserts/img/slide1.jpg" alt="slide1">
         <img src="asserts/img/slide2.jpg" alt="slide2">
         <img src="asserts/img/slide3.jpg" alt="slide3">
-      </div>
-
-    
-
-      
-
-
-
-
-
-      <!-- <div class="offer__slider">
-        <div class="offer__slider-counter">
-            <div class="offer__slider-prev">
-                <img src="icons/left.svg" alt="prev">
-            </div>
-            <span id="current">03</span>
-            /
-            <span id="total">04</span>
-            <div class="offer__slider-next">
-                <img src="icons/right.svg" alt="next">
-            </div>
-        </div>
-        <div class="offer__slider-wrapper">
-            <div class="offer__slider-inner">
-                <div class="offer__slide">
-                    <img src="img/slider/pepper.jpg" alt="pepper">
-                </div>
-                <div class="offer__slide">
-                    <img src="img/slider/food-12.jpg" alt="food">
-                </div>
-                <div class="offer__slide">
-                    <img src="img/slider/olive-oil.jpg" alt="oil">
-                </div>
-                <div class="offer__slide">
-                    <img src="img/slider/paprika.jpg" alt="paprika">
-                </div>  
-            </div>
-        </div>
-    </div> -->
-
-
-
-
-
-
-      
-
+      </div> 
     </section>
+
     <section class="implement">
-
+      <img src="asserts/img/content-image-2.jpg" alt="implement_image">
+      <div class="implement__content">
+        <h3>Implement right Code</h3>
+        <p>These might be considered part of the <strong>programming process,</strong> but often the term software development is used for this larger process with the term programming, implementation</p>
+        <button>Learn More</button>
+      </div>
     </section>
+
     <section class="subscribe">
-
+      <h3>sign up for our newsletter</h3>
+      <form>
+        <input type="email" placeholder="E-mail">
+        <button><img src="asserts/icons/fa-check.svg" alt="check"></button>
+      </form>
     </section>
+
     <section class="download">
-
+      <div class="dowload__content">
+        <h3>Download the App</h3>
+        <p>Machine code was the language of early programs, written in the instruction set of the particular machine, often in binary notation.</p>
+        <div class="buttons__stores">
+          <div class="btn__apple">
+            <button id="btn__apple__text">apple store</button>
+            <button id="btn__apple__img"><img src="asserts/icons/icon-apple.svg" alt="applestore"></button>
+          </div>
+          <div class="btn__android">
+            <button id="btn__android__text">play market</button>
+            <button id="btn__android__img"><img src="asserts/icons/icon-android.svg" alt="playmarket"></button>
+          </div>    
+        </div>
+      </div>
     </section>
+
     <footer class="footer">
-
+      <img class="logo" src="asserts/icons/logo.svg" alt="logo">
+      <div class="footer_container">
+        <div class="footer_nav">
+          <div class="footer_nav_text">Credits</div>
+          <div class="verticalline">|</div>
+          <div class="footer_nav_text">Privacy</div>
+          <div class="verticalline">|</div>
+          <div class="footer_nav_text">Our teams</div>
+        </div>  
+        <div class="copyright">by TonYem for RSS at 2020</div>
+      </div>      
     </footer>
-
-  </div>
-  
-  
+  </div>  
 </body>
 </html>
