@@ -102,7 +102,8 @@ h2 {
   margin-top: 20px;
 }
 
-button {
+#start1, #start2, #learn {
+  display: block;
   width: 184px;
   height: 46px;
   background: #00AFDB;
@@ -113,18 +114,18 @@ button {
   text-align: center;
   text-transform: uppercase;
   color: #FFFFFF;
-  border: none; 
-  outline: none;
+  text-decoration: none;
 }
 
-button:hover {
+#start1:hover, #start2:hover, #learn:hover {
   background: #009CC2;
   cursor: pointer;
 }
 
 #start1 {
   margin-left: 707px;
-  margin-top: 30px;  
+  margin-top: 30px;
+  padding-top: 15px;   
 }
 
 .icons {
@@ -173,7 +174,8 @@ h3 {
 }
 
 #start2 {  
-  margin-top: 30px;  
+  margin-top: 30px; 
+  padding-top: 15px;  
 }
 
 .rappresent img {
@@ -200,10 +202,10 @@ h3 {
   margin-top: 155px;
   margin-left: 269px;
 }
+
 .community_description img {
   display: block;
-  margin-left: 127px;
-  
+  margin-left: 127px; 
 }
 
 h4 {  
@@ -306,9 +308,10 @@ h4 {
   margin-top: 20px;
 }
 
-.implement button {
+#learn {
   margin-top: 30px;
   width: 180px;
+  padding-top: 15px; 
 }
 
 .subscribe {
@@ -384,39 +387,54 @@ form button {
   justify-content: space-between;
 }
 
-.btn__apple, .btn__android {
+.btn_apple, .btn_android {
   width: 188px;
-  height: 100%;
-  display: flex;
-  overflow: hidden;  
+  height: 50px;
+  position: relative;  
 }
 
-#btn__apple__text, #btn__android__text {
-  width: 128px;
-  height: 100%;
-  font-stretch: ultra-condensed;
-}
-
-#btn__apple__img, #btn__android__img {
-  width: 60px;
-  height: 100%;
-  background-color: #009CC2 ;  
-}
-
-#btn__apple__img img {
+.btn_apple img {
+  position: absolute;
+  top: 15px;
+  right: 21px;
   transition-duration: 1s;
 }
 
-#btn__apple__img img:hover {
+.btn_apple img:hover, .btn_android img:hover {
   transform: rotate(360deg);
+  cursor: pointer;
 }
 
-#btn__android__img img {
+.btn_android img {
+  position: absolute;
+  top: 13px;
+  right: 20px;
   transition-duration: 1s;
 }
 
-#btn__android__img img:hover {
-  transform: rotate(360deg);
+#apple, #android {
+  display: block;
+  width: 188px;
+  height: 50px;
+  background: linear-gradient(to right, #00afdb 68%, #009cc2 32%);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+  padding-top: 18px;
+  padding-left: 19px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  border: none; 
+  outline: none;
+}
+
+#android {
+  padding-left: 17px;
+}
+
+#android:hover, #apple:hover  {
+  background: #009CC2 ;  
 }
 
 .footer {
@@ -479,6 +497,15 @@ footer img:hover {
 
 }
 
+button {
+  background-color: #00afdb;
+  border: none; 
+  outline: none;
+}
+
+button:hover {
+  background-color: #009cc2;
+}
 
 
 
@@ -506,7 +533,7 @@ footer img:hover {
 
 
 
-/* background: linear-gradient(to right, #00afdb 68%, #009cc2 32%) */
+
 
 
 
