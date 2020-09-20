@@ -242,7 +242,7 @@ h4 {
 }
 
 #next {
-  transform: rotate(45deg); 
+  transform: rotate(45deg);
   border-color: #373737 ; 
 } 
 
@@ -265,13 +265,13 @@ h4 {
   position: absolute;
   width:79px;
   height: 20px;
-  margin-left: 546px;
+  /* margin-left: 546px; */
   font-weight: normal;
   font-size: 18px;
   line-height: 25px;
   color: #373737;
   top: 77px;
-  right: 267px;
+  right: 269px;
 }
 
 .slider_images img:nth-child(2) {
@@ -315,14 +315,15 @@ h4 {
 }
 
 .subscribe {
-  height: 598px;
+  height: 524px;
   background-image: url('asserts/img/image-bg-5.jpg');
+  background-clip: border-box;
 }
 
 .subscribe h3 {
   color: #FFFFFF;
   text-align: center;
-  padding-top: 217px;
+  padding-top: 200px;
 }
 
 form {
@@ -355,7 +356,7 @@ form button {
 
 .download {
   width: 100%;
-  height: 468px;
+  height: 464px;
   background-color: #F5F6F7;
 }
 
@@ -378,24 +379,24 @@ form button {
 }
 
 .buttons__stores {
-  width: 406px;
-  height: 50px;
+  width: 402px;
+  height: 46px;
   margin-left: auto;
   margin-right: auto;
   display: flex;
-  margin-top: 31px;
+  margin-top: 30px;
   justify-content: space-between;
 }
 
 .btn_apple, .btn_android {
-  width: 188px;
-  height: 50px;
+  width: 186px;
+  height: 46px;
   position: relative;  
 }
 
 .btn_apple img {
   position: absolute;
-  top: 15px;
+  top: 13px;
   right: 21px;
   transition-duration: 1s;
 }
@@ -407,22 +408,22 @@ form button {
 
 .btn_android img {
   position: absolute;
-  top: 13px;
+  top: 12px;
   right: 20px;
   transition-duration: 1s;
 }
 
 #apple, #android {
   display: block;
-  width: 188px;
-  height: 50px;
+  width: 186px;
+  height: 46px;
   background: linear-gradient(to right, #00afdb 68%, #009cc2 32%);
   text-decoration: none;
   font-weight: 700;
   font-size: 14px;
   line-height: 16px;
-  padding-top: 18px;
-  padding-left: 19px;
+  padding-top: 15px;
+  padding-left: 18px;
   text-transform: uppercase;
   color: #FFFFFF;
   border: none; 
@@ -430,7 +431,7 @@ form button {
 }
 
 #android {
-  padding-left: 17px;
+  padding-left: 16px;
 }
 
 #android:hover, #apple:hover  {
