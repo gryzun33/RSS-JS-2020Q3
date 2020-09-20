@@ -340,7 +340,9 @@ form input {
   width: 340px;
   height: 100%;
   border: none;
-  padding-left: 24px;  
+  padding-left: 24px;
+  border: none;
+  outline: none;  
 }
 
 input::placeholder {
