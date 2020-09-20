@@ -349,12 +349,12 @@ input::placeholder {
   color: #373737;
 }
 
-form button {
+/* form button {
   width: 66px;
   height: 100%;
   border: none;
   outline: none;
-}
+} */
 
 .download {
   width: 100%;
@@ -501,6 +501,8 @@ footer img:hover {
 }
 
 button {
+  width: 66px;
+  height: 100%;
   background-color: #00afdb;
   border: none; 
   outline: none;
@@ -508,7 +510,21 @@ button {
 
 button:hover {
   background-color: #009cc2;
+  cursor: pointer;
 }
+
+#bird {
+  transition-duration: 0.5s;
+  cursor: pointer;
+}
+
+#bird:hover {
+  transform: scale(1.5);
+}
+
+
+
+
 
 
 
