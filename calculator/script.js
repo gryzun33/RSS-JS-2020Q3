@@ -4,8 +4,9 @@ const numbers = document.querySelectorAll('.number'),
       clearBtns = document.querySelectorAll('.clear-btn'),
       display = document.querySelector('#display'),
       rootBtn = document.getElementById('root'),
-      toggle = document.getElementById('toggle');
-      // degreeBtn = document.getElementById('degree');
+      toggle = document.getElementById('toggle'),
+      del = document.getElementById('del');
+      
 
 let MemoryCurrentNumber = 0, /* текущее значение введенное в табло */
     MemoryNewNumber = false, /* ввели новое число или нет, после знака + или - должно стать true */
@@ -22,7 +23,7 @@ for (let i = 0; i < numbers.length; i++) {
 
 for (let i = 0; i < operations.length; i++) {
   let operator = operations[i];
-  // console.log(operator.textContent);
+  
   operator.addEventListener('click', function(e) {
     pressOperation(e.target.textContent);
   });
@@ -41,9 +42,11 @@ rootBtn.addEventListener('click', function() {
   let local = parseFloat(display.value);
   if (local < 0) {
     display.value = "invalid input";
+    MemoryNewNumber = true;
   } else {
-    MemoryCurrentNumber = Math.sqrt(local);
+    MemoryCurrentNumber = +((Math.sqrt(local)).toFixed(6))
     display.value = MemoryCurrentNumber;
+    MemoryNewNumber = true;
   }
 });
 
@@ -58,10 +61,23 @@ toggle.addEventListener('click', function() {
   };
 });
 
-
+del.addEventListener('click', function() {
+  if(!MemoryNewNumber) {
+    let local = display.value;
+    local = local.slice(0, local.length-1);
+    display.value = local;
+    if (local[local.length-1] == '.') {
+      local = local.slice(0, local.length-1);
+      display.value = local;
+    }
+    if (display.value === '' || display.value === '-' || display.value === '-0') {
+      display.value = 0;
+    }
+  }  
+})
 
 function pressNumber(numb) {
-  
+  console.log(`op=${MemoryPendingOperation}`);
   if(MemoryNewNumber) {
     display.value = numb;
     MemoryNewNumber = false;
@@ -80,25 +96,36 @@ function pressOperation(op) {
   let localOperationMemory = parseFloat(display.value); /* показывает какое число на табло в момент нажатия операции */
   if (MemoryNewNumber && MemoryPendingOperation !== '=') {
     display.value = MemoryCurrentNumber;
+
+
+    // if(MemoryPendingOperation === '-') {
+    //      MemoryCurrentNumber = "-";
+    //   display.value = MemoryCurrentNumber;
+    // };
+
   } else {
-    MemoryNewNumber = true;
+    MemoryNewNumber = true;  
+
     if (MemoryPendingOperation === '+') {
-      MemoryCurrentNumber += localOperationMemory;
+      MemoryCurrentNumber = (MemoryCurrentNumber*1000 + localOperationMemory*1000)/1000;
     } else if (MemoryPendingOperation === '-') {
-      MemoryCurrentNumber -= localOperationMemory;
+      MemoryCurrentNumber = (MemoryCurrentNumber*1000 - localOperationMemory*1000)/1000;
     } else if (MemoryPendingOperation === '*') {
-      MemoryCurrentNumber *= localOperationMemory;
+      MemoryCurrentNumber = ((MemoryCurrentNumber*1000)/1000) * ((localOperationMemory*1000)/1000);
     } else if (MemoryPendingOperation === '/') {
-      MemoryCurrentNumber /= localOperationMemory;
+      MemoryCurrentNumber = (MemoryCurrentNumber*1000) / (localOperationMemory*1000);
     }else if (MemoryPendingOperation === 'xy') {
-      MemoryCurrentNumber = Math.pow(MemoryCurrentNumber,localOperationMemory);
+      MemoryCurrentNumber = Math.pow(MemoryCurrentNumber,localOperationMemory)  
     }else {
       MemoryCurrentNumber = localOperationMemory;
     };
-    
-    display.value = MemoryCurrentNumber;
-    MemoryPendingOperation = op;
 
+    if(isNaN(MemoryCurrentNumber)) {
+      display.value = 'invalid input';
+    } else {
+      display.value = +MemoryCurrentNumber.toFixed(6);
+    }
+    MemoryPendingOperation = op;
   };
 
 }
@@ -130,18 +157,3 @@ function clear(id) {
 }
 
 
-
-// degreeBtn.addEventListener('click', function() {
-//   let localOperationMemory = display.value;
-//   if (MemoryNewNumber && MemoryPendingOperation !== '=') {
-//     display.value = MemoryCurrentNumber;
-//   } else {
-//     MemoryNewNumber = true;
-//     MemoryCurrentNumber = Math.pow(MemoryCurrentNumber, localOperationMemory);
-//     display.value = MemoryCurrentNumber;
-//   }  
-// })
-
-//   console.log(`MemoryNewNumber after= ${MemoryNewNumber}`);
-//   console.log(`MemoryCurrentNumber after= ${MemoryCurrentNumber}`);
-//   console.log(`MemoryPendingOperation after= ${MemoryPendingOperation}`);

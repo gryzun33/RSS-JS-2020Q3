@@ -117,3 +117,16 @@ button {
 sup {
   font-size: 15px;
 }
+
+.notes {
+  width: 300px;
+  margin-top: 50px;
+  margin-left: 50px;
+}
+
+.notes_head {
+  text-decoration: underline;
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
