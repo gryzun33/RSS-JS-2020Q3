@@ -2,10 +2,15 @@ const numbers = document.querySelectorAll('.number'),
       operations = document.querySelectorAll('.operator'),
       decimalBtn = document.querySelector('#decimal'),
       clearBtns = document.querySelectorAll('.clear-btn'),
-      display = document.querySelector('#display');
+      display = document.querySelector('#display'),
+      rootBtn = document.getElementById('root'),
+      toggle = document.getElementById('toggle');
+      // degreeBtn = document.getElementById('degree');
+
 let MemoryCurrentNumber = 0, /* текущее значение введенное в табло */
     MemoryNewNumber = false, /* ввели новое число или нет, после знака + или - должно стать true */
     MemoryPendingOperation = ''; /* Значение текущей операции */
+
 
 
 for (let i = 0; i < numbers.length; i++) {
@@ -17,6 +22,7 @@ for (let i = 0; i < numbers.length; i++) {
 
 for (let i = 0; i < operations.length; i++) {
   let operator = operations[i];
+  // console.log(operator.textContent);
   operator.addEventListener('click', function(e) {
     pressOperation(e.target.textContent);
   });
@@ -31,11 +37,30 @@ for (let i = 0; i < clearBtns.length; i++) {
 
 decimalBtn.addEventListener('click', decimal);
 
+rootBtn.addEventListener('click', function() {
+  let local = parseFloat(display.value);
+  if (local < 0) {
+    display.value = "invalid input";
+  } else {
+    MemoryCurrentNumber = Math.sqrt(local);
+    display.value = MemoryCurrentNumber;
+  }
+});
+
+toggle.addEventListener('click', function() {
+  let a = parseFloat(display.value);
+  if (a > 0) {
+    display.value= -a;
+     
+  } else if (a < 0) {
+    display.value = Math.abs(a);
+     
+  };
+});
+
+
+
 function pressNumber(numb) {
-  // console.log(`MemoryNewNumber before= ${MemoryNewNumber}`);
-  // console.log(`MemoryCurrentNumber before = ${MemoryCurrentNumber}`);
-  // console.log(`MemoryPendingOperation before = ${MemoryPendingOperation}`);
-  // console.log(`нажали на ${numb}`);
   
   if(MemoryNewNumber) {
     display.value = numb;
@@ -47,17 +72,10 @@ function pressNumber(numb) {
       display.value += numb;
     }
   }
-  // console.log(`MemoryNewNumber after= ${MemoryNewNumber}`);
-  // console.log(`MemoryCurrentNumber after= ${MemoryCurrentNumber}`);
-  // console.log(`MemoryPendingOperation after= ${MemoryPendingOperation}`); 
+  
 }
 
 function pressOperation(op) {
-  // console.log(`MemoryNewNumber before= ${MemoryNewNumber}`);
-  // console.log(`MemoryCurrentNumber before= ${MemoryCurrentNumber}`);
-  // console.log(`MemoryPendingOperation before= ${MemoryPendingOperation}`);
-  // console.log(`нажали на ${op}`);
-  
 
   let localOperationMemory = parseFloat(display.value); /* показывает какое число на табло в момент нажатия операции */
   if (MemoryNewNumber && MemoryPendingOperation !== '=') {
@@ -72,7 +90,9 @@ function pressOperation(op) {
       MemoryCurrentNumber *= localOperationMemory;
     } else if (MemoryPendingOperation === '/') {
       MemoryCurrentNumber /= localOperationMemory;
-    } else {
+    }else if (MemoryPendingOperation === 'xy') {
+      MemoryCurrentNumber = Math.pow(MemoryCurrentNumber,localOperationMemory);
+    }else {
       MemoryCurrentNumber = localOperationMemory;
     };
     
@@ -80,9 +100,7 @@ function pressOperation(op) {
     MemoryPendingOperation = op;
 
   };
-//   console.log(`MemoryNewNumber after= ${MemoryNewNumber}`);
-//   console.log(`MemoryCurrentNumber after= ${MemoryCurrentNumber}`);
-//   console.log(`MemoryPendingOperation after= ${MemoryPendingOperation}`);
+
 }
 
 function decimal () {
@@ -110,3 +128,20 @@ function clear(id) {
     MemoryPendingOperation = '';
   }
 }
+
+
+
+// degreeBtn.addEventListener('click', function() {
+//   let localOperationMemory = display.value;
+//   if (MemoryNewNumber && MemoryPendingOperation !== '=') {
+//     display.value = MemoryCurrentNumber;
+//   } else {
+//     MemoryNewNumber = true;
+//     MemoryCurrentNumber = Math.pow(MemoryCurrentNumber, localOperationMemory);
+//     display.value = MemoryCurrentNumber;
+//   }  
+// })
+
+//   console.log(`MemoryNewNumber after= ${MemoryNewNumber}`);
+//   console.log(`MemoryCurrentNumber after= ${MemoryCurrentNumber}`);
+//   console.log(`MemoryPendingOperation after= ${MemoryPendingOperation}`);

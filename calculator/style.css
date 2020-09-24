@@ -113,3 +113,7 @@ button {
     width: 132px;
   }
 }
+
+sup {
+  font-size: 15px;
+}
