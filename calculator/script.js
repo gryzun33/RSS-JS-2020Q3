@@ -8,9 +8,9 @@ const numbers = document.querySelectorAll('.number'),
       del = document.getElementById('del');
       
 
-let MemoryCurrentNumber = 0, /* текущее значение введенное в табло */
-    MemoryNewNumber = false, /* ввели новое число или нет, после знака + или - должно стать true */
-    MemoryPendingOperation = ''; /* Значение текущей операции */
+let currentNumber = 0, /* текущее значение введенное в табло */
+    newNumber = false, /* ввели новое число или нет, после знака + или - должно стать true */
+    operation = ''; /* Значение текущей операции */
 
 
 
@@ -42,13 +42,13 @@ rootBtn.addEventListener('click', function() {
   let local = parseFloat(display.value);
   if (local < 0) {
     display.value = "invalid input";
-    MemoryNewNumber = true;
+    newNumber = false;
   } else {
-    MemoryCurrentNumber = +((Math.sqrt(local)).toFixed(6))
-    display.value = MemoryCurrentNumber;
-    MemoryNewNumber = true;
+    currentNumber = +((Math.sqrt(local)).toFixed(6))
+    display.value = currentNumber;
+    newNumber = true;
   }
-});
+});s
 
 toggle.addEventListener('click', function() {
   let a = parseFloat(display.value);
@@ -62,7 +62,7 @@ toggle.addEventListener('click', function() {
 });
 
 del.addEventListener('click', function() {
-  if(!MemoryNewNumber) {
+  if(!newNumber) {
     let local = display.value;
     local = local.slice(0, local.length-1);
     display.value = local;
@@ -77,10 +77,10 @@ del.addEventListener('click', function() {
 })
 
 function pressNumber(numb) {
-  console.log(`op=${MemoryPendingOperation}`);
-  if(MemoryNewNumber) {
+  console.log(`op=${operation}`);
+  if(newNumber) {
     display.value = numb;
-    MemoryNewNumber = false;
+    newNumber = false;
   } else {
     if(display.value === '0') {
       display.value = numb;
@@ -94,8 +94,8 @@ function pressNumber(numb) {
 function pressOperation(op) {
 
   let localOperationMemory = parseFloat(display.value); /* показывает какое число на табло в момент нажатия операции */
-  if (MemoryNewNumber && MemoryPendingOperation !== '=') {
-    display.value = MemoryCurrentNumber;
+  if (newNumber && operation !== '=') {
+    display.value = currentNumber;
 
 
     // if(MemoryPendingOperation === '-') {
@@ -104,28 +104,28 @@ function pressOperation(op) {
     // };
 
   } else {
-    MemoryNewNumber = true;  
+    newNumber = true;  
 
-    if (MemoryPendingOperation === '+') {
-      MemoryCurrentNumber = (MemoryCurrentNumber*1000 + localOperationMemory*1000)/1000;
-    } else if (MemoryPendingOperation === '-') {
-      MemoryCurrentNumber = (MemoryCurrentNumber*1000 - localOperationMemory*1000)/1000;
-    } else if (MemoryPendingOperation === '*') {
-      MemoryCurrentNumber = ((MemoryCurrentNumber*1000)/1000) * ((localOperationMemory*1000)/1000);
-    } else if (MemoryPendingOperation === '/') {
-      MemoryCurrentNumber = (MemoryCurrentNumber*1000) / (localOperationMemory*1000);
-    }else if (MemoryPendingOperation === 'xy') {
-      MemoryCurrentNumber = Math.pow(MemoryCurrentNumber,localOperationMemory)  
+    if (operation === '+') {
+      currentNumber = (currentNumber*1000 + localOperationMemory*1000)/1000;
+    } else if (operation === '-') {
+      currentNumber = (currentNumber*1000 - localOperationMemory*1000)/1000;
+    } else if (operation === '*') {
+      currentNumber = ((currentNumber*1000)/1000) * ((localOperationMemory*1000)/1000);
+    } else if (operation === '/') {
+      currentNumber = (currentNumber*1000) / (localOperationMemory*1000);
+    }else if (operation === 'xy') {
+      currentNumber = Math.pow(currentNumber,localOperationMemory)  
     }else {
-      MemoryCurrentNumber = localOperationMemory;
+      currentNumber = localOperationMemory;
     };
 
-    if(isNaN(MemoryCurrentNumber)) {
+    if(isNaN(currentNumber)) {
       display.value = 'invalid input';
     } else {
-      display.value = +MemoryCurrentNumber.toFixed(6);
+      display.value = +currentNumber.toFixed(6);
     }
-    MemoryPendingOperation = op;
+    operation = op;
   };
 
 }
@@ -133,9 +133,9 @@ function pressOperation(op) {
 function decimal () {
   let localDecimalMemory = display.value;
 
-  if (MemoryNewNumber) {
+  if (newNumber) {
     localDecimalMemory = '0.';
-    MemoryNewNumber = false;
+    newNumber = false;
   } else {
     if(localDecimalMemory.indexOf('.') === -1) {
       localDecimalMemory += '.';
@@ -147,12 +147,12 @@ function decimal () {
 function clear(id) {
   if (id === 'ce') {
     display.value = '0';
-    MemoryNewNumber = true;
+    newNumber = true;
   } else if (id === 'c') {
     display.value = '0';
-    MemoryNewNumber = true;
-    MemoryCurrentNumber = 0;
-    MemoryPendingOperation = '';
+    newNumber = true;
+    currentNumber = 0;
+    operation = '';
   }
 }
 
