@@ -5,6 +5,10 @@
           box-sizing: border-box;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 .header {
   width: 100vw;
   position: absolute;
@@ -39,6 +43,7 @@
   font-size: 2rem;
   letter-spacing: 0.12rem;
   line-height: 110%;
+  margin: 0;
 }
 
 .logo__subtitle {
@@ -93,6 +98,13 @@
 }
 
 .list__link_active {
+  padding-top: 3px;
+  border-bottom: solid 3px #F1CDB3;
+}
+
+.list__link_disabled:hover {
+  color: #FFFFFF;
+  padding-top: 3px;
   border-bottom: solid 3px #F1CDB3;
 }
 
@@ -109,6 +121,7 @@
 
 .hero {
   padding-top: 180px;
+  max-height: 908px;
   background: url(../../assets/images/noise_transparent@2x.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
 }
 
@@ -116,6 +129,10 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  width: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .content-section {
@@ -165,5 +182,162 @@
   font-size: 1.06rem;
   line-height: 130%;
   letter-spacing: 6%;
+}
+
+.content-section__button:hover {
+  background-color: #FDDCC4;
+  cursor: pointer;
+}
+
+.about {
+  min-height: 588px;
+  background-color: #FFFFFF;
+}
+
+.about .about-content {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 80px;
+  -webkit-column-gap: 10%;
+          column-gap: 10%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.about .about-content .about-content-wrapper {
+  width: 850px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.about .about-content .about-content-wrapper .about-text {
+  margin-top: 14px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  max-width: 430px;
+}
+
+.about .about-content .about-content-wrapper .about-text__title {
+  font-family: Georgia;
+  font-weight: 400;
+  font-size: 2.187rem;
+  color: #545454;
+  line-height: 130%;
+  letter-spacing: 0.06em;
+  max-width: 370px;
+}
+
+.about .about-content .about-content-wrapper .about-text__description {
+  font-family: Arial;
+  font-weight: 400;
+  font-size: 0.9375rem;
+  color: #4C4C4C;
+  line-height: 160%;
+  padding-top: 25px;
+  max-width: 430px;
+}
+
+.our-friends {
+  min-height: 877px;
+  background-color: #F6F6F6;
+}
+
+.our-friends .our-friends-content {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-top: 80px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.our-friends .our-friends-content .our-friends-title {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  max-width: 400px;
+  font-family: Georgia;
+  font-weight: 400;
+  font-size: 2.187rem;
+  color: #545454;
+  line-height: 130%;
+  text-align: center;
+  letter-spacing: 0.06em;
+}
+
+.our-friends .our-friends-content .our-friends-slider {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.our-friends .our-friends-content .our-friends-slider .btn {
+  width: 52px;
+  height: 52px;
+  border: 2px solid #F1CDB3;
+  border-radius: 100%;
+  padding-top: 17px;
+  padding-left: 15px;
+}
+
+.our-friends .our-friends-content .our-friends-slider .btn:hover {
+  cursor: pointer;
+  background-color: #FDDCC4;
+  border-color: #FDDCC4;
+}
+
+.our-friends .our-friends-content .our-friends-slider .btn-prev {
+  padding-top: 17px;
+  padding-left: 15px;
+}
+
+.our-friends .our-friends-content .our-friends-slider .btn-next {
+  padding-top: 14px;
+  padding-left: 17px;
+}
+
+.our-friends .our-friends-content .button-rest {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  width: 261px;
+  height: 52px;
+  border-radius: 100px;
+  background-color: #F1CDB3;
+  color: #292929;
+  font-family: Georgia;
+  font-weight: 400;
+  font-size: 1.06rem;
+  line-height: 130%;
+  letter-spacing: 0.06em;
+  padding-top: 15px;
+  padding-left: 45px;
+  text-decoration: none;
+}
+
+.our-friends .our-friends-content .button-rest:hover {
+  background-color: #FDDCC4;
+  cursor: pointer;
 }
 /*# sourceMappingURL=main.css.map */
