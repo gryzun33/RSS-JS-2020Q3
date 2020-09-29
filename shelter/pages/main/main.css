@@ -133,8 +133,6 @@ body {
 
 .list__link_disabled:hover {
   color: #FFFFFF;
-  padding-top: 3px;
-  border-bottom: solid 3px #F1CDB3;
 }
 
 .main {
