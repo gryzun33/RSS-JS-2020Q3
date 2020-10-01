@@ -12,39 +12,70 @@ $color-dark-xl:#4C4C4C;
 $color-dark-2xl:#444444;
 $color-dark-3xl:#292929;
 
-$h2: 2.75rem;
-$h3: 2.187rem;
-$h4: 1.25rem;
-$h5: 0.9375rem;
-$paragraph-l: 0.9375rem;
-$paragraph-s: 0.75rem;
 
 
-.h3-block {
+
+:root {
+	font-size: 10px;
+}
+
+@mixin h2-block {
 	font-family: Georgia;
 	font-weight: 400;
-	font-size: $h3;
+	font-size: 4.4rem;
+	line-height: 130%;
+	color: $color-light-xl;
+}
+
+@mixin h3-block {
+	font-family: Georgia;
+	font-weight: 400;
+	font-size: 3.5rem;
 	color: $color-dark-l;
 	line-height: 130%;
-	letter-spacing: 0.13rem;
+	letter-spacing: 0.21rem;
 }
 
-.h4-block {
+@mixin h4-block {
 	font-family: Georgia;
 	font-weight: 400;
-	font-size: 20px;
+	font-size: 2rem;
 	line-height: 115%;
-	letter-spacing: 0.07rem;
-	
+	letter-spacing: 0.12rem;
 }
 
-.btn-text {
+@mixin h5-block {
+	font-family: Georgia;
+	font-weight: 400;
+	font-size: 1.5rem;
+	line-height: 110%;
+	letter-spacing: 0.09rem;
+	color: $color-dark-l;
+}
+
+@mixin paragraph-l {
+	font-family: Arial;
+	font-weight: 400;
+	font-size: 1.5rem;
+	line-height: 160%;
+}
+
+@mixin paragraph-s {
+	font-family: Arial;
+	font-style: italic;
+	font-weight: 400;
+	font-size: 1.2rem;
+	line-height: 150%;
+	color: $color-dark-m;
+}
+
+@mixin btn-text {
 	color: $color-dark-3xl;
 	font-family: Georgia;
 	font-weight: 400;
-	font-size: 1.06rem;
+	font-size: 1.7rem;
 	line-height: 130%;
-	letter-spacing: 0.0625rem;
+	letter-spacing: 0.1rem;
 	text-decoration: none;
 }
 
@@ -64,20 +95,17 @@ body {
 .header {
 	width: 100vw;
 	position: absolute;
-	top: 60px;
+	top: 6rem;
 
 }
 
 .wrapper {
 	display: flex;
-	// max-width: 1200px;
 	max-width: 1280px;
 	padding-left:40px;
 	padding-right:40px;
 	margin: 0 auto;
-	justify-content: space-between;
-	
-	
+	justify-content: space-between;	
 }
 
 .logo {
@@ -88,22 +116,20 @@ body {
 		color: $color-primary;
 		font-family: Georgia;
 		font-weight: 400;
-		font-size: 2rem;
-		letter-spacing: 0.12rem;
+		font-size: 3.2rem;
+		letter-spacing: 0.192rem;
 		line-height: 110%;
-		margin: 0;
-		
-
+		margin: 0; 
 	}
 
 	&__subtitle {
 		font-family: Arial;
 		font-weight: 400;
-		font-size: 0.8125rem;
+		font-size: 1.3rem;
 		color: $color-light-xl;
 		line-height: 110%;
-		letter-spacing: 0.09rem;
-		margin-top: 10px;
+		letter-spacing: 0.13rem;
+		margin-top: 1rem;
 		text-align: center;
 		// align-self: flex-end;
 		
@@ -113,21 +139,24 @@ body {
  
 .menu {
 	display: flex;
-	width: 443px;
+	width: 44.3rem;
+	// margin-top: 1.6rem;
+	align-self: center;
 	
 }
 
 .list {
+	@include paragraph-l;
 	display: flex;
 	list-style-type: none;
 	width: 100%;
 	justify-content: space-between;
-	font-family: Arial;
-	font-weight: 400;
-	font-size: $paragraph-l;
+	
+	
 	
 
 	&__item {
+		
 		display: flex;
 		align-items: center;
 	}
@@ -135,7 +164,7 @@ body {
 	&__link {
 		color: $color-light-xl;
 		text-decoration: none;
-		line-height: 160%	
+		line-height: 160%;
 	}
 
 	&__link_disabled {
@@ -143,6 +172,7 @@ body {
 	}
 
 	&__link_active {
+		color: $color-light-xl;
 		padding-top: 3px;
 		border-bottom: solid 3px $color-primary;
 	}
@@ -151,6 +181,12 @@ body {
 		color: $color-light-xl;
 		// padding-top: 3px;
 		// border-bottom: solid 3px $color-primary;
+	}
+	
+	&__link_disabled:active {
+		color: $color-light-xl;
+		padding-top: 3px;
+		border-bottom: solid 3px $color-primary;
 	}
 
 
@@ -164,11 +200,11 @@ body {
 }
 
 .hero {
-	padding-top: 180px;
-	max-height: 908px;
+	padding-top: 18rem;
+	// max-height: 908px;
 	// height: 100vh;
 	// display: flex;
-	background: url(../../assets/main/images/noise_transparent@2x.png), 
+	background: url(../../assets/images/noise_transparent@2x.png), 
 	radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
 }
 
@@ -183,38 +219,31 @@ body {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	padding-bottom: 84px;
+	padding-bottom: 8.4rem;
 
 	&__title {
-		font-size: $h2;
-		font-family: Georgia;
-		font-weight: 400;
-		letter-spacing: 10%;
-		line-height: 130%;
-		color: $color-light-xl;
-		max-width: 19.375rem;
+	  @include h2-block;
+		max-width: 31rem;
 	}
 
 	&__subtitle {
-		max-width: 28.75rem;
-		margin-top: 2.625rem;
-		font-size: $paragraph-l;
-		font-family: Arial;
-		font-weight: 400;
-		line-height: 160%;
+		@include paragraph-l;
 		color: $color-dark-s;
+		max-width: 46rem;
+		margin-top: 4.2rem;
 		 
 	}
 
 	&__button {
-		padding: 15px 45px;
-		width: 207px;
+		@include btn-text;
+		padding: 1.5rem 4.5rem;
+		width: 20.7rem;
 		text-decoration: none;
 		border-radius: 100px; 
 		background-color: $color-primary;
-		margin-top: 41px;
+		margin-top: 4.1rem;
 
-		@extend .btn-text;
+		
 
 	}
 
@@ -227,41 +256,40 @@ body {
 }
 
 .about {
-	min-height: 588px;
+	// min-height: 588px;
 	background-color: $color-light-xl;
+	padding-top: 8rem;
+	padding-bottom: 10rem;
 
 	.about-content {
 		width: 100%;
 		display: flex;
-		margin-top: 80px;
+		// margin-top: 8rem;
 		// column-gap: 10%;
 		justify-content: center;
 
 		.about-content-wrapper {
-			width: 850px;
+			width: 85rem;
 			display: flex;
 			justify-content: space-between;
+			align-items: center;
 
 			.about-text {	
-				margin-top: 14px;
+				// margin-top: 14px;
 				display: flex;
 				flex-direction: column;
-				max-width: 430px;
+				max-width: 43rem;
 	
 				&__title {
-					@extend .h3-block;
-					max-width: 370px;
+					@include h3-block;
+					max-width: 37rem;
 				}
 				
 				&__description {
-					font-family: Arial;
-					font-weight: 400;
-					font-size: $paragraph-l;
+					@include paragraph-l;
 					color: $color-dark-xl;
-					line-height: 160%;
-					padding-top: 25px;
-					max-width: 430px;
-	
+					padding-top: 2.5rem;
+					// max-width: 430px;	
 				}
 			}
 		}
@@ -269,18 +297,20 @@ body {
 }
 
 .our-friends {
-	min-height: 877px;
+	// min-height: 877px;
 	background-color: $color-light-l;
+	padding-top: 8rem;
+	padding-bottom: 10rem;
 
 	.our-friends-content {
 		width: 100%;
 		display: flex;
 		flex-direction: column;
-		margin-top: 80px;
+	
 		justify-content: space-between;
 
 		.our-friends-title {
-			@extend .h3-block;
+			@include h3-block;
 			align-self: center;
 			// max-width: 400px;
 			text-align: center;	
@@ -289,7 +319,7 @@ body {
 		.our-friends-slider {
 			display: flex;
 			justify-content: space-between;
-			margin-top: 60px;
+			margin-top: 6rem;
 			align-items: center;
 
 			.btn {
@@ -297,8 +327,6 @@ body {
 				height: 52px;
 				border: 2px solid $color-primary;
 				border-radius: 100%;
-				padding-top: 17px;
-				padding-left: 15px;
 			}
 
 			.btn:hover {
@@ -307,31 +335,38 @@ body {
 				border-color: $color-primary-light;
 			}
 
+			.btn:disabled {
+				border-color:$color-dark-s;
+				color:$color-dark-s;
+			}
+
 			.btn-prev {
-				padding-top: 17px;
-				padding-left: 15px;
+				padding-top: 1.6rem;
+				padding-left: 1.6rem;
 			}
 
 			.btn-next {
-				padding-top: 14px;
-				padding-left: 17px;
+				padding-top: 1.8rem;
+				padding-left: 1.7rem;
 			}
 		}
 
 		.our-friends-pets {
 			display: flex;
 			justify-content: space-between;
-			width: 990px;
+			width: 99rem;
 
 			.pet {
 				display: flex;
 				flex-direction: column;
-				justify-content: space-evenly;
+				justify-content: space-between;
 				align-items: center;
-				width: 270px;
-				height: 435px;
+				width: 27rem;
+				height: 43.5rem;
 				background-color: $color-light-s;
-				border-radius: 9px;
+				border-radius: 0.9rem;
+				padding-bottom: 3rem;
+
 
 				// &__box {
 				// 	width: 200px;
@@ -349,34 +384,28 @@ body {
 				&__name {
 					font-family: Georgia;
 					font-weight: 400;
-					font-size: 1.25rem;
-					line-height: 1.4375rem;
-					letter-spacing: 0.08rem;
+					font-size: 2rem;
+					line-height: 2.3rem;
+					letter-spacing: 0.12rem;
 					color: $color-dark-l;
 				}
 
 				&__btn {
-					width: 187px;
-					height: 52px;
+					width: 18.7rem;
+					height: 5.2rem;
 					border: 2px solid $color-primary;
-					border-radius: 100px;
-					padding-top: 13px;
-					padding-left: 43px;
+					border-radius: 10rem;
+					padding-top: 1.3rem;
+					// padding-left: 43px;
+					text-align:center;
 
-					@extend .btn-text;
+					@include btn-text;
 				}
 
 				&__btn:hover {
 					background-color: $color-primary-light;
 					border-color:$color-primary-light;
 				}
-
-				&__btn:disabled {
-					border-color:$color-dark-s;
-					color:$color-dark-s;
-				}
-
-
       }
 
 			.pet:hover {
@@ -388,14 +417,15 @@ body {
 
 		.button-rest {
 			align-self: center;
-			width: 261px;
-			height: 52px;
-			border-radius: 100px;
+			width: 26.1rem;
+			height: 5.2rem;
+			border-radius: 10rem;
 			background-color: $color-primary;
-			margin-top: 60px;
-			padding-top: 15px;
-			padding-left: 45px;
-			@extend .btn-text
+			margin-top: 6rem;
+			padding-top: 1.5rem;
+			// padding-left: 45px;
+			text-align:center;
+			@include btn-text;
 		}
 
 		.button-rest:hover {
@@ -408,12 +438,14 @@ body {
 }
 
 .help {
-	min-height: 611px;
+	// min-height: 611px;
 	background-color: $color-light-xl;
+	padding-top: 8rem;
+	padding-bottom: 10rem;
 
 	.help-content {
 		width: 100%;
-		margin-top: 80px;
+		// margin-top: 80px;
 		display: flex;
 		flex-direction: column;
 		
@@ -422,16 +454,16 @@ body {
 			// max-width: 308px;
 			align-self: center;
 			text-align: center;
-			@extend .h3-block;
+			@include h3-block;
 		}
 
 		.help-list {
 			width: 100%;
 			display: flex;
 			flex-wrap: wrap;
-			min-height: 281px;
+			min-height: 28.1rem;
 			margin: 0 auto;
-			margin-top: 60px;
+			margin-top: 6rem;
 			justify-content: center;
 			align-content: space-between;
 		}
@@ -440,11 +472,11 @@ body {
 }
 
 .help-item {
-	margin-left: 60px;
-	margin-right: 60px;
+	margin-left: 6rem;
+	margin-right: 6rem;
 	// flex-basis: 205.2px;
 	// width: 82px;
-	height: 113px;
+	height: 11.3rem;
 	// display: flex;
 	// flex-direction: column;
 	// justify-content: space-between;
@@ -453,33 +485,32 @@ body {
 	&__icon {
 		display: block;
 		margin: 0 auto;
-		width: 60px;
-		height: 60px;
+		width: 6rem;
+		height: 6rem;
 	}
 
 	&__name {
+		@include h4-block;
 		display: block;
 		margin: 0 auto;
-		margin-top: 30px;
+		margin-top: 3rem;
 		color: $color-dark-l;
-		font-family: Georgia;
-		font-weight: 400;
-		font-size: $h4;
-		line-height: 115%;
-		letter-spacing: 0.075rem;
 		text-align: center;
 	}
 }	
 
 .in-addition {
-	min-height: 464px;
+	// min-height: 464px;
 	background-color: $color-light-l;
+	padding-top: 8rem;
+	padding-bottom: 10rem;
+
 
 	.in-addition-content{
 		margin: 0 auto;
-		margin-top: 80px;
-		width: 915px;
-		min-height: 284px;
+		// margin-top: 80px;
+		width: 91.5rem;
+		min-height: 28.4rem;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -488,53 +519,46 @@ body {
 		
 
 		.information {
-			max-width: 380px;
-			min-height: 282px;
+			max-width: 38rem;
+			// min-height: 282px;
 			display: flex;
 			flex-direction: column;
-			justify-content: space-between;
+			// justify-content: space-between;
 			// column-gap: 30px;
 
 			&__title {
-				@extend .h3-block;
-				max-width: 300px;
+				@include h3-block;
+				max-width: 30rem;
 			}
 
 			&__subtitle {
-				color: $color-dark-l;
-				font-size: $paragraph-l;;
-				font-family: Georgia;
-				font-weight: 400;
-				line-height: 110%;
-				letter-spacing: 0.055rem;
+				@include h5-block;	
+				margin-top: 2rem;
 			}
-
+			
 			&__card {
-				padding: 10px 15px;
-				width: 349px;
-				height: 43px;
+				margin-top: 2rem;
+				padding: 1rem 1.5rem;
+				width: 34.9rem;
+				height: 4.3rem;
 				background-color: $color-primary;
 				border-radius: 9px;
 
-        @extend .h4-block;
+        @include h4-block;
 				text-decoration: none;
 				display: flex;
 				align-items: center;
 				color: $color-dark-l;
+				letter-spacing: 0.115rem;
 
 				span {
-					padding-left: 15px;
+					padding-left: 1.5rem;
 				}
 			}
 
 			&__notes {
-				color: $color-dark-m;
-				font-family: Arial;
-				font-style: italic;
-				font-weight: 400;
-				font-size: 0.75rem;
-				line-height: 1.125rem;
-				
+				@include paragraph-s;
+				margin-top: 2rem;
 			}
 		}
 	}
@@ -542,72 +566,86 @@ body {
 
 .footer {
 	width: 100vw;
-	min-height: 350px;
-	background: url('../../assets/main/images/noise_transparent@2x.png'), 
+	// min-height: 350px;
+	padding-top: 4rem;
+	background: url('../../assets/images/noise_transparent@2x.png'), 
 	radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
 
 	.footer-content {
-		margin-top: 40px;
+		// margin-top: 40px;
 		width: 100%;
 		display: flex; 
 		justify-content: space-between;
 
 		.contacts {
-			width: 278px;
-			height: 234px;
-			margin-top: 16px;
+			width: 27.8rem;
+			// height: 234px;
+			margin-top: 1.6rem;
 			display: flex;
 			flex-direction: column;
-			justify-content: space-between;
+			// justify-content: space-between;
 
 			&__title {
-				@extend .h3-block;
+				@include h3-block;
 				color: $color-light-xl;
-				letter-spacing: 0.13rem;
+				letter-spacing: 0.20rem;
 			}
 			
 			&__mail {
-				@extend .h4-block;
+				@include h4-block;
 				color: $color-primary;
 				text-decoration: none;
 				display: flex;
-				align-items: center;	
+				align-items: center;
+				margin-top: 4rem;	
 			}
 
 			&__mail-text {
-				padding-left: 20px;	
+				padding-left: 2rem;	
 			}
 
 			&__phone {
-				@extend .h4-block;
+				@include h4-block;
 				color: $color-primary;
 				text-decoration: none;
 				text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
 				display: flex;
 				align-items: center;
+				margin-top: 4rem;
+
 			}
 
 			&__phone-number {
-				padding-left: 20px;				
+				padding-left: 2rem;				
 			}
 		}
 
 		.location {
-			width: 302px;
-			height: 234px;
-			margin-top: 16px;
+			width: 30.2rem;
+			// height: 234px;
+			margin-top: 1.6rem;
 			display: flex;
 			flex-direction: column;
-			justify-content: space-between;
+			// justify-content: space-between;
 
 			&__title {
-				@extend .h3-block;
+				@include h3-block;
 				color: $color-light-xl;
-				letter-spacing: 0.13rem;
+				letter-spacing: 0.21rem;
 			}
 
-			&__address {
-				@extend .h4-block;
+			&__address1 {
+				margin-top: 3.4rem;
+				@include h4-block;
+				color: $color-primary;
+				text-decoration: none;
+				display: flex;
+				align-items: center;
+			}
+
+			&__address2 {
+				margin-top: 3.2rem;
+				@include h4-block;
 				color: $color-primary;
 				text-decoration: none;
 				display: flex;
@@ -615,7 +653,7 @@ body {
 			}
 
 			&__address-text {
-				padding-left: 20px;
+				padding-left: 2rem;
 			}
 		}
 	}
