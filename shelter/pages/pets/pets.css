@@ -1,0 +1,417 @@
+:root {
+  font-size: 10px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.header {
+  width: 100vw;
+  background-color: #FFFFFF;
+  position: fixed;
+  top: 0;
+}
+
+.header .header-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  max-width: 1280px;
+  padding-left: 40px;
+  padding-right: 40px;
+  margin: 0 auto;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.header .header-wrapper .logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.header .header-wrapper .logo__title {
+  color: #545454;
+  font-family: Georgia;
+  font-weight: 400;
+  font-size: 3.2rem;
+  letter-spacing: 0.192rem;
+  line-height: 110%;
+  margin: 0;
+}
+
+.header .header-wrapper .logo__subtitle {
+  font-family: Arial;
+  font-weight: 400;
+  font-size: 1.3rem;
+  color: #292929;
+  line-height: 120%;
+  letter-spacing: 0.13rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.header .header-wrapper .menu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 44.3rem;
+}
+
+.header .header-wrapper .list {
+  font-family: Arial;
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 160%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  list-style-type: none;
+  width: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.header .header-wrapper .list__item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.header .header-wrapper .list__link {
+  color: #545454;
+  text-decoration: none;
+}
+
+.header .header-wrapper .list__link_active {
+  color: #292929;
+  border-bottom: solid 3px #F1CDB3;
+}
+
+.header .header-wrapper .list__link:hover {
+  color: #292929;
+}
+
+.header .header-wrapper .list__link:active {
+  border-bottom: solid 3px #F1CDB3;
+}
+
+.our-friends {
+  width: 100vw;
+  background-color: #F6F6F6;
+  margin-top: 12rem;
+}
+
+.our-friends .our-friends-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  max-width: 1280px;
+  padding-left: 40px;
+  padding-right: 40px;
+  margin: 0 auto;
+  padding-top: 8rem;
+  padding-bottom: 10rem;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.our-friends .our-friends-wrapper .our-friends-title {
+  font-family: Georgia;
+  font-weight: 400;
+  font-size: 3.5rem;
+  color: #545454;
+  line-height: 130%;
+  letter-spacing: 0.21rem;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  text-align: center;
+}
+
+.our-friends .our-friends-wrapper .our-friends-pets {
+  margin-top: 4.5rem;
+  min-height: 93rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-line-pack: distribute;
+      align-content: space-around;
+}
+
+.our-friends .our-friends-wrapper .our-friends-pets .pet {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 27rem;
+  height: 43.5rem;
+  background-color: #FAFAFA;
+  border-radius: 0.9rem;
+  padding-bottom: 3rem;
+}
+
+.our-friends .our-friends-wrapper .our-friends-pets .pet__name {
+  font-family: Georgia;
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 2.3rem;
+  letter-spacing: 0.12rem;
+  color: #545454;
+}
+
+.our-friends .our-friends-wrapper .our-friends-pets .pet__btn {
+  width: 18.7rem;
+  height: 5.2rem;
+  border: 2px solid #F1CDB3;
+  border-radius: 10rem;
+  padding-top: 1.3rem;
+  text-align: center;
+  color: #292929;
+  font-family: Georgia;
+  font-weight: 400;
+  font-size: 1.7rem;
+  line-height: 130%;
+  letter-spacing: 0.1rem;
+  text-decoration: none;
+}
+
+.our-friends .our-friends-wrapper .our-friends-pets .pet__btn:hover {
+  background-color: #FDDCC4;
+  border-color: #FDDCC4;
+}
+
+.our-friends .our-friends-wrapper .our-friends-pets .pet:hover {
+  cursor: pointer;
+  -webkit-box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
+          box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
+  background-color: #FFFFFF;
+}
+
+.our-friends .our-friends-wrapper .navigation {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 4.5rem;
+  width: 34rem;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-item-align: center;
+      align-self: center;
+}
+
+.our-friends .our-friends-wrapper .navigation .btn {
+  width: 52px;
+  height: 52px;
+  border: 2px solid #F1CDB3;
+  border-radius: 100%;
+  background: none;
+  outline: none;
+  color: #292929;
+  font-family: Georgia;
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 115%;
+  letter-spacing: 0.12rem;
+}
+
+.our-friends .our-friends-wrapper .navigation .btn:hover {
+  cursor: pointer;
+  background-color: #FDDCC4;
+  border: 2px solid #FDDCC4;
+}
+
+.our-friends .our-friends-wrapper .navigation .btn:disabled {
+  background: none;
+  border: 2px solid #CDCDCD;
+  color: #CDCDCD;
+}
+
+.our-friends .our-friends-wrapper .navigation .btn-active {
+  cursor: pointer;
+  background-color: #F1CDB3;
+  border: 2px solid #F1CDB3;
+}
+
+.footer {
+  width: 100vw;
+  padding-top: 4rem;
+  background: url("../../assets/images/noise_transparent@2x.png"), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
+}
+
+.footer .footer-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  max-width: 1280px;
+  padding-left: 40px;
+  padding-right: 40px;
+  margin: 0 auto;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.footer .footer-wrapper .contacts {
+  width: 27.8rem;
+  margin-top: 1.6rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.footer .footer-wrapper .contacts__title {
+  font-family: Georgia;
+  font-weight: 400;
+  font-size: 3.5rem;
+  color: #545454;
+  line-height: 130%;
+  letter-spacing: 0.21rem;
+  color: #FFFFFF;
+  letter-spacing: 0.20rem;
+}
+
+.footer .footer-wrapper .contacts__mail {
+  font-family: Georgia;
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 115%;
+  letter-spacing: 0.12rem;
+  color: #F1CDB3;
+  text-decoration: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 4rem;
+}
+
+.footer .footer-wrapper .contacts__mail-text {
+  padding-left: 2rem;
+}
+
+.footer .footer-wrapper .contacts__phone {
+  font-family: Georgia;
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 115%;
+  letter-spacing: 0.12rem;
+  color: #F1CDB3;
+  text-decoration: none;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 4rem;
+}
+
+.footer .footer-wrapper .contacts__phone-number {
+  padding-left: 2rem;
+}
+
+.footer .footer-wrapper .location {
+  width: 30.2rem;
+  margin-top: 1.6rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.footer .footer-wrapper .location__title {
+  font-family: Georgia;
+  font-weight: 400;
+  font-size: 3.5rem;
+  color: #545454;
+  line-height: 130%;
+  letter-spacing: 0.21rem;
+  color: #FFFFFF;
+  letter-spacing: 0.21rem;
+}
+
+.footer .footer-wrapper .location__address1 {
+  margin-top: 3.4rem;
+  font-family: Georgia;
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 115%;
+  letter-spacing: 0.12rem;
+  color: #F1CDB3;
+  text-decoration: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.footer .footer-wrapper .location__address2 {
+  margin-top: 3.2rem;
+  font-family: Georgia;
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 115%;
+  letter-spacing: 0.12rem;
+  color: #F1CDB3;
+  text-decoration: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.footer .footer-wrapper .location__address-text {
+  padding-left: 2rem;
+}
+/*# sourceMappingURL=pets.css.map */
