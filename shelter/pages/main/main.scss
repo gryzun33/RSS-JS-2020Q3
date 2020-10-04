@@ -327,6 +327,7 @@ body {
 				height: 52px;
 				border: 2px solid $color-primary;
 				border-radius: 100%;
+				background: none;
 			}
 
 			.btn:hover {
@@ -338,17 +339,16 @@ body {
 			.btn:disabled {
 				border-color:$color-dark-s;
 				color:$color-dark-s;
+				background: none;
+				cursor: auto;
 			}
 
-			.btn-prev {
-				padding-top: 1.6rem;
-				padding-left: 1.6rem;
+			.btn:disabled > svg > path {
+				
+				fill:$color-dark-s;
+				
 			}
 
-			.btn-next {
-				padding-top: 1.8rem;
-				padding-left: 1.7rem;
-			}
 		}
 
 		.our-friends-pets {

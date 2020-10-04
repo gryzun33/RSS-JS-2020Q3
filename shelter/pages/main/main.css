@@ -312,6 +312,7 @@ body {
   height: 52px;
   border: 2px solid #F1CDB3;
   border-radius: 100%;
+  background: none;
 }
 
 .our-friends .our-friends-content .our-friends-slider .btn:hover {
@@ -323,16 +324,12 @@ body {
 .our-friends .our-friends-content .our-friends-slider .btn:disabled {
   border-color: #CDCDCD;
   color: #CDCDCD;
+  background: none;
+  cursor: auto;
 }
 
-.our-friends .our-friends-content .our-friends-slider .btn-prev {
-  padding-top: 1.6rem;
-  padding-left: 1.6rem;
-}
-
-.our-friends .our-friends-content .our-friends-slider .btn-next {
-  padding-top: 1.8rem;
-  padding-left: 1.7rem;
+.our-friends .our-friends-content .our-friends-slider .btn:disabled > svg > path {
+  fill: #CDCDCD;
 }
 
 .our-friends .our-friends-content .our-friends-pets {

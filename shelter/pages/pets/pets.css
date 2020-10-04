@@ -261,6 +261,7 @@ body {
   background: none;
   border: 2px solid #CDCDCD;
   color: #CDCDCD;
+  cursor: auto;
 }
 
 .our-friends .our-friends-wrapper .navigation .btn-active {
