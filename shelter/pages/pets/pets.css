@@ -14,7 +14,7 @@ body {
 }
 
 .header {
-  width: 100vw;
+  width: 100%;
   background-color: #FFFFFF;
   position: fixed;
   top: 0;
@@ -116,7 +116,7 @@ body {
 }
 
 .our-friends {
-  width: 100vw;
+  width: 100%;
   background-color: #F6F6F6;
   margin-top: 12rem;
 }
@@ -271,7 +271,7 @@ body {
 }
 
 .footer {
-  width: 100vw;
+  width: 100%;
   padding-top: 4rem;
   background: url("../../assets/images/noise_transparent@2x.png"), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
 }

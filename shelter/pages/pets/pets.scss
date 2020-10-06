@@ -71,7 +71,7 @@ body {
 }
 
 .header {
-  width: 100vw;
+  width: 100%;
   background-color: $color-light-xl;
   position: fixed;
   top: 0;
@@ -169,7 +169,7 @@ body {
 }
 
 .our-friends {
-  width: 100vw;
+  width: 100%;
   background-color: $color-light-l;
   margin-top: 12rem;
 
@@ -283,7 +283,7 @@ body {
 }
 
 .footer {
-	width: 100vw;
+	width: 100%;
 	// min-height: 350px;
 	padding-top: 4rem;
 	background: url('../../assets/images/noise_transparent@2x.png'), 

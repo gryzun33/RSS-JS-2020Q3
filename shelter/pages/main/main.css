@@ -9,12 +9,8 @@
           box-sizing: border-box;
 }
 
-body {
-  overflow-x: hidden;
-}
-
 .header {
-  width: 100vw;
+  width: 100%;
   position: absolute;
   top: 6rem;
 }
@@ -68,8 +64,7 @@ body {
   display: -ms-flexbox;
   display: flex;
   width: 44.3rem;
-  -ms-flex-item-align: center;
-      align-self: center;
+  padding-bottom: 0.3rem;
 }
 
 .list {
@@ -123,7 +118,7 @@ body {
 }
 
 .main {
-  width: 100vw;
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -159,7 +154,7 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  padding-bottom: 8.4rem;
+  padding-bottom: 8.0rem;
 }
 
 .content-section__title {
@@ -178,7 +173,7 @@ body {
   line-height: 160%;
   color: #CDCDCD;
   max-width: 46rem;
-  margin-top: 4.2rem;
+  margin-top: 4.1rem;
 }
 
 .content-section__button {
@@ -588,7 +583,7 @@ body {
 }
 
 .footer {
-  width: 100vw;
+  width: 100%;
   padding-top: 4rem;
   background: url("../../assets/images/noise_transparent@2x.png"), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
 }
