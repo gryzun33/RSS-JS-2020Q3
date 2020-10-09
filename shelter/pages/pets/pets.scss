@@ -188,11 +188,12 @@ body {
     
     .our-friends-pets {
       margin-top: 4.5rem;
-      min-height: 93rem;
+      // min-height: 93rem;
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between; 
-      align-content: space-around;
+			justify-content: center;
+			column-gap: 4rem;
+      // align-content: space-around;
 
       .pet {
 				display: flex;
@@ -203,7 +204,9 @@ body {
 				height: 43.5rem;
 				background-color: $color-light-s;
 				border-radius: 0.9rem;
-        padding-bottom: 3rem;
+				padding-bottom: 3rem;
+				margin-top: 1.5rem;
+				margin-bottom: 1.5rem;
 
         &__name {
 					font-family: Georgia;
@@ -375,3 +378,125 @@ body {
 		}
 	}
 }
+
+@media (max-width: 768px) {
+	// .our-friends {
+	// 	width: 100%;
+	// 	background-color: $color-light-l;
+	// 	margin-top: 12rem;
+	
+		.our-friends-wrapper {
+			// @include wrapper;
+			padding-top: 7rem;
+			padding-bottom: 7.6rem;
+			// display: block;
+			// flex-direction: column;
+	
+			// .our-friends-title {
+			// 	@include h3-block;
+			// 	align-self: center;
+			// 	text-align: center;	
+			// }
+			
+			.our-friends-pets {
+				margin-top: 2.5rem;
+				// min-height: 93rem;
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+				column-gap: 4rem;
+				// align-content: space-around;
+				max-height: 139.5rem;
+				overflow: hidden;
+	
+				.pet {
+					display: flex;
+					flex-direction: column;
+					justify-content: space-between;
+					align-items: center;
+					width: 27rem;
+					height: 43.5rem;
+					background-color: $color-light-s;
+					border-radius: 0.9rem;
+					padding-bottom: 3rem;
+					margin-top: 1.5rem;
+					margin-bottom: 1.5rem;
+	
+					&__name {
+						font-family: Georgia;
+						font-weight: 400;
+						font-size: 2rem;
+						line-height: 2.3rem;
+						letter-spacing: 0.12rem;
+						color: $color-dark-l;
+					}
+	
+					&__btn {
+						width: 18.7rem;
+						height: 5.2rem;
+						border: 2px solid $color-primary;
+						border-radius: 10rem;
+						padding-top: 1.3rem;
+						// padding-left: 43px;
+						text-align:center;
+	
+						@include btn-text;
+					}
+	
+					&__btn:hover {
+						background-color: $color-primary-light;
+						border-color:$color-primary-light;
+					}
+				}
+				
+				.pet:hover {
+					cursor: pointer;
+					box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
+					background-color: $color-light-xl;
+				}
+				
+			}
+	
+			.navigation {
+				display: flex;
+				// margin: 0 auto;
+				margin-top: 2.5rem;
+				width: 34rem;
+				justify-content: space-between;
+				align-self: center;
+				
+				.btn {
+					width: 52px;
+					height: 52px;
+					border: 2px solid $color-primary;
+					border-radius: 100%;
+					background: none;
+					outline: none;
+	
+					color: $color-dark-3xl;
+					@include h4-block;
+				}
+	
+				.btn:hover {
+					cursor: pointer;
+					background-color: $color-primary-light;
+					border: 2px solid $color-primary-light;
+				}
+	
+				.btn:disabled {
+					background: none;
+					border: 2px solid $color-dark-s;
+					color: $color-dark-s;
+					cursor: auto;
+				}
+	
+				.btn-active {
+					cursor: pointer;
+					background-color: $color-primary;
+					border: 2px solid $color-primary;
+				}
+			}
+		}
+}
+
+// }
