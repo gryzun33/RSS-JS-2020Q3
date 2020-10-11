@@ -16,8 +16,8 @@ body {
 .header {
   width: 100%;
   background-color: #FFFFFF;
-  position: fixed;
-  top: 0;
+  position: -webkit-sticky;
+  position: sticky;
 }
 
 .header .header-wrapper {
@@ -69,6 +69,10 @@ body {
   text-align: center;
 }
 
+.header .header-wrapper .burger-menu {
+  display: none;
+}
+
 .header .header-wrapper .menu {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -118,7 +122,6 @@ body {
 .our-friends {
   width: 100%;
   background-color: #F6F6F6;
-  margin-top: 12rem;
 }
 
 .our-friends .our-friends-wrapper {
@@ -135,6 +138,9 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .our-friends .our-friends-wrapper .our-friends-title {
@@ -151,7 +157,7 @@ body {
 }
 
 .our-friends .our-friends-wrapper .our-friends-pets {
-  margin-top: 4.5rem;
+  margin-top: 6rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -162,6 +168,7 @@ body {
           justify-content: center;
   -webkit-column-gap: 4rem;
           column-gap: 4rem;
+  row-gap: 3rem;
 }
 
 .our-friends .our-friends-wrapper .our-friends-pets .pet {
@@ -183,8 +190,6 @@ body {
   background-color: #FAFAFA;
   border-radius: 0.9rem;
   padding-bottom: 3rem;
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
 }
 
 .our-friends .our-friends-wrapper .our-friends-pets .pet__name {
@@ -228,7 +233,7 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin-top: 4.5rem;
+  margin-top: 6rem;
   width: 34rem;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
@@ -290,9 +295,19 @@ body {
           justify-content: space-between;
 }
 
-.footer .footer-wrapper .contacts {
+.footer .footer-wrapper .footer-content {
+  width: 74rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding-top: 1.6rem;
+}
+
+.footer .footer-wrapper .footer-content .contacts {
   width: 27.8rem;
-  margin-top: 1.6rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -302,7 +317,7 @@ body {
           flex-direction: column;
 }
 
-.footer .footer-wrapper .contacts__title {
+.footer .footer-wrapper .footer-content .contacts__title {
   font-family: Georgia;
   font-weight: 400;
   font-size: 3.5rem;
@@ -313,7 +328,7 @@ body {
   letter-spacing: 0.20rem;
 }
 
-.footer .footer-wrapper .contacts__mail {
+.footer .footer-wrapper .footer-content .contacts__mail {
   font-family: Georgia;
   font-weight: 400;
   font-size: 2rem;
@@ -330,11 +345,11 @@ body {
   margin-top: 4rem;
 }
 
-.footer .footer-wrapper .contacts__mail-text {
+.footer .footer-wrapper .footer-content .contacts__mail-text {
   padding-left: 2rem;
 }
 
-.footer .footer-wrapper .contacts__phone {
+.footer .footer-wrapper .footer-content .contacts__phone {
   font-family: Georgia;
   font-weight: 400;
   font-size: 2rem;
@@ -352,13 +367,12 @@ body {
   margin-top: 4rem;
 }
 
-.footer .footer-wrapper .contacts__phone-number {
+.footer .footer-wrapper .footer-content .contacts__phone-number {
   padding-left: 2rem;
 }
 
-.footer .footer-wrapper .location {
+.footer .footer-wrapper .footer-content .location {
   width: 30.2rem;
-  margin-top: 1.6rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -368,7 +382,7 @@ body {
           flex-direction: column;
 }
 
-.footer .footer-wrapper .location__title {
+.footer .footer-wrapper .footer-content .location__title {
   font-family: Georgia;
   font-weight: 400;
   font-size: 3.5rem;
@@ -379,7 +393,7 @@ body {
   letter-spacing: 0.21rem;
 }
 
-.footer .footer-wrapper .location__address1 {
+.footer .footer-wrapper .footer-content .location__address1 {
   margin-top: 3.4rem;
   font-family: Georgia;
   font-weight: 400;
@@ -396,7 +410,7 @@ body {
           align-items: center;
 }
 
-.footer .footer-wrapper .location__address2 {
+.footer .footer-wrapper .footer-content .location__address2 {
   margin-top: 3.2rem;
   font-family: Georgia;
   font-weight: 400;
@@ -413,126 +427,139 @@ body {
           align-items: center;
 }
 
-.footer .footer-wrapper .location__address-text {
+.footer .footer-wrapper .footer-content .location__address-text {
   padding-left: 2rem;
 }
 
-@media (max-width: 768px) {
-  .our-friends-wrapper {
-    padding-top: 7rem;
+@media (max-width: 1279px) {
+  .header .header-wrapper {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  .our-friends .our-friends-wrapper {
+    padding-right: 0;
+    padding-left: 0;
+    padding-top: 8rem;
     padding-bottom: 7.6rem;
   }
-  .our-friends-wrapper .our-friends-pets {
-    margin-top: 2.5rem;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+  .our-friends .our-friends-wrapper .our-friends-pets {
+    margin-top: 3rem;
     -webkit-column-gap: 4rem;
             column-gap: 4rem;
-    max-height: 139.5rem;
+    width: 58rem;
+    height: 136.5rem;
     overflow: hidden;
   }
-  .our-friends-wrapper .our-friends-pets .pet {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
+  .our-friends .our-friends-wrapper .navigation {
+    margin-top: 4rem;
+  }
+  .footer {
+    padding-top: 3rem;
+  }
+  .footer .footer-wrapper {
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    width: 27rem;
-    height: 43.5rem;
-    background-color: #FAFAFA;
-    border-radius: 0.9rem;
-    padding-bottom: 3rem;
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
   }
-  .our-friends-wrapper .our-friends-pets .pet__name {
-    font-family: Georgia;
-    font-weight: 400;
-    font-size: 2rem;
-    line-height: 2.3rem;
-    letter-spacing: 0.12rem;
-    color: #545454;
+  .footer .footer-wrapper .footer-content {
+    width: 83.33%;
+    padding-top: 0;
   }
-  .our-friends-wrapper .our-friends-pets .pet__btn {
-    width: 18.7rem;
-    height: 5.2rem;
-    border: 2px solid #F1CDB3;
-    border-radius: 10rem;
-    padding-top: 1.3rem;
-    text-align: center;
-    color: #292929;
-    font-family: Georgia;
-    font-weight: 400;
-    font-size: 1.7rem;
+  .footer .footer-wrapper .footer-content .contacts__title {
+    padding-top: 1px;
+    letter-spacing: 0.205rem;
+  }
+  .footer .footer-wrapper .footer-content .contacts__mail {
+    margin-top: 3.9rem;
+  }
+  .footer .footer-wrapper .footer-content .location__title {
+    padding-top: 1px;
+    letter-spacing: 0.22rem;
+  }
+  .footer .footer-wrapper .footer-content .location__address1 {
+    margin-top: 3.2rem;
+  }
+  .footer .footer-wrapper .footer-content .location__address2 {
+    margin-top: 3.3rem;
+  }
+  .footer .footer-wrapper .footer-image {
+    margin-top: 6.5rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .header .header-wrapper {
+    padding-left: 3.13%;
+    padding-right: 50px;
+  }
+  .header .header-wrapper .burger-menu {
+    display: block;
+  }
+  .header .header-wrapper .burger-menu svg line {
+    stroke: black;
+  }
+  .header .header-wrapper .menu {
+    display: none;
+  }
+  .our-friends .our-friends-wrapper {
+    padding-top: 4.2rem;
+    padding-bottom: 4.2rem;
+  }
+  .our-friends .our-friends-wrapper .our-friends-title {
+    font-size: 2.5rem;
     line-height: 130%;
-    letter-spacing: 0.1rem;
-    text-decoration: none;
+    letter-spacing: 0.15rem;
   }
-  .our-friends-wrapper .our-friends-pets .pet__btn:hover {
-    background-color: #FDDCC4;
-    border-color: #FDDCC4;
+  .our-friends .our-friends-wrapper .our-friends-pets {
+    margin-top: 4.2rem;
+    width: 27rem;
   }
-  .our-friends-wrapper .our-friends-pets .pet:hover {
-    cursor: pointer;
-    -webkit-box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
-            box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
-    background-color: #FFFFFF;
+  .our-friends .our-friends-wrapper .navigation {
+    margin-top: 4.2rem;
+    width: 30rem;
   }
-  .our-friends-wrapper .navigation {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    margin-top: 2.5rem;
-    width: 34rem;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
-    -ms-flex-item-align: center;
-        align-self: center;
+  .footer .footer-wrapper .footer-content {
+    width: 100%;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
   }
-  .our-friends-wrapper .navigation .btn {
-    width: 52px;
-    height: 52px;
-    border: 2px solid #F1CDB3;
-    border-radius: 100%;
-    background: none;
-    outline: none;
-    color: #292929;
-    font-family: Georgia;
-    font-weight: 400;
-    font-size: 2rem;
-    line-height: 115%;
-    letter-spacing: 0.12rem;
+  .footer .footer-wrapper .footer-content .contacts__title {
+    text-align: center;
   }
-  .our-friends-wrapper .navigation .btn:hover {
-    cursor: pointer;
-    background-color: #FDDCC4;
-    border: 2px solid #FDDCC4;
+  .footer .footer-wrapper .footer-content .location {
+    margin-top: 4rem;
   }
-  .our-friends-wrapper .navigation .btn:disabled {
-    background: none;
-    border: 2px solid #CDCDCD;
-    color: #CDCDCD;
-    cursor: auto;
+  .footer .footer-wrapper .footer-content .location__title {
+    text-align: center;
+    letter-spacing: 0.21rem;
   }
-  .our-friends-wrapper .navigation .btn-active {
-    cursor: pointer;
-    background-color: #F1CDB3;
-    border: 2px solid #F1CDB3;
+  .footer .footer-wrapper .footer-content .location__address1 {
+    margin-top: 3.3rem;
+  }
+  .footer .footer-wrapper .footer-content .location__address2 {
+    margin-top: 3.2rem;
+  }
+  .footer .footer-wrapper .footer-image {
+    margin-top: 9.2rem;
+    width: 26rem;
   }
 }
 /*# sourceMappingURL=pets.css.map */
