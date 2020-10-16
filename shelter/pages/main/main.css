@@ -634,6 +634,10 @@
   padding-left: 1.5rem;
 }
 
+.main .in-addition .in-addition-wrapper .in-addition-content .information__card:hover {
+  background-color: #FDDCC4;
+}
+
 .main .in-addition .in-addition-wrapper .in-addition-content .information__notes {
   font-family: Arial;
   font-style: italic;
@@ -1012,9 +1016,26 @@
 }
 
 @media (max-width: 767px) {
+  body {
+    overflow-x: hidden;
+  }
+  body .dark {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: rgba(41, 41, 41, 0.6);
+    z-index: 2;
+  }
   .header .header-wrapper {
-    padding-left: 3.13%;
+    padding-left: 0;
     padding-right: 53px;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+  }
+  .header .header-wrapper .logo {
+    margin-right: 41px;
+    z-index: 5;
   }
   .header .header-wrapper .burger-menu {
     display: block;
@@ -1022,9 +1043,92 @@
         -ms-grid-row-align: center;
         align-self: center;
     padding-top: 2px;
+    z-index: 5;
+  }
+  .header .header-wrapper .burger-menu-show {
+    -webkit-transition: 0.5s ease-in-out;
+    transition: 0.5s ease-in-out;
+    -webkit-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+  }
+  .header .header-wrapper .burger-menu-hide {
+    -webkit-transition: 0.5s ease-in-out;
+    transition: 0.5s ease-in-out;
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
   }
   .header .header-wrapper .menu {
     display: none;
+  }
+  .header .header-wrapper .menu-show {
+    position: fixed;
+    width: 320px;
+    height: 823px;
+    background-color: #292929;
+    top: -30px;
+    right: 0;
+    -webkit-animation: burger-show 1s normal;
+            animation: burger-show 1s normal;
+    z-index: 4;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .header .header-wrapper .menu-show .list {
+    height: 327px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    font-size: 3.2rem;
+  }
+  .header .header-wrapper .menu-hide {
+    position: fixed;
+    width: 320px;
+    height: 823px;
+    background-color: #292929;
+    top: -30px;
+    right: -320px;
+    -webkit-animation: burger-hide 1s normal;
+            animation: burger-hide 1s normal;
+    z-index: 4;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .header .header-wrapper .menu-hide .list {
+    height: 327px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    font-size: 3.2rem;
   }
   .main .hero .hero-wrapper {
     padding-left: 10px;
@@ -1242,6 +1346,42 @@
   .footer .footer-wrapper .footer-image {
     margin-top: 9.2rem;
     width: 26rem;
+  }
+}
+
+@-webkit-keyframes burger-show {
+  from {
+    right: -320px;
+  }
+  to {
+    right: 0px;
+  }
+}
+
+@keyframes burger-show {
+  from {
+    right: -320px;
+  }
+  to {
+    right: 0px;
+  }
+}
+
+@-webkit-keyframes burger-hide {
+  from {
+    right: 0px;
+  }
+  to {
+    right: -320px;
+  }
+}
+
+@keyframes burger-hide {
+  from {
+    right: 0px;
+  }
+  to {
+    right: -320px;
   }
 }
 /*# sourceMappingURL=main.css.map */
