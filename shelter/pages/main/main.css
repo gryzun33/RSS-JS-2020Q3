@@ -1,3 +1,4 @@
+@charset "UTF-8";
 :root {
   font-size: 10px;
 }
@@ -835,6 +836,132 @@
   padding-left: 2rem;
 }
 
+.modal {
+  left: 0;
+  top: 0;
+  position: fixed;
+  z-index: 1000;
+  background-color: rgba(41, 41, 41, 0.6);
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.modal .modal-content {
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  width: 900px;
+  position: relative;
+  background-color: #FAFAFA;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+}
+
+.modal .modal-content .btn-close {
+  position: absolute;
+  top: -52px;
+  right: -42px;
+  width: 52px;
+  height: 52px;
+  border: 2px solid #F1CDB3;
+  border-radius: 100%;
+  background: none;
+  outline: none;
+}
+
+.modal .modal-content .btn-close:hover {
+  cursor: pointer;
+  background-color: #FDDCC4;
+  border-color: #FDDCC4;
+}
+
+.modal .modal-content .modal-card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.modal .modal-content .modal-card .modal-image {
+  width: 500px;
+  height: 500px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.modal .modal-content .modal-card .modal-image img {
+  width: 100%;
+}
+
+.modal .modal-content .modal-card .modal-text {
+  margin-left: 29px;
+  padding-top: 50px;
+  font-family: Georgia;
+  width: 351px;
+}
+
+.modal .modal-content .modal-card .modal-text .modal-name {
+  font-size: 35px;
+  line-height: 130%;
+  letter-spacing: 2.2px;
+}
+
+.modal .modal-content .modal-card .modal-text .modal-type {
+  font-size: 20px;
+  line-height: 115%;
+  margin-top: 10px;
+  letter-spacing: 1.2px;
+}
+
+.modal .modal-content .modal-card .modal-text .modal-description {
+  font-size: 15px;
+  line-height: 117%;
+  margin-top: 40px;
+  font-weight: 300;
+  letter-spacing: 0.9px;
+}
+
+.modal .modal-content .modal-card .modal-text .modal-list {
+  font-size: 15px;
+  line-height: 120%;
+  margin-top: 40px;
+  list-style-type: none;
+  letter-spacing: 0.9px;
+}
+
+.modal .modal-content .modal-card .modal-text .modal-list li {
+  margin-bottom: 10px;
+}
+
+.modal .modal-content .modal-card .modal-text .modal-list li:before {
+  color: #F1CDB3;
+  content: '•';
+  padding-right: 8px;
+}
+
+.modal .modal-content .modal-card .modal-text .modal-list li span {
+  color: black;
+}
+
+.modal:hover .btn-close {
+  background-color: #FDDCC4;
+  border-color: #FDDCC4;
+}
+
+.modal-content:hover .btn-close {
+  background: none;
+  border-color: #F1CDB3;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
 @media (max-width: 1279px) {
   .header {
     top: 3rem;
@@ -1048,6 +1175,38 @@
   }
   .footer .footer-wrapper .footer-image {
     margin-top: 6.5rem;
+  }
+  .modal .modal-content {
+    width: 630px;
+    border-radius: 8px;
+  }
+  .modal .modal-content .modal-card {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .modal .modal-content .modal-card .modal-image {
+    width: 350px;
+    height: 350px;
+    border-radius: 8px;
+  }
+  .modal .modal-content .modal-card .modal-text {
+    margin-left: 11px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 262px;
+  }
+  .modal .modal-content .modal-card .modal-text .modal-description {
+    font-size: 13px;
+    line-height: 110%;
+    margin-top: 20px;
+    letter-spacing: 0.8px;
+  }
+  .modal .modal-content .modal-card .modal-text .modal-list {
+    margin-top: 20px;
+  }
+  .modal .modal-content .modal-card .modal-text .modal-list li {
+    margin-bottom: 5px;
   }
 }
 
@@ -1386,6 +1545,49 @@
   .footer .footer-wrapper .footer-image {
     margin-top: 9.2rem;
     width: 26rem;
+  }
+  .modal .modal-content {
+    width: 240px;
+    border-radius: 8px;
+  }
+  .modal .modal-content .btn-close {
+    right: -30px;
+  }
+  .modal .modal-content .modal-card {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .modal .modal-content .modal-card .modal-image {
+    display: none;
+  }
+  .modal .modal-content .modal-card .modal-text {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-left: 0;
+    width: 100%;
+  }
+  .modal .modal-content .modal-card .modal-text .modal-name {
+    text-align: center;
+  }
+  .modal .modal-content .modal-card .modal-text .modal-type {
+    text-align: center;
+  }
+  .modal .modal-content .modal-card .modal-text .modal-description {
+    margin-top: 20px;
+    text-align: justify;
+    letter-spacing: 0.7px;
+  }
+  .modal .modal-content .modal-card .modal-text .modal-list {
+    margin-top: 24px;
+  }
+  .modal .modal-content .modal-card .modal-text .modal-list li {
+    margin-bottom: 5px;
+  }
+  .modal .modal-content .modal-card .modal-text .modal-list li:last-child {
+    margin-bottom: 0;
   }
 }
 

@@ -152,11 +152,18 @@ const arrowRight = document.querySelector('.btn-right');
 
 let currentSlide = [];
 let cards = [];
+let modalCards = [];
 let isEnabled = true;
 
 pets.forEach(pet => {
-  cards.push(createCard(pet))
+  cards.push(createCard(pet));
 });
+
+// pets.forEach(pet => {
+//   modalCards.push(createModalCard(pet))
+// });
+
+
 
 
 // first start
@@ -168,7 +175,7 @@ if (currentSlide.length === 0) {
 // generate slide
 function generateSlide(wrapper) {
   // console.log(`currentslide= ${currentSlide}`);
-  console.log(`вызвали generateSlide`);
+  // console.log(`вызвали generateSlide`);
   // console.log(`slide = ${slide}, wrapper= ${wrapper}`);
   let slide = [];
   if (window.innerWidth >= 1280) {
@@ -178,7 +185,7 @@ function generateSlide(wrapper) {
   } else {
     slide = randomizer(currentSlide, 1);
   }
-  console.log(`slide length = ${slide.length}`);
+  // console.log(`slide length = ${slide.length}`);s
   for (let i = 0; i < slide.length; i++) {
     wrapper.append(cards[slide[i]]);
   };
@@ -222,18 +229,19 @@ function createCard(pet) {
 // slider
 
 arrowLeft.addEventListener('click', function() {
-  // document.querySelector('.slide-pets').remove(); 
-  petsNextWrapper = document.createElement('div');
-  petsNextWrapper.classList.add('slide-pets');
-  generateSlide(petsNextWrapper);
-  ourFriends.append(petsNextWrapper);
+  
+ 
   if(isEnabled) {
+    petsNextWrapper = document.createElement('div');
+    petsNextWrapper.classList.add('slide-pets');
+    generateSlide(petsNextWrapper);
+    ourFriends.append(petsNextWrapper);
     nextItem();
   }
 });
 
 arrowRight.addEventListener('click', function() {
-  // document.querySelector('.slide-pets').remove();   
+   
   if(isEnabled) {
     petsNextWrapper = document.createElement('div');
     petsNextWrapper.classList.add('slide-pets');
@@ -291,3 +299,91 @@ window.addEventListener('resize', function() {
   lastWindowWidth = newWindowWidth;
 
 });
+
+
+
+
+// pop-up
+
+let modal = document.querySelector('.modal');
+let modalContent = document.querySelector('.modal-content');
+let btnCloseModal = document.querySelector('.btn-close');
+let modalCard;
+
+
+
+cards.forEach((card, i) => {
+  card.addEventListener('click', function(e) {
+    if(e.target === card.querySelector('a')) {
+      e.preventDefault();
+    }
+    modalCard = document.createElement('div');
+    modalCard.classList.add('modal-card');
+    modalCard.innerHTML = 
+    `<div class="modal-image">
+						<img src=${pets[i].img} alt=${pets[i].name}>
+					</div>
+					<div class="modal-text">
+						<div class="modal-name">${pets[i].name}</div>
+						<div class="modal-type">${pets[i].type} - ${pets[i].breed}</div>
+						<div class="modal-description">${pets[i].description}</div>
+						<ul class="modal-list">
+							<li><span><strong>Age: </strong>${pets[i].age}</span></li>
+							<li><span><strong>Inoculations: </strong>${pets[i].inoculations}</span></li>
+							<li><span><strong>Diseases: </strong>${pets[i].diseases}</span></li>
+							<li><span><strong>Parasites: </strong>${pets[i].parasites}</span></li>
+						</ul>		
+          </div>`;
+    modalContent.append(modalCard);
+    modal.classList.remove('hide');
+    modal.classList.add('show');
+    // modal.pageY = window.pageYOffset;
+       
+    document.body.style.overflow = 'hidden';       
+  });
+});
+
+// modal.addEventListener('mouseover', function(e) {
+//   // console.log(e.target);
+//   // console.log(e.currentTarget); 
+//   // console.log( btnCloseModal.style.borderColor);
+//   if (e.target === modal) {
+//     btnCloseModal.style.background = '#FDDCC4';
+//     btnCloseModal.style.borderColor = '#FDDCC4';
+//   } else {
+//     btnCloseModal.style.background = '';
+//     btnCloseModal.style.borderColor = '#F1CDB3';
+//   }
+// });
+
+modal.addEventListener('click', function(e) {
+  // console.log(e.target);
+  // console.log(e.currentTarget); 
+  // console.log( btnCloseModal.style.borderColor);
+  if (e.target === modal) {
+    modal.classList.remove('show');
+    modal.classList.add('hide');
+    document.querySelector('.modal-card').remove();
+    document.body.style.overflow = ''; 
+  }
+});
+
+// btnCloseModal.addEventListener('mouseover', function() {
+//   btnCloseModal.style.background = '#FDDCC4';
+//   btnCloseModal.style.borderColor = '#FDDCC4';
+// });
+
+
+
+btnCloseModal.addEventListener('click', function() { 
+  modal.classList.remove('show');
+  modal.classList.add('hide');
+  document.querySelector('.modal-card').remove();
+  document.body.style.overflow = ''; 
+});
+
+// modalContent.addEventListener('mouseover', function() {
+//   btnCloseModal.style.background = '';
+//   btnCloseModal.style.borderColor = 'green';
+//     console.log( btnCloseModal.style.borderColor);
+// });
