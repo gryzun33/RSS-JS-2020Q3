@@ -344,6 +344,7 @@
   border: 2px solid #F1CDB3;
   border-radius: 100%;
   background: none;
+  outline: none;
 }
 
 .main .our-friends .our-friends-wrapper .our-friends-content .our-friends-slider .btn:hover {
@@ -371,6 +372,37 @@
       -ms-flex-pack: justify;
           justify-content: space-between;
   width: 99rem;
+  height: 43.5rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.main .our-friends .our-friends-wrapper .our-friends-content .our-friends-pets .slide-pets {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.main .our-friends .our-friends-wrapper .our-friends-content .our-friends-pets .next {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.main .our-friends .our-friends-wrapper .our-friends-content .our-friends-pets .active {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .main .our-friends .our-friends-wrapper .our-friends-content .our-friends-pets .pet {
@@ -915,18 +947,22 @@
     padding-left: 30px;
     padding-right: 30px;
   }
-  .main .our-friends .our-friends-wrapper .our-friends-content .our-friends-pets {
+  .main .our-friends .our-friends-wrapper .our-friends-content .our-friends-slider {
+    width: 70.8rem;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
+  }
+  .main .our-friends .our-friends-wrapper .our-friends-content .our-friends-slider .our-friends-pets {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    width: 81.92%;
-    -webkit-column-gap: 4rem;
-            column-gap: 4rem;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    width: 58rem;
   }
-  .main .our-friends .our-friends-wrapper .our-friends-content .our-friends-pets .pet_woody {
+  .main .our-friends .our-friends-wrapper .our-friends-content .our-friends-slider .our-friends-pets .pet_woody {
     display: none;
   }
   .main .help .help-wrapper {
@@ -1221,16 +1257,20 @@
     position: relative;
     margin-top: 4.2rem;
     height: 50.7rem;
+    width: 27rem;
+  }
+  .main .our-friends .our-friends-wrapper .our-friends-content .our-friends-slider .our-friends-pets {
+    width: 27rem;
   }
   .main .our-friends .our-friends-wrapper .our-friends-content .our-friends-slider .btn-left {
     position: absolute;
     bottom: 0;
-    left: 21.25%;
+    left: 15.93%;
   }
   .main .our-friends .our-friends-wrapper .our-friends-content .our-friends-slider .btn-right {
     position: absolute;
     bottom: 0;
-    right: 21.25%;
+    right: 15.93%;
   }
   .main .our-friends .our-friends-wrapper .our-friends-content .our-friends-pets {
     width: 100%;
@@ -1382,6 +1422,72 @@
   }
   to {
     right: -320px;
+  }
+}
+
+.to-left {
+  -webkit-animation: 1s ease-in-out;
+          animation: 1s ease-in-out;
+  -webkit-animation-name: left;
+          animation-name: left;
+}
+
+.to-right {
+  -webkit-animation: 1s ease-in-out;
+          animation: 1s ease-in-out;
+  -webkit-animation-name: right;
+          animation-name: right;
+  animation-direction: reverse;
+}
+
+.from-left {
+  -webkit-animation: 1s ease-in-out;
+          animation: 1s ease-in-out;
+  -webkit-animation-name: left;
+          animation-name: left;
+  animation-direction: reverse;
+}
+
+.from-right {
+  -webkit-animation: 1s ease-in-out;
+          animation: 1s ease-in-out;
+  -webkit-animation-name: right;
+          animation-name: right;
+}
+
+@-webkit-keyframes left {
+  from {
+    left: 0;
+  }
+  to {
+    left: -100%;
+  }
+}
+
+@keyframes left {
+  from {
+    left: 0;
+  }
+  to {
+    left: -100%;
+  }
+}
+
+@-webkit-keyframes right {
+  from {
+    left: 100%;
+  }
+  to {
+    left: 0;
+  }
+}
+
+@keyframes right {
+  from {
+    left: 100%;
+  }
+  to {
+    left: 0;
   }
 }
 /*# sourceMappingURL=main.css.map */
