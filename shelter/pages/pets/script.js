@@ -1,4 +1,4 @@
-// ' use strict'
+// pets
 
 const pets = 
 [
@@ -92,10 +92,8 @@ const pets =
   }
 ];
 
-const burger = document.querySelector('.burger-menu');
-const menuMobile = document.getElementById('menu');
-const darkBackground = document.createElement('div');
-const mainLink = document.getElementById('main-link');
+
+const petsLink = document.getElementById('pets-link');
 const helpLink = document.getElementById('help-link');
 const contactsLink = document.getElementById('contacts-link');
 
@@ -107,7 +105,14 @@ contactsLink.addEventListener('click', (e) => {
   e.preventDefault();
 });
 
+
+
 // burger-menu
+
+const burger = document.querySelector('.burger-menu');
+const menuMobile = document.getElementById('menu');
+const darkBackground = document.createElement('div');
+const header = document.querySelector('.header');
 
 document.body.prepend(darkBackground);
 
@@ -118,6 +123,18 @@ burger.addEventListener('click', function() {
     burger.classList.remove('burger-menu-hide');
     menuMobile.classList.remove('menu-hide');
     darkBackground.classList.toggle('dark');
+    header.classList.add('header-hide');
+    document.body.style.overflow = 'hidden';
+    // document.body.style.paddingRight = '15px';
+    document.querySelector('.logo__title').classList.add('logo__title-color');
+    document.querySelector('.logo__subtitle').classList.add('logo__subtitle-color');
+    document.querySelector('.burger-menu svg').innerHTML = `<line y1="21" x2="30" y2="21" stroke="#F1CDB3" stroke-width="2"/>
+    <line y1="11" x2="30" y2="11" stroke="#F1CDB3" stroke-width="2"/>
+    <line y1="1" x2="30" y2="1" stroke="#F1CDB3" stroke-width="2"/>`; 
+    
+  
+    
+    
     // document.body.style.overflowY = 'hidden';
    
 
@@ -127,6 +144,16 @@ burger.addEventListener('click', function() {
     menuMobile.classList.add('menu-hide');
     menuMobile.classList.remove('menu-show');
     darkBackground.classList.toggle('dark');
+    header.classList.remove('header-hide');
+    document.body.style.overflowY = '';
+    // document.body.style.paddingRight = '0';
+    document.querySelector('.logo__title').classList.remove('logo__title-color');
+    document.querySelector('.logo__subtitle').classList.remove('logo__subtitle-color');
+    document.querySelector('.burger-menu svg').innerHTML = `<line y1="21" x2="30" y2="21" stroke="#000000" stroke-width="2"/>
+    <line y1="11" x2="30" y2="11" stroke="#000000" stroke-width="2"/>
+    <line y1="1" x2="30" y2="1" stroke="#000000" stroke-width="2"/>`; 
+   
+    
     // document.body.style.overflowY= '';
     // menuMobile.style.display = 'none';
   }  
@@ -138,91 +165,144 @@ darkBackground.addEventListener('click', function() {
     menuMobile.classList.add('menu-hide');
     menuMobile.classList.remove('menu-show');
     darkBackground.classList.toggle('dark');
+    header.classList.remove('header-hide');
+    document.body.style.overflowY = '';
+    // document.body.style.paddingRight = '0';
+    document.querySelector('.logo__title').classList.remove('logo__title-color');
+    document.querySelector('.logo__subtitle').classList.remove('logo__subtitle-color');
+    document.querySelector('.burger-menu svg').innerHTML = `<line y1="21" x2="30" y2="21" stroke="#000000" stroke-width="2"/>
+    <line y1="11" x2="30" y2="11" stroke="#000000" stroke-width="2"/>
+    <line y1="1" x2="30" y2="1" stroke="#000000" stroke-width="2"/>`; 
+
     // document.body.style.overflowY = '';
 });
 
-mainLink.addEventListener('click', function() {
+petsLink.addEventListener('click', function() {
   burger.classList.add('burger-menu-hide');
   burger.classList.remove('burger-menu-show');
   menuMobile.classList.add('menu-hide');
   menuMobile.classList.remove('menu-show');
   darkBackground.classList.toggle('dark');
+  header.classList.remove('header-hide');
+  document.body.style.overflowY = '';
+  document.body.style.paddingRight = '0';
+  document.querySelector('.logo__title').classList.remove('logo__title-color');
+  document.querySelector('.logo__subtitle').classList.remove('logo__subtitle-color');
+  document.querySelector('.burger-menu svg').innerHTML = `<line y1="21" x2="30" y2="21" stroke="#000000" stroke-width="2"/>
+  <line y1="11" x2="30" y2="11" stroke="#000000" stroke-width="2"/>
+  <line y1="1" x2="30" y2="1" stroke="#000000" stroke-width="2"/>`; 
   // document.body.style.overflowY = '';
 });
 
 
 // slider
+let petsClone;
 
-let ourFriends = document.querySelector('.our-friends-pets');
-let petsCurrentWrapper = document.querySelector('.slide-pets');
+createPetsClone();
 
-let petsNextWrapper;
-const arrowLeft = document.querySelector('.btn-left');
-const arrowRight = document.querySelector('.btn-right');
+function createPetsClone() {
+  petsClone = [];
+  for (let i = 0; i < 6; i++) {
+    petsClone = petsClone.concat(pets);
+  }
+}
 
-let currentSlide = [];
-let cards = [];
-let modalCards = [];
+
+// let petsClone = [];
+// for (let i = 0; i < 6; i++) {
+//   petsClone = petsClone.concat(pets);
+// }
+console.log(`start petsClone=${petsClone}`);
+
+let petsPages = [];
+let slides = [];
+
+let currentCard;
+let petsContainer = document.querySelector('.pets-container');
 let isEnabled = true;
 
-pets.forEach(pet => {
-  cards.push(createCard(pet));
-});
-
-// pets.forEach(pet => {
-//   modalCards.push(createModalCard(pet))
+// petsClone.forEach(pet => {
+//   cards.push(createCard(pet));
 // });
+generateSlider();
 
-
-
-
-// first start
-if (currentSlide.length === 0) {
-  generateSlide(petsCurrentWrapper);
-}
-
-
-// generate slide
-function generateSlide(wrapper) {
-  // console.log(`currentslide= ${currentSlide}`);
-  // console.log(`вызвали generateSlide`);
-  // console.log(`slide = ${slide}, wrapper= ${wrapper}`);
-  let slide = [];
+function generateSlider() {
+  console.log(`generateSlider`);
   if (window.innerWidth >= 1280) {
-    slide = randomizer(currentSlide, 3);
+    petsPages = createPetsPages (6, 8);
   } else if (window.innerWidth >= 768 && window.innerWidth < 1280) {
-    slide = randomizer(currentSlide, 2);
+    petsPages = createPetsPages (8, 6);
   } else {
-    slide = randomizer(currentSlide, 1);
+    petsPages = createPetsPages (16, 3);
   }
-  // console.log(`slide length = ${slide.length}`);s
-  for (let i = 0; i < slide.length; i++) {
-    wrapper.append(cards[slide[i]]);
-  };
-  // console.log(`в конце generateslide`);
-  // console.log(`slide = ${slide}, wrapper= ${wrapper}`);
-  currentSlide = slide;
+
+
+  for (let i = 0; i < petsPages.length; i++) {
+    slides[i] = document.createElement('div');
+    slides[i].classList.add('pets-slide');
+  
+    for(let j = 0; j < petsPages[i].length; j++) {
+      currentCard = createCard(petsPages[i][j]);
+      slides[i].append(currentCard);
+    }
+    petsContainer.append(slides[i]);
+  }
+  
+  slides[0].classList.add('active');
+  
+  
 }
 
 
-// randomizer
-function randomizer(currentArr, currentLength) {
-  // console.log(`вызвали рандомайзер`);
-  // console.log(`currentArr= ${currentArr}`);
-  
-  
-  let localnextArr = [];
-  let currentNumber;
+// создаем рандомный массив из питомцев
+function createPetsPages (numbOfPages, numbOfPets) {
+  let page = [];
+  let currentNumber; 
+  for (let i = 0; i < numbOfPages; i++) {
+    outer:  while (page.length < numbOfPets) {
+      currentNumber = Math.floor(Math.random() * 10);
+      console.log(`current number= ${currentNumber}`);
+      console.log(`petsClone.length=${petsClone.length}`);
 
-  while (localnextArr.length < currentLength) {
-    currentNumber = Math.floor(Math.random() * 10);
-    if ((currentNumber < 8) && !localnextArr.includes(currentNumber) && !currentArr.includes(currentNumber)) {
-      localnextArr.push(currentNumber);
-    }  
+      if (petsClone.length === 1) {
+        currentNumber = 0;
+        page.push(petsClone[currentNumber]);
+        break outer;
+      }
+      // if(currentNumber > petsClone.length) {
+      //   currentNumber = petsClone.length - 1;
+      // }
+      if(petsClone[currentNumber] && !page.includes(petsClone[currentNumber])) {
+        page.push(petsClone[currentNumber]);
+        petsClone.splice(currentNumber,1);    
+      }
+    }
+    // console.log(`petsClone.length=${petsClone.length}`);
+    console.log(page);
+    petsPages.push(page);
+    page = [];
   }
-  // console.log(`nextarr= ${localnextArr}`);
-  return localnextArr;
+ 
+  return petsPages;
 }
+console.log(`petsPages.length=${petsPages.length}`);
+
+
+
+// for (let i = 0; i < petsPages.length; i++) {
+//   slides[i] = document.createElement('div');
+//   slides[i].classList.add('pets-slide');
+
+//   for(let j = 0; j < petsPages[i].length; j++) {
+//     currentCard = createCard(petsPages[i][j]);
+//     slides[i].append(currentCard);
+//   }
+//   petsContainer.append(slides[i]);
+// }
+
+// slides[0].classList.add('active');
+
+
 
 function createCard(pet) {
   let card = document.createElement('div');
@@ -234,32 +314,78 @@ function createCard(pet) {
   return card;
 }
 
+let currentNumber = 0;
+let nextCurrentNumber;
 
-
-// slider
-
-arrowLeft.addEventListener('click', function() {
-  
- 
+btnnext.addEventListener('click', function() {
   if(isEnabled) {
-    petsNextWrapper = document.createElement('div');
-    petsNextWrapper.classList.add('slide-pets');
-    generateSlide(petsNextWrapper);
-    ourFriends.append(petsNextWrapper);
-    nextItem();
-  }
-});
-
-arrowRight.addEventListener('click', function() {
-   
-  if(isEnabled) {
-    petsNextWrapper = document.createElement('div');
-    petsNextWrapper.classList.add('slide-pets');
-    generateSlide(petsNextWrapper);
-    ourFriends.append(petsNextWrapper);
+    nextCurrentNumber = currentNumber + 1;
     previousItem();
+    btncurrent.innerHTML = `${nextCurrentNumber + 1}`;
+    if(btnbegin.hasAttribute('disabled') && btnprev.hasAttribute('disabled')) {
+      btnbegin.removeAttribute('disabled');
+      btnprev.removeAttribute('disabled');
+    }
+    if(nextCurrentNumber === slides.length-1) {
+      btnnext.setAttribute('disabled', '');
+      btnend.setAttribute('disabled', '');
+    }
   }
+  
 });
+
+btnend.addEventListener('click', function() {
+  if(isEnabled) {
+    nextCurrentNumber = slides.length - 1;
+    previousItem();
+    btncurrent.innerHTML = `${nextCurrentNumber + 1}`;
+    if(btnbegin.hasAttribute('disabled') && btnprev.hasAttribute('disabled')) {
+      btnbegin.removeAttribute('disabled');
+      btnprev.removeAttribute('disabled');
+    }
+    if(nextCurrentNumber === slides.length - 1) {
+      btnnext.setAttribute('disabled', '');
+      btnend.setAttribute('disabled', '');
+    }
+  }
+
+});
+
+btnprev.addEventListener('click', function() {
+  if(isEnabled) {
+    nextCurrentNumber = currentNumber - 1;
+    nextItem();
+    btncurrent.innerHTML = `${nextCurrentNumber + 1}`;
+    if(btnnext.hasAttribute('disabled') && btnend.hasAttribute('disabled')) {
+      btnnext.removeAttribute('disabled');
+      btnend.removeAttribute('disabled');
+    }
+    if(nextCurrentNumber === 0) {
+      btnbegin.setAttribute('disabled', '');
+      btnprev.setAttribute('disabled', '');
+    }
+  }
+ 
+});
+
+btnbegin.addEventListener('click', function() {
+  if(isEnabled) {
+    nextCurrentNumber = 0;
+    nextItem();
+    btncurrent.innerHTML = `${nextCurrentNumber + 1}`;
+    if(btnnext.hasAttribute('disabled') && btnend.hasAttribute('disabled')) {
+      btnnext.removeAttribute('disabled');
+      btnend.removeAttribute('disabled');
+    }
+    if(nextCurrentNumber === 0) {
+      btnbegin.setAttribute('disabled', '');
+      btnprev.setAttribute('disabled', '');
+    }
+  }
+  
+});
+
+
 
 
 function previousItem() {
@@ -272,26 +398,26 @@ function nextItem() {
   showItem('from-left');
 }
 
-
 function hideItem(direction) {
   isEnabled = false;
-  petsCurrentWrapper.classList.add(direction);
-  petsCurrentWrapper.addEventListener('animationend', function() {
-    this.classList.remove('active', direction); 
-    document.querySelector('.slide-pets').remove();  
+  // console.log(`currentitem= ${currentNumber}`);
+  // console.log(slides[currentNumber]);
+  slides[currentNumber].classList.add(direction);
+  slides[currentNumber].addEventListener('animationend', function() {
+    this.classList.remove('active', direction);
   });
 }
 
 function showItem(direction) {
-  petsNextWrapper.classList.add('next', direction);
-  petsNextWrapper.addEventListener('animationend', function() {
+  slides[nextCurrentNumber].classList.add('next', direction);
+  slides[nextCurrentNumber].addEventListener('animationend', function() {
     this.classList.remove('next', direction);
     this.classList.add('active');
-    isEnabled = true; 
-    petsCurrentWrapper = petsNextWrapper;   
+    isEnabled = true;   
   });
-
+  currentNumber = nextCurrentNumber;  
 }
+
 
 let lastWindowWidth = window.innerWidth;
 let newWindowWidth;
@@ -303,34 +429,45 @@ window.addEventListener('resize', function() {
   if (lastWindowWidth < 768 && newWindowWidth < 768) {
     return;
   } else {
-    petsCurrentWrapper.innerHTML = '';
-    generateSlide(petsCurrentWrapper);
+
+    console.log('resize');
+    petsContainer.innerHTML = '';
+     
+    currentNumber = 0;
+    btncurrent.innerHTML = '1';
+    petsPages = [];
+    slides = [];
+    createPetsClone();
+
+    console.log('createPetsClone');
+    generateSlider();
+    
   }
   lastWindowWidth = newWindowWidth;
 
 });
 
-
-
-
-// pop-up
-
+// modal
 let modal = document.querySelector('.modal');
 let modalContent = document.querySelector('.modal-content');
 let btnCloseModal = document.querySelector('.btn-close');
 let modalCard;
 
+let petsCards = document.querySelectorAll('.pet');
+let petName;
 
-
-cards.forEach((card, i) => {
+petsCards.forEach((card) => {
   card.addEventListener('click', function(e) {
     if(e.target === card.querySelector('a')) {
       e.preventDefault();
     }
+    petName = card.querySelector('.pet__name').innerHTML;
     modalCard = document.createElement('div');
     modalCard.classList.add('modal-card');
-    modalCard.innerHTML = 
-    `<div class="modal-image">
+    for (let i = 0; i < pets.length; i++) {
+      if(pets[i].name === petName) {
+        modalCard.innerHTML = 
+          `<div class="modal-image">
 						<img src=${pets[i].img} alt=${pets[i].name}>
 					</div>
 					<div class="modal-text">
@@ -344,27 +481,22 @@ cards.forEach((card, i) => {
 							<li><span><strong>Parasites: </strong>${pets[i].parasites}</span></li>
 						</ul>		
           </div>`;
+         break; 
+      }
+    }
+
     modalContent.append(modalCard);
     modal.classList.remove('hide');
     modal.classList.add('show');
     // modal.pageY = window.pageYOffset;
        
-    document.body.style.overflow = 'hidden';       
+    document.body.style.overflow = 'hidden';  
+
+
+
   });
 });
 
-// modal.addEventListener('mouseover', function(e) {
-//   // console.log(e.target);
-//   // console.log(e.currentTarget); 
-//   // console.log( btnCloseModal.style.borderColor);
-//   if (e.target === modal) {
-//     btnCloseModal.style.background = '#FDDCC4';
-//     btnCloseModal.style.borderColor = '#FDDCC4';
-//   } else {
-//     btnCloseModal.style.background = '';
-//     btnCloseModal.style.borderColor = '#F1CDB3';
-//   }
-// });
 
 modal.addEventListener('click', function(e) {
   // console.log(e.target);
@@ -378,13 +510,6 @@ modal.addEventListener('click', function(e) {
   }
 });
 
-// btnCloseModal.addEventListener('mouseover', function() {
-//   btnCloseModal.style.background = '#FDDCC4';
-//   btnCloseModal.style.borderColor = '#FDDCC4';
-// });
-
-
-
 btnCloseModal.addEventListener('click', function() { 
   modal.classList.remove('show');
   modal.classList.add('hide');
@@ -392,8 +517,4 @@ btnCloseModal.addEventListener('click', function() {
   document.body.style.overflow = ''; 
 });
 
-// modalContent.addEventListener('mouseover', function() {
-//   btnCloseModal.style.background = '';
-//   btnCloseModal.style.borderColor = 'green';
-//     console.log( btnCloseModal.style.borderColor);
-// });
+

@@ -425,6 +425,7 @@
   background-color: #FAFAFA;
   border-radius: 0.9rem;
   padding-bottom: 3rem;
+  overflow: hidden;
 }
 
 .main .our-friends .our-friends-wrapper .our-friends-content .our-friends-pets .pet__name {
@@ -856,7 +857,7 @@
   background-color: #FAFAFA;
   margin-left: auto;
   margin-right: auto;
-  border-radius: 10px;
+  border-radius: 9px;
 }
 
 .modal .modal-content .btn-close {
@@ -886,7 +887,7 @@
 .modal .modal-content .modal-card .modal-image {
   width: 500px;
   height: 500px;
-  border-radius: 10px;
+  border-radius: 9px 0 0 9px;
   overflow: hidden;
 }
 
@@ -1178,7 +1179,7 @@
   }
   .modal .modal-content {
     width: 630px;
-    border-radius: 8px;
+    border-radius: 9px;
   }
   .modal .modal-content .modal-card {
     display: -webkit-box;
@@ -1188,7 +1189,6 @@
   .modal .modal-content .modal-card .modal-image {
     width: 350px;
     height: 350px;
-    border-radius: 8px;
   }
   .modal .modal-content .modal-card .modal-text {
     margin-left: 11px;
@@ -1245,6 +1245,7 @@
     transition: 0.5s ease-in-out;
     -webkit-transform: rotate(-90deg);
             transform: rotate(-90deg);
+    color: #F1CDB3;
   }
   .header .header-wrapper .burger-menu-hide {
     -webkit-transition: 0.5s ease-in-out;
@@ -1258,9 +1259,9 @@
   .header .header-wrapper .menu-show {
     position: fixed;
     width: 320px;
-    height: 823px;
+    height: 100vh;
     background-color: #292929;
-    top: -30px;
+    top: 0;
     right: 0;
     -webkit-animation: burger-show 1s normal;
             animation: burger-show 1s normal;
@@ -1293,9 +1294,9 @@
   .header .header-wrapper .menu-hide {
     position: fixed;
     width: 320px;
-    height: 823px;
+    height: 100vh;
     background-color: #292929;
-    top: -30px;
+    top: 0;
     right: -320px;
     -webkit-animation: burger-hide 1s normal;
             animation: burger-hide 1s normal;
