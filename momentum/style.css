@@ -19,6 +19,16 @@ body {
   font-size: 8rem;
 }
 
+#day {
+  font-size: 4rem;
+}
+
+#name {
+  display: inline-block;
+  min-width: 20px;
+  height: 40px;
+}
+
 h1 {
   margin-bottom: 3rem;
 }
