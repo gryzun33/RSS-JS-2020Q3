@@ -12,7 +12,38 @@ body {
   justify-content: center;
   text-align: center;
   height: 100vh;
-  color: black;
+  color: white;
+  text-shadow: 1px 1px 2px black;
+
+  background-size: cover;
+  background-position: center center;
+  transition: background-image 1s ease-in-out;
+}
+
+.btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 60px;
+  height: 60px;
+
+  border: 0;
+  background: url("https://www.pngarts.com/files/7/Update-Button-PNG-Image.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  filter: grayscale(1);
+}
+
+.btn:hover {
+  filter: grayscale(.8);
+}
+
+.btn:active, .btn:focus {
+  outline: 0;
+}
+
+.btn:active{
+  transform: scale(1.02);
 }
 
 #time {
@@ -23,7 +54,7 @@ body {
   font-size: 4rem;
 }
 
-#name {
+#name { 
   display: inline-block;
   min-width: 20px;
   height: 40px;
@@ -35,7 +66,7 @@ h1 {
 
 h2 {
   margin-bottom: 0.5rem;
-  opacity: 0.6;
+  /* opacity: 0.6; */
 }
 
 @media (max-width: 700px) {
