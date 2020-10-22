@@ -34,7 +34,45 @@ let currentHour;
 
 const base = 'assets/images/';
 
-const images = ['night/01.jpg', 'night/02.jpg', 'night/03.jpg', 'night/04.jpg', 'night/05.jpg', 'night/06.jpg', 'morning/01.jpg', 'morning/02.jpg', 'morning/03.jpg', 'morning/04.jpg', 'morning/05.jpg', 'morning/06.jpg', 'day/01.jpg', 'day/02.jpg', 'day/03.jpg', 'day/04.jpg', 'day/05.jpg', 'day/06.jpg', 'evening/01.jpg', 'evening/02.jpg', 'evening/03.jpg', 'evening/04.jpg', 'evening/05.jpg', 'evening/06.jpg']; 
+let images = [];
+
+const nightImages = ['night/01.jpg', 'night/02.jpg', 'night/03.jpg', 'night/04.jpg', 'night/05.jpg', 'night/06.jpg', 'night/07.jpg','night/08.jpg','night/09.jpg','night/10.jpg','night/11.jpg','night/12.jpg','night/13.jpg','night/14.jpg','night/15.jpg','night/16.jpg','night/17.jpg','night/18.jpg','night/19.jpg','night/20.jpg'];
+
+const morningImages = ['morning/01.jpg', 'morning/02.jpg', 'morning/03.jpg', 'morning/04.jpg', 'morning/05.jpg', 'morning/06.jpg', 'morning/07.jpg','morning/08.jpg','morning/09.jpg','morning/10.jpg','morning/11.jpg','morning/12.jpg','morning/13.jpg','morning/14.jpg','morning/15.jpg','morning/16.jpg','morning/17.jpg','morning/18.jpg','morning/19.jpg','morning/20.jpg'];
+
+const dayImages = ['day/01.jpg', 'day/02.jpg', 'day/03.jpg', 'day/04.jpg', 'day/05.jpg', 'day/06.jpg', 'day/07.jpg','day/08.jpg','day/09.jpg','day/10.jpg','day11.jpg','day/12.jpg','day/13.jpg','day/14.jpg','day/15.jpg','day/16.jpg','day/17.jpg','day/18.jpg','day/19.jpg','day/20.jpg'];
+
+const eveningImages = ['evening/01.jpg', 'evening/02.jpg', 'evening/03.jpg', 'evening/04.jpg', 'evening/05.jpg', 'evening/06.jpg', 'evening/07.jpg','evening/08.jpg','evening/09.jpg','evening/10.jpg','evening/11.jpg','evening/12.jpg','evening/13.jpg','evening/14.jpg','evening/15.jpg','evening/16.jpg','evening/17.jpg','evening/18.jpg','evening/19.jpg','evening/20.jpg'];
+
+
+
+function createImagesOfDay() {
+  createImages(nightImages);
+  createImages(morningImages);
+  createImages(dayImages);
+  createImages(eveningImages);
+}
+
+function createImages(setOfImages) {
+  // console.log ('createImages');
+  let currNumb;
+  let arr = [];
+  while(arr.length < 6) {
+    currNumb = Math.floor((Math.random() * 20));
+    // console.log(`currentNumb=${currNumb}`);
+    if (!arr.includes(setOfImages[currNumb])) {
+      arr.push(setOfImages[currNumb]);
+      images.push(setOfImages[currNumb]);
+      // console.log(`arr=${arr}`);
+      // console.log(`images=${images}`);
+    }
+  }
+}
+
+console.log(images);
+
+
+
 
 // options 
 // const showAmPM = true;
@@ -236,6 +274,8 @@ function getImage() {
 
 
 // run
+
+createImagesOfDay();
 
 showDate();
 
