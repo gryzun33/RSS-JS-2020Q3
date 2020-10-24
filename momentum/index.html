@@ -3,22 +3,79 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"> -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./owfont-regular.css">
   <link rel="stylesheet" href="style.css">
   <title>Momentum</title>
 </head>
 <body>
-  <button class="btn"></button>
-  <time id="day">Friday, 25 February</time>
-  <time id="time"></time>
-  <h1>
-    <span id="greeting"></span>
-    <span id="name" contenteditable="true" spellcheck="false"></span>
-    <!-- <input id="name" contenteditable="true" spellcheck="false"> -->
-  </h1>
+  <div class="container">
+    <div class="weather-day">
+      <div class="weather">
+        <i class="weather-icon owf"></i>
+        <div class="temperature"></div>
+        <div class="weather-description"></div>
+        <div class="wind-speed"></div>
+        <div class="humidity"></div>
+        <div class="city" contenteditable="true">Minsk</div>
+      </div>
+     
+      <div id="day">
+        <div class="week-day">
+        </div>
+        <div class="day-month">
+        </div>
+      </div>
+    </div>
+  
+    <div class="main">
+      <time id="time"></time>
+      <h1>
+        <span id="greeting"></span>
+        <span id="name" contenteditable="true" spellcheck="false"></span>
+        <!-- <input id="name" contenteditable="true" spellcheck="false"> -->
+      </h1>
+      <div class="focus-content">
+        <h2>What is Your Focus Today?</h2>
+        <h2 id="focus" contenteditable="true"></h2>
+      </div>
+    </div>
+  
+  
 
-  <h2>What is Your Focus Today?</h2>
-  <h2 id="focus" contenteditable="true"></h2>
+  </div>
+  
+
+  <div class="addition">
+
+    <div class="quote">
+
+      <!-- <div class="quote-text"> -->
+        <div class="blockquote">
+          
+        </div>
+        <div class = "figcaption"> 
+          
+        </div>
+      <!-- </div> -->
+     
+    </div>
+    
+    <div class="buttons">
+        
+      <button class="btn btn-bg">change picture</button>
+      <button class="btn btn-quote">change quote</button>
+    </div>
+    
+    
+  </div>
+
+
+ 
+
+
   
 
 

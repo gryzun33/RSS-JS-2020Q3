@@ -40,7 +40,7 @@ const nightImages = ['night/01.jpg', 'night/02.jpg', 'night/03.jpg', 'night/04.j
 
 const morningImages = ['morning/01.jpg', 'morning/02.jpg', 'morning/03.jpg', 'morning/04.jpg', 'morning/05.jpg', 'morning/06.jpg', 'morning/07.jpg','morning/08.jpg','morning/09.jpg','morning/10.jpg','morning/11.jpg','morning/12.jpg','morning/13.jpg','morning/14.jpg','morning/15.jpg','morning/16.jpg','morning/17.jpg','morning/18.jpg','morning/19.jpg','morning/20.jpg'];
 
-const dayImages = ['day/01.jpg', 'day/02.jpg', 'day/03.jpg', 'day/04.jpg', 'day/05.jpg', 'day/06.jpg', 'day/07.jpg','day/08.jpg','day/09.jpg','day/10.jpg','day11.jpg','day/12.jpg','day/13.jpg','day/14.jpg','day/15.jpg','day/16.jpg','day/17.jpg','day/18.jpg','day/19.jpg','day/20.jpg'];
+const dayImages = ['day/01.jpg', 'day/02.jpg', 'day/03.jpg', 'day/04.jpg', 'day/05.jpg', 'day/06.jpg', 'day/07.jpg','day/08.jpg','day/09.jpg','day/10.jpg','day/11.jpg','day/12.jpg','day/13.jpg','day/14.jpg','day/15.jpg','day/16.jpg','day/17.jpg','day/18.jpg','day/19.jpg','day/20.jpg'];
 
 const eveningImages = ['evening/01.jpg', 'evening/02.jpg', 'evening/03.jpg', 'evening/04.jpg', 'evening/05.jpg', 'evening/06.jpg', 'evening/07.jpg','evening/08.jpg','evening/09.jpg','evening/10.jpg','evening/11.jpg','evening/12.jpg','evening/13.jpg','evening/14.jpg','evening/15.jpg','evening/16.jpg','evening/17.jpg','evening/18.jpg','evening/19.jpg','evening/20.jpg'];
 
@@ -69,7 +69,7 @@ function createImages(setOfImages) {
   }
 }
 
-console.log(images);
+// console.log(images);
 
 
 
@@ -85,7 +85,12 @@ function showDate() {
   let number = today.getDate();
   let month = today.getMonth().toString();
 
-  day.innerHTML = `${days[dayOfWeek]}, ${number} ${months[month]}`;
+  // day.innerHTML = `${days[dayOfWeek]}, ${number} ${months[month]}`;
+
+  day.innerHTML = `<div class="week-day">${days[dayOfWeek]},&nbsp; 
+  </div>
+  <div class="day-month">${number} ${months[month]}
+  </div>`;
   // setTimeout(showDate, 1000);
 } 
 
@@ -134,19 +139,19 @@ function setBgGreet() {
   document.body.style.backgroundImage = `url(${base + images[hour]})`;
 
   if(hour < 6) {   
-    greeting.textContent = 'Good Night';
+    greeting.textContent = 'Good Night,';
     // document.body.style.color = 'white';
   
   } else if (hour < 12) {   
-    greeting.textContent = 'Good Morning';
+    greeting.textContent = 'Good Morning,';
     // document.body.style.color = 'black';
 
   } else if (hour < 18) {
-    greeting.textContent = 'Good Afternoon';
+    greeting.textContent = 'Good Afternoon,';
     // document.body.style.color = 'black';
 
   } else {
-    greeting.textContent = 'Good Evening';
+    greeting.textContent = 'Good Evening,';
     // document.body.style.color = 'white';
   }
 }
@@ -164,7 +169,7 @@ function getName() {
 // set name
 
 function setName(e) {
-  console.log('setname');
+  // console.log('setname');
   if(e.type === 'keypress') {
     if(e.which === 13 || e.code === 13) {
       if(e.target.innerText.trim() === '') {
@@ -241,8 +246,8 @@ focuss.addEventListener('click', function(e) {
 
 // btn click
 
-const btn = document.querySelector('.btn');
-btn.addEventListener('click', getImage);
+const btnBg = document.querySelector('.btn-bg');
+btnBg.addEventListener('click', getImage);
 let i = new Date().getHours();
 
 
@@ -268,9 +273,118 @@ function getImage() {
   const imageSrc = base + images[index];
   viewBgImage(imageSrc);
   i++;
-  btn.disabled = true;
-  setTimeout(function() { btn.disabled = false }, 1000);
+  btnBg.disabled = true;
+  setTimeout(function() { btnBg.disabled = false }, 1000);
+
 } 
+
+
+
+// quote 
+
+const blockquote = document.querySelector('.blockquote');
+const figcaption = document.querySelector('.figcaption');
+const btnQuote = document.querySelector('.btn-quote');
+
+async function getQuote() {  
+  const url = `https://quote-garden.herokuapp.com/api/v2/quotes/random/?method=getQuote&format=json&lang=en`;
+  const res = await fetch(url);
+  const data = await res.json(); 
+  if (data.quote.quoteText.length <= 150) {
+    blockquote.textContent = data.quote.quoteText;
+    figcaption.textContent = data.quote.quoteAuthor;
+  } else {
+    getQuote();
+  }
+  
+  
+  // console.log(`blockquote=${blockquote.textContent.length}`);
+};
+
+
+
+btnQuote.addEventListener('click', getQuote);
+
+
+// weather
+
+const weatherIcon = document.querySelector('.weather-icon');
+const temperature = document.querySelector('.temperature');
+const weatherDescription = document.querySelector('.weather-description');
+const windSpeed = document.querySelector('.wind-speed');
+const humidity = document.querySelector('.humidity');
+const city = document.querySelector('.city');
+
+async function getWeather() {  
+  // console.log(`getweather`);
+  
+  // if (city.textContent.trim() === '') {
+  //   city.textContent = localStorage.getItem('city');
+  // }
+  // const url = `https://api.openweathermap.org/data/2.5/weather?q=Minsk&lang=en&appid=bcb497104c33d6150519c07eb56c6273&units=metric`;
+
+  try {
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.textContent}&lang=en&appid=bcb497104c33d6150519c07eb56c6273&units=metric`;
+    const res = await fetch(url);
+    const data = await res.json(); 
+    // console.log(`data=${data.weather[0]}`);
+    // console.log(data.weather[0].id, data.weather[0].description, data.main.temp);
+    weatherIcon.className = 'weather-icon owf';
+    weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+    temperature.textContent = `${data.main.temp}°C`;
+    weatherDescription.textContent = data.weather[0].description;
+    windSpeed.textContent = `wind ${data.wind.speed} m/s`;
+    humidity.textContent = `humidity ${data.main.humidity} %`; 
+    localStorage.setItem('city', city.textContent);
+
+  } catch {
+    city.textContent = 'Enter correct city';
+    city.style.color = 'red';
+  }
+ 
+}
+
+document.addEventListener('DOMContentLoaded', getWeather);
+city.addEventListener('keypress', setCity);
+
+
+city.addEventListener('blur', function (e) {
+  
+  // city.style.color = 'white';
+  if (city.textContent.trim() === '') {
+    city.textContent = localStorage.getItem('city');
+    getWeather();
+  } else {
+    getWeather();
+  }  
+}); 
+
+city.addEventListener('click', function(e) {
+  city.style.color = 'white';
+  city.textContent = ' ';
+  city.focus();
+  
+});
+
+function setCity(event) {
+  city.style.color = 'white';
+  if (event.code === 'Enter') {
+    if (city.textContent.trim() === '') {
+    city.textContent = localStorage.getItem('city');
+  }
+    getWeather();
+    city.blur();
+  }  
+ 
+}
+
+
+// getWeather();
+
+
+
+
+
 
 
 // run
@@ -287,7 +401,23 @@ getName();
 
 getFocus();
 
+// getQuote();
 
 
 
 
+
+
+// async function getQuote() {
+//   const url = `https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en`;
+//   const res = await fetch(url);
+//   const data = await res.json();
+//   blockquote.textContent = data.quoteText;
+//   btnQuote.addEventListener('click', getQuote);
+// }
+
+// bcb497104c33d6150519c07eb56c6273
+
+// https://api.openweathermap.org/data/2.5/weather?q=Minsk&lang=en&appid=bcb497104c33d6150519c07eb56c6273&units=metric
+
+document.addEventListener('DOMContentLoaded', getQuote);
