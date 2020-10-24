@@ -1,0 +1,332 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  /* font-family: 'Roboto Mono', monospace; */
+  font-family: 'Quicksand', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  /* justify-content: flex-start; */
+  text-align: center;
+  min-height: 100vh;
+  color: white;
+  text-shadow: 1px 1px 5px black;
+   
+  background-size: cover;
+  background-position: center center;
+  transition: background-image 1s ease-in-out;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.weather {
+  align-self: flex-end;
+  margin-right: 2%;
+  margin-top: 2%;
+  /* width: 150px; */
+  height: 170px;
+  font-weight: 500;
+  /* position: absolute;
+  top: 20px;
+  right: 20px; */
+  /* width: 200px; */
+
+}
+
+.temperature {
+  font-size: 1.5rem;
+}
+
+.city {
+  font-size: 1.5rem;
+  /* line-height: 100%; */
+}
+
+
+
+#time {
+  font-family: 'Roboto Mono', monospace;
+  /* font-family: 'Courier Prime', monospace; */
+  font-size: 8rem;
+  /* font-family: 'Monaco'; */
+
+}
+
+#day {
+  font-size: 3rem;
+  font-weight: 500;
+  display: flex;
+  /* flex-wrap: wrap; */
+  align-self: center;
+
+}
+
+#name { 
+  display: inline-block;
+  min-width: 20px;
+  height: 40px;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.8rem;
+}
+
+/* #focus {
+  max-width: 500px;
+} */
+
+.focus-content {
+  margin-top: 30px; 
+}
+
+.quote {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  /* max-width: 70%; */
+  height: 80px;
+  /* margin-top: 40px; */
+  font-size: 0.9rem;
+  font-weight: 500;
+
+}
+
+/* .quote-text { */
+ 
+  /* margin-top : 30px; */
+  /* background: #eee; */
+  /* padding: 1em; */
+  /* border-radius: 1em; */
+/* } */
+/* .quote-text figcaption,
+.quote-text blockquote {
+  margin: 1em;
+}
+.quote-text figcaption {
+  text-align: right;
+} */
+
+.figcaption {
+  text-align: right;
+  margin-top: 10px;
+  /* vertical-align: bottom; */
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 300px;
+  align-self: center;
+  /* position: relative; */
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.btn {
+  font-family: 'Quicksand', sans-serif;
+
+  width: 120px;
+  height: 30px;
+
+  border: 0;
+  color: rgb(209, 209, 209);
+  background-color: rgba(0, 0, 0, 0.5);
+  /* border: 1px solid white; */
+  border-radius: 7px;
+  /* transition: background-color 0.5s ease-in-out; */
+  transition: all 0.5s ease-in-out;
+
+  /* background: url("https://www.pngarts.com/files/7/Update-Button-PNG-Image.png"); */
+  /* background-size: contain; */
+  /* background-repeat: no-repeat; */
+  /* filter: grayscale(1); */
+}
+
+.btn:hover {
+  /* transition: background-color 0.5s ease-in-out; */
+  transition: all 0.5s ease-in-out;
+  background-color: gray;
+  color: white;
+  cursor: pointer;
+  /* filter: grayscale(.8); */
+}
+
+.btn:active, .btn:focus {
+  outline: 0;
+}
+
+.btn:active{
+  /* transition: all 0.5s ease-in-out;  */
+  /* width: 125px; */
+  /* height: 33px; */
+  transform: scale(1.1);
+}
+
+
+
+.weather-day {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.addition {
+  max-width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+
+
+@media (max-width: 1200px) {
+
+  .weather-day {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
+
+#day {
+  font-size: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2%;
+  margin-left: 3%;
+  align-self: flex-start;
+  /* position: absolute; */
+
+  /* flex-wrap: wrap; */
+  /* align-self: center; */
+
+}
+
+
+
+  /* #time { */
+    /* font-size: 6rem; */
+  /* } */
+
+
+}
+
+@media (max-width: 768px) {
+
+  .weather-day {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
+
+  .weather {
+    height: 140px;
+  }
+
+  .weather-description, .wind-speed, .humidity {
+    font-size: 0.9rem;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  h2 {
+    
+    font-size: 1.4rem;
+  }
+
+
+
+  #day {
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    margin-top: 2%;
+    margin-left: 2%;
+    /* position: absolute; */
+
+    /* flex-wrap: wrap; */
+    /* align-self: center; */
+
+  }
+
+  .temperature {
+    font-size: 1rem;
+  }
+
+  .city {
+    font-size: 1rem;
+    /* line-height: 100%; */
+  }
+
+
+
+  /* .quote {
+    
+    margin-top: 30px;
+
+  } */
+
+  #time {
+    font-size: 6rem;
+  }
+
+}
+
+@media (max-width: 500px) {
+
+  #day {
+    font-size: 1rem;
+  }
+  
+  #time {
+    font-size: 3.6rem;
+  }
+
+  h1 {
+    font-size: 1.2rem;
+  }
+
+  h2 {
+    
+    font-size: 1rem;
+  }
+
+  .buttons {
+   
+    max-width: 280px;
+    align-self: center;
+    /* position: relative; */
+    margin-top: 30px;
+    margin-bottom: 15px;
+  }
+
+
+  .quote {
+    
+    height: 130px;
+
+  }
+
+
+
+
+}  
+
