@@ -323,8 +323,9 @@ function getFirstWeather() {
     city.textContent = localStorage.getItem('city');
   }
 
-
+  // console.log(`getweather1`);
   getWeather();
+  
 
 }
 
@@ -343,8 +344,8 @@ async function getWeather() {
     const res = await fetch(url);
     const data = await res.json();
 
-    console.log(`data=${data.weather[0]}`);
-    console.log(data.weather[0].id, data.weather[0].description, data.main.temp);
+    // console.log(`data=${data.weather[0]}`);
+    // console.log(data.weather[0].id, data.weather[0].description, data.main.temp);
     weatherIcon.className = 'weather-icon owf';
     weatherIcon.classList.add(`owf-${data.weather[0].id}`);
     temperature.textContent = `${data.main.temp}°C`;
@@ -369,8 +370,11 @@ city.addEventListener('blur', function (e) {
   // city.style.color = 'white';
   if (city.textContent.trim() === '') {
     city.textContent = localStorage.getItem('city');
+    // console.log(`getweather2`);
     getWeather();
+    
   } else {
+    // console.log(`getweather3`);
     getWeather();
   }  
 }); 
@@ -389,6 +393,7 @@ function setCity(event) {
     city.textContent = localStorage.getItem('city');
   }
     // localStorage.setItem('city', city.textContent);
+    // console.log(`getweather4`);
     getWeather();
     city.blur();
   }  
