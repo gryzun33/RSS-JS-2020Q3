@@ -97,6 +97,9 @@ const petsLink = document.getElementById('pets-link');
 const helpLink = document.getElementById('help-link');
 const contactsLink = document.getElementById('contacts-link');
 
+
+
+
 helpLink.addEventListener('click', (e) => {
   e.preventDefault();
 });
@@ -212,7 +215,7 @@ function createPetsClone() {
 // for (let i = 0; i < 6; i++) {
 //   petsClone = petsClone.concat(pets);
 // }
-console.log(`start petsClone=${petsClone}`);
+// console.log(`start petsClone=${petsClone}`);
 
 let petsPages = [];
 let slides = [];
@@ -227,7 +230,7 @@ let isEnabled = true;
 generateSlider();
 
 function generateSlider() {
-  console.log(`generateSlider`);
+  // console.log(`generateSlider`);
   if (window.innerWidth >= 1280) {
     petsPages = createPetsPages (6, 8);
   } else if (window.innerWidth >= 768 && window.innerWidth < 1280) {
@@ -261,8 +264,8 @@ function createPetsPages (numbOfPages, numbOfPets) {
   for (let i = 0; i < numbOfPages; i++) {
     outer:  while (page.length < numbOfPets) {
       currentNumber = Math.floor(Math.random() * 10);
-      console.log(`current number= ${currentNumber}`);
-      console.log(`petsClone.length=${petsClone.length}`);
+      // console.log(`current number= ${currentNumber}`);
+      // console.log(`petsClone.length=${petsClone.length}`);
 
       if (petsClone.length === 1) {
         currentNumber = 0;
@@ -278,14 +281,14 @@ function createPetsPages (numbOfPages, numbOfPets) {
       }
     }
     // console.log(`petsClone.length=${petsClone.length}`);
-    console.log(page);
+    // console.log(page);
     petsPages.push(page);
     page = [];
   }
  
   return petsPages;
 }
-console.log(`petsPages.length=${petsPages.length}`);
+// console.log(`petsPages.length=${petsPages.length}`);
 
 
 
@@ -430,7 +433,7 @@ window.addEventListener('resize', function() {
     return;
   } else {
 
-    console.log('resize');
+    // console.log('resize');
     petsContainer.innerHTML = '';
      
     currentNumber = 0;
@@ -439,8 +442,12 @@ window.addEventListener('resize', function() {
     slides = [];
     createPetsClone();
 
-    console.log('createPetsClone');
+    // console.log('createPetsClone');
     generateSlider();
+    petsCards = document.querySelectorAll('.pet');
+    createModal(petsCards);
+    // console.log(petsCards);
+    
     
   }
   lastWindowWidth = newWindowWidth;
@@ -448,54 +455,67 @@ window.addEventListener('resize', function() {
 });
 
 // modal
+
 let modal = document.querySelector('.modal');
 let modalContent = document.querySelector('.modal-content');
 let btnCloseModal = document.querySelector('.btn-close');
 let modalCard;
 
 let petsCards = document.querySelectorAll('.pet');
+
 let petName;
 
-petsCards.forEach((card) => {
-  card.addEventListener('click', function(e) {
-    if(e.target === card.querySelector('a')) {
-      e.preventDefault();
-    }
-    petName = card.querySelector('.pet__name').innerHTML;
-    modalCard = document.createElement('div');
-    modalCard.classList.add('modal-card');
-    for (let i = 0; i < pets.length; i++) {
-      if(pets[i].name === petName) {
-        modalCard.innerHTML = 
-          `<div class="modal-image">
-						<img src=${pets[i].img} alt=${pets[i].name}>
-					</div>
-					<div class="modal-text">
-						<div class="modal-name">${pets[i].name}</div>
-						<div class="modal-type">${pets[i].type} - ${pets[i].breed}</div>
-						<div class="modal-description">${pets[i].description}</div>
-						<ul class="modal-list">
-							<li><span><strong>Age: </strong>${pets[i].age}</span></li>
-							<li><span><strong>Inoculations: </strong>${pets[i].inoculations}</span></li>
-							<li><span><strong>Diseases: </strong>${pets[i].diseases}</span></li>
-							<li><span><strong>Parasites: </strong>${pets[i].parasites}</span></li>
-						</ul>		
-          </div>`;
-         break; 
+createModal(petsCards);
+
+
+function createModal(currentPetsCards) {
+  petsCards.forEach((card) => {
+  
+    card.addEventListener('click', function(e) {
+     
+      if(e.target === card.querySelector('a')) {
+        e.preventDefault();
       }
-    }
-
-    modalContent.append(modalCard);
-    modal.classList.remove('hide');
-    modal.classList.add('show');
-    // modal.pageY = window.pageYOffset;
-       
-    document.body.style.overflow = 'hidden';  
-
-
-
+      petName = card.querySelector('.pet__name').innerHTML;
+      modalCard = document.createElement('div');
+      modalCard.classList.add('modal-card');
+      for (let i = 0; i < pets.length; i++) {
+        if(pets[i].name === petName) {
+          modalCard.innerHTML = 
+            `<div class="modal-image">
+              <img src=${pets[i].img} alt=${pets[i].name}>
+            </div>
+            <div class="modal-text">
+              <div class="modal-name">${pets[i].name}</div>
+              <div class="modal-type">${pets[i].type} - ${pets[i].breed}</div>
+              <div class="modal-description">${pets[i].description}</div>
+              <ul class="modal-list">
+                <li><span><strong>Age: </strong>${pets[i].age}</span></li>
+                <li><span><strong>Inoculations: </strong>${pets[i].inoculations}</span></li>
+                <li><span><strong>Diseases: </strong>${pets[i].diseases}</span></li>
+                <li><span><strong>Parasites: </strong>${pets[i].parasites}</span></li>
+              </ul>		
+            </div>`;
+           break; 
+        }
+      }
+  
+      modalContent.append(modalCard);
+      modal.classList.remove('hide');
+      modal.classList.add('show');
+      // modal.pageY = window.pageYOffset;
+         
+      document.body.style.overflow = 'hidden';  
+  
+  
+  
+    });
   });
-});
+  
+
+}
+
+
 
 
 modal.addEventListener('click', function(e) {

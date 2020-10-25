@@ -90,6 +90,8 @@ body {
       display: flex;
 			flex-direction: column;
 			z-index: 5;
+			text-decoration: none;
+			
     
       &__title {
         color: $color-dark-l;
@@ -98,7 +100,8 @@ body {
         font-size: 3.2rem;
         letter-spacing: 0.192rem;
         line-height: 110%;
-        margin: 0; 
+				margin: 0; 
+				
       }
     
       &__subtitle {
@@ -109,7 +112,8 @@ body {
         line-height: 120%;
         letter-spacing: 0.13rem;
         margin-top: 1rem;
-        text-align: center;
+				text-align: center;
+				
         // align-self: flex-end;
         
       }
@@ -167,7 +171,22 @@ body {
         // color: $color-dark-3xl;
         // padding-top: 3px;
         border-bottom: solid 3px $color-primary;
-      }
+			}
+			
+			&__link_disabled-always {
+				color: $color-dark-l;
+			}
+
+			&__link_disabled-always:hover {
+				cursor: default;
+				color: $color-dark-l;
+				
+			}
+
+			&__link_disabled-always:active {
+				border-bottom: none;
+				
+			}
 
 
     }
@@ -254,10 +273,16 @@ body {
 					}
 				}
 				
-				.pet:hover {
+				.pet:hover  {
 					cursor: pointer;
 					box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
 					background-color: $color-light-xl;
+				}
+
+				.pet:hover .pet__btn {
+					background-color: $color-primary-light;
+				  border-color:$color-primary-light;
+
 				}
 				
 			}
@@ -919,6 +944,10 @@ body {
 				z-index: 25;
 			}
 
+			// .burger-menu:hover {
+			// 	cursor: pointer;
+			// }
+
 			// .burger-menu svg line {
 			// 	stroke: black;
 			// }
@@ -986,6 +1015,14 @@ body {
 						color: $color-light-xl;
 						padding-top: 3px;
 						border-bottom: solid 3px $color-primary;
+					}
+
+					&__link_disabled-always {
+						color: $color-dark-s;
+					}
+		
+					&__link_disabled-always:hover {
+						cursor: default;
 					}
 
 				}

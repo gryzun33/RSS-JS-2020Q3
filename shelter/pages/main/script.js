@@ -118,7 +118,7 @@ burger.addEventListener('click', function() {
     burger.classList.remove('burger-menu-hide');
     menuMobile.classList.remove('menu-hide');
     darkBackground.classList.toggle('dark');
-    // document.body.style.overflowY = 'hidden';
+    document.body.style.overflowY = 'hidden';
    
 
   } else {
@@ -127,7 +127,7 @@ burger.addEventListener('click', function() {
     menuMobile.classList.add('menu-hide');
     menuMobile.classList.remove('menu-show');
     darkBackground.classList.toggle('dark');
-    // document.body.style.overflowY= '';
+    document.body.style.overflowY= '';
     // menuMobile.style.display = 'none';
   }  
 });
@@ -138,6 +138,7 @@ darkBackground.addEventListener('click', function() {
     menuMobile.classList.add('menu-hide');
     menuMobile.classList.remove('menu-show');
     darkBackground.classList.toggle('dark');
+    document.body.style.overflowY= '';
     // document.body.style.overflowY = '';
 });
 
@@ -147,6 +148,7 @@ mainLink.addEventListener('click', function() {
   menuMobile.classList.add('menu-hide');
   menuMobile.classList.remove('menu-show');
   darkBackground.classList.toggle('dark');
+  document.body.style.overflowY= '';
   // document.body.style.overflowY = '';
 });
 

@@ -49,6 +49,7 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   z-index: 5;
+  text-decoration: none;
 }
 
 .header .header-wrapper .logo__title {
@@ -120,6 +121,19 @@ body {
 
 .header .header-wrapper .list__link:active {
   border-bottom: solid 3px #F1CDB3;
+}
+
+.header .header-wrapper .list__link_disabled-always {
+  color: #545454;
+}
+
+.header .header-wrapper .list__link_disabled-always:hover {
+  cursor: default;
+  color: #545454;
+}
+
+.header .header-wrapper .list__link_disabled-always:active {
+  border-bottom: none;
 }
 
 .our-friends {
@@ -238,6 +252,11 @@ body {
   -webkit-box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
           box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
   background-color: #FFFFFF;
+}
+
+.our-friends .our-friends-wrapper .pets-container .pets-slide .pet:hover .pet__btn {
+  background-color: #FDDCC4;
+  border-color: #FDDCC4;
 }
 
 .our-friends .our-friends-wrapper .pets-container .active, .our-friends .our-friends-wrapper .pets-container .next {
@@ -776,6 +795,12 @@ body {
     color: #FFFFFF;
     padding-top: 3px;
     border-bottom: solid 3px #F1CDB3;
+  }
+  .header .header-wrapper .menu-show .list__link_disabled-always {
+    color: #CDCDCD;
+  }
+  .header .header-wrapper .menu-show .list__link_disabled-always:hover {
+    cursor: default;
   }
   .header .header-wrapper .menu-hide {
     position: fixed;

@@ -181,6 +181,17 @@ $color-dark-3xl:#292929;
 				padding-top: 3px;
 				border-bottom: solid 3px $color-primary;
 			}
+
+			&__link_disabled-always {
+				color: $color-dark-s;
+			}
+
+			&__link_disabled-always:hover {
+				cursor: default;
+			}
+
+
+
 		
 		}
 			
@@ -510,7 +521,7 @@ $color-dark-3xl:#292929;
 				align-items: center;
 				
 				.information {
-					max-width: 38rem;
+					width: 38rem;
 					display: flex;
 					flex-direction: column;
 		
@@ -818,8 +829,8 @@ $color-dark-3xl:#292929;
 			padding-top: 15rem;
 		
 			.hero-wrapper {			
-				padding-left: 30px;
-				padding-right: 30px;
+				padding-left: 0;
+				padding-right: 0;
 	
 				.hero-content {				
 					flex-direction: column;
@@ -831,7 +842,7 @@ $color-dark-3xl:#292929;
 						justify-content: flex-start;
 						padding-bottom: 0;
 						align-self: center;						
-						width: 64.97%;
+						width: 59.9%;
 								
 						&__title {
 							@include h2-block;
@@ -855,7 +866,8 @@ $color-dark-3xl:#292929;
 					.hero-image {
 						align-self: flex-end;
 						margin-top: 10rem;
-						width: 80.32%;
+						width: 74.1%;
+						margin-right: 3.9%;
 					}
 						
 				}
@@ -1122,6 +1134,10 @@ $color-dark-3xl:#292929;
 				padding-top: 2px;
 				z-index: 5;
 			}
+
+			// .burger-menu:hover {
+			//   cursor: pointer;
+			// }
 
 			.burger-menu-show {
 				transition: 0.5s ease-in-out;
@@ -1395,7 +1411,9 @@ $color-dark-3xl:#292929;
 			padding-top: 4.2rem;					
 			padding-bottom: 4.2rem;
 	
-			.in-addition-wrapper {			
+			.in-addition-wrapper {
+				padding-left: 20px;
+				padding-right: 20px;			
 	
 				.in-addition-content{
 				
@@ -1406,7 +1424,7 @@ $color-dark-3xl:#292929;
 					}
 					
 					.information {									
-						width: 87.5%;
+						width: 100%;
 						align-items: center;
 								
 						&__title {
@@ -1429,6 +1447,7 @@ $color-dark-3xl:#292929;
 						}
 			
 						&__notes {
+							max-width: 100%;
 							text-align: justify;					
 						}
 					}
