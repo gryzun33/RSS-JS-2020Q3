@@ -315,20 +315,36 @@ const windSpeed = document.querySelector('.wind-speed');
 const humidity = document.querySelector('.humidity');
 const city = document.querySelector('.city');
 
-async function getWeather() {  
+
+function getFirstWeather() {
+  if(localStorage.getItem('city') === null) {
+    city.textContent = 'Minsk';
+  } else { 
+    city.textContent = localStorage.getItem('city');
+  }
+
+
+  getWeather();
+
+}
+
+async function getWeather() {
+  // console.log(`localstorage = ${localStorage.getItem('city')} `);
+  
   // console.log(`getweather`);
   
   // if (city.textContent.trim() === '') {
   //   city.textContent = localStorage.getItem('city');
   // }
   // const url = `https://api.openweathermap.org/data/2.5/weather?q=Minsk&lang=en&appid=bcb497104c33d6150519c07eb56c6273&units=metric`;
-
+  // console.log(`city textcontent =${city.textContent}`);
   try {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.textContent}&lang=en&appid=bcb497104c33d6150519c07eb56c6273&units=metric`;
     const res = await fetch(url);
-    const data = await res.json(); 
-    // console.log(`data=${data.weather[0]}`);
-    // console.log(data.weather[0].id, data.weather[0].description, data.main.temp);
+    const data = await res.json();
+
+    console.log(`data=${data.weather[0]}`);
+    console.log(data.weather[0].id, data.weather[0].description, data.main.temp);
     weatherIcon.className = 'weather-icon owf';
     weatherIcon.classList.add(`owf-${data.weather[0].id}`);
     temperature.textContent = `${data.main.temp}°C`;
@@ -341,10 +357,10 @@ async function getWeather() {
     city.textContent = 'Enter correct city';
     city.style.color = 'red';
   }
- 
+  // console.log(`localstorage = ${localStorage.getItem('city')} `);
 }
 
-document.addEventListener('DOMContentLoaded', getWeather);
+document.addEventListener('DOMContentLoaded', getFirstWeather());
 city.addEventListener('keypress', setCity);
 
 
@@ -372,6 +388,7 @@ function setCity(event) {
     if (city.textContent.trim() === '') {
     city.textContent = localStorage.getItem('city');
   }
+    // localStorage.setItem('city', city.textContent);
     getWeather();
     city.blur();
   }  
