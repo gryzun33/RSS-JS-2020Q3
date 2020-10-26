@@ -22,6 +22,10 @@ const keyLayout4 = [ "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+",
 "shift", "я", "ч", "с", "м", "и", "т", "ь", "б", "ю", "?", "enter",
 "done","lang","space","voice","arrowleft","arrowright"];
 
+// const insertLineBreakEng = ["backspace", "]", "\\", "enter"];
+
+// const insertLineBreakRu = ["backspace", "ъ", "ё", "enter"];
+
 const Keyboard = {
   elements: {
     main: null,
@@ -92,7 +96,7 @@ const Keyboard = {
       return `<i class="material-icons">${icon_name}</i>`;
     }
 
-    keyLayout1.forEach(key => {
+    keyLayout1.forEach((key, index) => {
 
       const keyElement = document.createElement('button');
       // ! ?????
@@ -171,10 +175,11 @@ const Keyboard = {
           break;
         
         case "lang":
-          keyElement.innerHTML = "<span>en</span>";
+          keyElement.innerHTML = `<span>en</span>`;
           this.elements.langBtn = keyElement;
           this.elements.langBtn.addEventListener('click', () => {
-   
+            // this.elements.keysContainer.innerHTML = '';
+            // this.elements.keysContainer.appendChild(this._createKeys(keyLayout3, insertLineBreakRu, 'ru')); 
              
             this._toggleLang();
 
@@ -198,9 +203,24 @@ const Keyboard = {
 
         default:
           keyElement.textContent = key.toLowerCase();
-
+          
           keyElement.addEventListener('click', () => {
-            this.properties.value += this.properties.capsLock ? key.toUpperCase() : key.toLowerCase();
+            if (this.elements.langBtn.innerHTML === `<span>en</span>`) {
+              if (!this.properties.shift) {
+                this.properties.value += this.properties.capsLock ? keyLayout1[index].toUpperCase() : keyLayout1[index].toLowerCase();
+              }
+              if (this.properties.shift) {
+                this.properties.value += this.properties.capsLock ? keyLayout2[index].toUpperCase() : keyLayout2[index].toLowerCase();
+              }
+            } else if (this.elements.langBtn.innerHTML === `<span>ru</span>`){ 
+              if (!this.properties.shift) {
+                this.properties.value += this.properties.capsLock ? keyLayout3[index].toUpperCase() : keyLayout3[index].toLowerCase();
+              }
+              if (this.properties.shift) {
+                this.properties.value += this.properties.capsLock ? keyLayout4[index].toUpperCase() : keyLayout4[index].toLowerCase();
+              }
+            }
+            
             
             this._triggerEvent('oninput');
             document.querySelector('.use-keyboard-input').focus();
@@ -303,6 +323,20 @@ const Keyboard = {
         }   
       }
     }
+
+    // for (const key of this.elements.keys) {
+    //   if (key.childElementCount === 0) {
+    //     key.addEventListener('click', () => {
+    //       this.properties.value += this.properties.capsLock ? key.textContent.toUpperCase() : key.textContent.toLowerCase();
+          
+    //       this._triggerEvent('oninput');
+    //       document.querySelector('.use-keyboard-input').focus();
+    //     });
+    //   }
+    // }
+
+
+
   },
 
   open(initialValue, oninput, onclose) {
