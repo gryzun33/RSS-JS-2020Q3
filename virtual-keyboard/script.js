@@ -4,8 +4,6 @@ const keyLayout1 = [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=",
 "shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "enter",
 "done","lang","space","voice","sound","arrowleft","arrowright"];
 
-
-
 const keyLayout2 = [ "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", "backspace",
 "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "{", "}",
 "caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", ":", " \" ", "|", 
@@ -26,11 +24,11 @@ const keyLayout4 = [ "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+",
 
 const functionalButtons = ['Tab', 'CapsLock', 'Shift', 'Control', 'Alt', 'Meta', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Enter', 'Backspace', ''];
 
+window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const recognition = new SpeechRecognition();
+recognition.interimResults = true;
 
 
-// const insertLineBreakEng = ["backspace", "]", "\\", "enter"];
-
-// const insertLineBreakRu = ["backspace", "ъ", "ё", "enter"];
 
 const Keyboard = {
   elements: {
@@ -54,6 +52,7 @@ const Keyboard = {
     shift: false,
     lang: "en",
     sound: false,
+    voice: false,
   },
 
   init() {
@@ -70,7 +69,7 @@ const Keyboard = {
    
 
     this.elements.keys = this.elements.keysContainer.querySelectorAll('.keyboard__key');
-    console.log(this.elements.keys);
+    // console.log(this.elements.keys);
 
     // add to DOM
     this.elements.main.appendChild(this.elements.keysContainer);
@@ -91,7 +90,7 @@ const Keyboard = {
       //  console.log (`e.key=${e.key}`) ;
       if (functionalButtons.indexOf(e.key) === -1) {
         this.properties.value = this.properties.value + e.key;
-        console.log(this.properties.value);
+        // console.log(this.properties.value);
       }
       
       for (let key of this.elements.keys) {
@@ -151,6 +150,8 @@ const Keyboard = {
 
   _createKeys() {
     const fragment = document.createDocumentFragment();
+
+   
     // const keyLayout1 = [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "backspace",
     // "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]",
     // "caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "\\", 
@@ -297,13 +298,60 @@ const Keyboard = {
         case "voice":
           keyElement.classList.add("keyboard__key--wide","keyboard__key--activatable");
           keyElement.innerHTML = createIconHTML("mic");
-
+          
           keyElement.addEventListener('click', () => {
-            if (this.properties.sound) {
-              this._playSound("voice");
+            this.properties.voice = !this.properties.voice;
+            console.log (`voice = ${this.properties.voice}`);
+            if (this.properties.voice) {
+              if (this.properties.sound) {
+                this._playSound("voice");
+              }
+              
+              if (this.elements.langBtn.innerHTML === `<span>en</span>`) {
+                recognition.lang = 'en-US';
+              } else {
+                recognition.lang = 'ru';
+              }  
+              console.log (`start`);
+              // this._triggerEvent('oninput');
+              recognition.start();
+              
+              recognition.addEventListener("result", this.recResult);
+              recognition.addEventListener("end", this.recEnd);
+
+
+
+
+              // recognition.addEventListener("result", (e) => {
+              //   text = Array.from(e.results)
+              //   .map(result => result[0])
+              //   .map(result => result.transcript)
+              //   .join('');
+            
+              //   console.log (`text=${text}`);
+
+              // });  
+               
+              // recognition.addEventListener('end', (e) => {                
+              //   console.log (`end`);
+              //   this.properties.value = this.properties.value + text;                       
+              //   document.querySelector('body > textarea').value = this.properties.value;                  
+              //   console.log (`start`); 
+              //   recognition.start();
+    
+              // });
+              
+            } else {
+              recognition.abort();
+              recognition.removeEventListener("result", this.recResult);
+              recognition.removeEventListener("end", this.recEnd);
+
+              console.log (`stop`);
             }
+           
+            document.querySelector('.use-keyboard-input').focus();
+            keyElement.classList.toggle("keyboard__key--active");
           });
- 
          
           break;
 
@@ -555,7 +603,34 @@ const Keyboard = {
     this.eventHandlers.oninput = oninput;
     this.eventHandlers.onclose = onclose;
     this.elements.main.classList.add('keyboard--hidden');
-  }
+  },
+
+  recResult(e) {
+
+    text = Array.from(e.results)
+    .map(result => result[0])
+    .map(result => result.transcript)
+    .join('');
+
+    // console.log (`text=${text}`);
+      
+  },
+
+  recEnd() {                
+    // console.log (`end`);
+    // this.properties.value = this.properties.value + text;                       
+    // document.querySelector('body > textarea').value = this.properties.value;  
+    document.querySelector('body > textarea').value = document.querySelector('body > textarea').value + text;                  
+    // console.log (`start`); 
+    recognition.start();
+    text = '';
+    // recognition.abort();
+  },
+  
+
+
+
+
 };
 
 
@@ -566,3 +641,32 @@ window.addEventListener("DOMContentLoaded", function() {
 });
 
 
+
+
+
+
+// recognition.addEventListener("result", (e) => {
+
+//   text = Array.from(e.results)
+//   .map(result => result[0])
+//   .map(result => result.transcript)
+//   .join('');
+
+//   console.log (`text=${text}`);
+
+  
+// });
+
+ // recognition.addEventListener('end', (e) => {
+            
+          //   console.log (`end`);
+          //   this.properties.value = this.properties.value + text;
+          //   console.log (this.properties.value);
+        
+ 
+
+          //   console.log (`start`); 
+          //   recognition.start();
+
+          // });
+ 
