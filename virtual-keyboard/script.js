@@ -30,6 +30,8 @@ recognition.interimResults = true;
 
 
 
+
+
 const Keyboard = {
   elements: {
     main: null,
@@ -284,6 +286,8 @@ const Keyboard = {
              
             this._toggleLang();
 
+
+
             if (this.properties.sound) {
               if (this.elements.langBtn.innerHTML === `<span>en</span>`) {
                 this._playSound("eng");
@@ -301,7 +305,7 @@ const Keyboard = {
           
           keyElement.addEventListener('click', () => {
             this.properties.voice = !this.properties.voice;
-            console.log (`voice = ${this.properties.voice}`);
+            // console.log (`voice = ${this.properties.voice}`);
             if (this.properties.voice) {
               if (this.properties.sound) {
                 this._playSound("voice");
@@ -312,41 +316,19 @@ const Keyboard = {
               } else {
                 recognition.lang = 'ru';
               }  
-              console.log (`start`);
-              // this._triggerEvent('oninput');
+           
               recognition.start();
-              
+           
               recognition.addEventListener("result", this.recResult);
               recognition.addEventListener("end", this.recEnd);
 
-
-
-
-              // recognition.addEventListener("result", (e) => {
-              //   text = Array.from(e.results)
-              //   .map(result => result[0])
-              //   .map(result => result.transcript)
-              //   .join('');
-            
-              //   console.log (`text=${text}`);
-
-              // });  
-               
-              // recognition.addEventListener('end', (e) => {                
-              //   console.log (`end`);
-              //   this.properties.value = this.properties.value + text;                       
-              //   document.querySelector('body > textarea').value = this.properties.value;                  
-              //   console.log (`start`); 
-              //   recognition.start();
-    
-              // });
               
             } else {
               recognition.abort();
               recognition.removeEventListener("result", this.recResult);
               recognition.removeEventListener("end", this.recEnd);
 
-              console.log (`stop`);
+              // console.log (`stop`);
             }
            
             document.querySelector('.use-keyboard-input').focus();
@@ -543,7 +525,10 @@ const Keyboard = {
 
 
     if (this.elements.langBtn.innerHTML === "<span>en</span>") {
+     
       this.elements.langBtn.innerHTML = "<span>ru</span>";
+
+      
       for (let i = 0; i < this.elements.keys.length; i++) {
         if (this.elements.keys[i].childElementCount === 0) {
           if (this.properties.shift) {
@@ -553,8 +538,14 @@ const Keyboard = {
           }         
         }
       }
+      if (this.properties.voice) {
+        recognition.lang = 'ru';
+      }
     } else {
       this.elements.langBtn.innerHTML = "<span>en</span>";
+      // if (this.properties.voice) {
+      //   recognition.lang = 'en-US';
+      // }
       for (let i = 0; i < this.elements.keys.length; i++) {
         if (this.elements.keys[i].childElementCount === 0) {
           if (this.properties.shift) {
@@ -563,6 +554,9 @@ const Keyboard = {
             this.elements.keys[i].textContent = this.properties.capsLock ? keyLayout1[i].toUpperCase() : keyLayout1[i].toLowerCase() ;
           }           
         }   
+      }
+      if (this.properties.voice) {
+        recognition.lang = 'en-US';
       }
     }
 
@@ -606,25 +600,30 @@ const Keyboard = {
   },
 
   recResult(e) {
+    console.log(`3=${recognition.lang}`); 
 
     text = Array.from(e.results)
     .map(result => result[0])
     .map(result => result.transcript)
     .join('');
 
+    if (e.results[0].isFinal) {
+      document.querySelector('body > textarea').value = document.querySelector('body > textarea').value + text + ' ';
+    }
+
     // console.log (`text=${text}`);
-      
+       
   },
 
-  recEnd() {                
-    // console.log (`end`);
-    // this.properties.value = this.properties.value + text;                       
-    // document.querySelector('body > textarea').value = this.properties.value;  
-    document.querySelector('body > textarea').value = document.querySelector('body > textarea').value + text;                  
-    // console.log (`start`); 
+  recEnd() {   
+    recognition.lang = recognition.lang;    
+    console.log(`4=${recognition.lang}`);         
+    // document.querySelector('body > textarea').value = document.querySelector('body > textarea').value + text + ' ';                  
+  //   console.log (`start`); 
     recognition.start();
-    text = '';
-    // recognition.abort();
+  //   // console.log(`5=${recognition.lang}`);
+  //   text = '';
+  //   // recognition.stop();
   },
   
 
