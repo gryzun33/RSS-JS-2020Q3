@@ -1,23 +1,23 @@
 const keyLayout1 = [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "backspace",
-"q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]",
+":)","q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]","(:",
 "caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "\\", 
 "shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "enter",
 "done","lang","space","voice","sound","arrowleft","arrowright"];
 
 const keyLayout2 = [ "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", "backspace",
-"q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "{", "}",
+":)","q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "{", "}","(:",
 "caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", ":", " \" ", "|", 
 "shift", "z", "x", "c", "v", "b", "n", "m", "<", ">", "?", "enter",
 "done","lang","space","voice","sound","arrowleft","arrowright"];
 
 const keyLayout3 = [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "backspace",
-"й", "ц", "у", "к", "е", "н", "г", "ш", "щ", "з", "х", "ъ",
+":)","й", "ц", "у", "к", "е", "н", "г", "ш", "щ", "з", "х", "ъ","(:",
 "caps", "ф", "ы", "в", "а", "п", "р", "о", "л", "д", "ж", "э", "ё", 
 "shift", "я", "ч", "с", "м", "и", "т", "ь", "б", "ю", "/", "enter",
 "done","lang","space","voice","sound","arrowleft","arrowright"];
 
 const keyLayout4 = [ "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", "backspace",
-"й", "ц", "у", "к", "е", "н", "г", "ш", "щ", "з", "х", "ъ",
+":)","й", "ц", "у", "к", "е", "н", "г", "ш", "щ", "з", "х", "ъ","(:",
 "caps", "ф", "ы", "в", "а", "п", "р", "о", "л", "д", "ж", "э", "ё", 
 "shift", "я", "ч", "с", "м", "и", "т", "ь", "б", "ю", "?", "enter",
 "done","lang","space","voice","sound","arrowleft","arrowright"];
@@ -175,7 +175,7 @@ const Keyboard = {
 
       const keyElement = document.createElement('button');
       // ! ?????
-      const insertLineBreak = ["backspace", "]", "\\", "enter"].indexOf(key) !== -1;
+      const insertLineBreak = ["backspace", "(:", "\\", "enter" ].indexOf(key) !== -1;
 
       // add attributes and classes
       keyElement.setAttribute('type', 'button');
