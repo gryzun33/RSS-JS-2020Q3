@@ -83,6 +83,16 @@ body {
 .city {
   font-size: 1.5rem;
   /* line-height: 100%; */
+  -webkit-transition: -webkit-transform 0.5s ease-out;
+  transition: -webkit-transform 0.5s ease-out;
+  transition: transform 0.5s ease-out;
+  transition: transform 0.5s ease-out, -webkit-transform 0.5s ease-out;
+}
+
+.city:hover {
+  cursor: pointer;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
 }
 
 #time {
@@ -107,6 +117,29 @@ body {
   display: inline-block;
   min-width: 20px;
   height: 40px;
+  -webkit-transition: -webkit-transform 0.5s ease-out;
+  transition: -webkit-transform 0.5s ease-out;
+  transition: transform 0.5s ease-out;
+  transition: transform 0.5s ease-out, -webkit-transform 0.5s ease-out;
+}
+
+#name:hover {
+  cursor: pointer;
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+}
+
+#focus {
+  -webkit-transition: -webkit-transform 0.5s ease-out;
+  transition: -webkit-transform 0.5s ease-out;
+  transition: transform 0.5s ease-out;
+  transition: transform 0.5s ease-out, -webkit-transform 0.5s ease-out;
+}
+
+#focus:hover {
+  cursor: pointer;
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
 }
 
 h1 {
@@ -138,8 +171,8 @@ h2 {
   /* max-width: 70%; */
   height: 80px;
   /* margin-top: 40px; */
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 /* .quote-text { */
@@ -337,7 +370,7 @@ h2 {
     font-size: 1.2rem;
   }
   h2 {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
   .buttons {
     max-width: 280px;
@@ -349,6 +382,7 @@ h2 {
     margin-bottom: 15px;
   }
   .quote {
+    font-size: 0.9rem;
     height: 130px;
   }
 }
