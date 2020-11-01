@@ -100,7 +100,7 @@
 } */
 
 .keyboard__key--active {
-  border: 2px solid   rgb(245, 186, 49);
+  border: 3px solid   rgb(245, 186, 49);
 }
 
 .keyboard__key--dark {
