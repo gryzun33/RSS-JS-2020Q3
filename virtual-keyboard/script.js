@@ -356,6 +356,10 @@ const Keyboard = {
               recognition.addEventListener("result", this.recResult);
               recognition.addEventListener("end", this.recEnd);
 
+              // this.properties.value = left + right;
+              // document.querySelector('.use-keyboard-input').selectionStart = document.querySelector('.use-keyboard-input').selectionStart + 1;
+              // document.querySelector('.use-keyboard-input').selectionEnd = document.querySelector('.use-keyboard-input').selectionStart;
+
               
             } else {
               recognition.abort();
@@ -364,7 +368,9 @@ const Keyboard = {
 
               // console.log (`stop`);
             }
-           
+            this.properties.value = left + right;
+            document.querySelector('.use-keyboard-input').selectionStart = document.querySelector('.use-keyboard-input').selectionStart + 1;
+            document.querySelector('.use-keyboard-input').selectionEnd = document.querySelector('.use-keyboard-input').selectionStart;
             document.querySelector('.use-keyboard-input').focus();
             keyElement.classList.toggle("keyboard__key--active");
           });
@@ -668,7 +674,9 @@ const Keyboard = {
     .join('');
 
     if (e.results[0].isFinal) {
-      document.querySelector('body > textarea').value = document.querySelector('body > textarea').value + text + ' ';
+      left = left + text + ' ';
+      document.querySelector('body > textarea').value = left + right;
+      // document.querySelector('body > textarea').value = document.querySelector('body > textarea').value + text + ' ';
     }
 
     // console.log (`text=${text}`);
