@@ -67,8 +67,8 @@ body {
   height: 100%;
   display: flex;
   flex-wrap: wrap;
-  position: absolute;
-  /* position: relative; */
+  /* position: absolute; */
+  position: relative;
 }
 
 .blackout-show {
@@ -127,8 +127,8 @@ body {
 
 
 .chip {
-  /* position: absolute; */
-  position: relative;
+  position: absolute;
+  /* position: relative; */
   /* width: 25%; */
   /* height: 25%; */
   border: 2px solid aquamarine;
@@ -141,8 +141,8 @@ body {
 }
 
 .empty {
-  /* position: absolute; */
-  position: relative;
+  position: absolute;
+  /* position: relative; */
   /* width: 25%; */
   /* height: 25%; */
   background-color:aquamarine;
