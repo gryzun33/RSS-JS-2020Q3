@@ -1,4 +1,3 @@
-' use strict';
 
 const wrapper = document.createElement('div');
 const menu = document.createElement('ul');
@@ -11,6 +10,10 @@ const moves = document.createElement('div');
 const pause = document.createElement('div');
 const blackout = document.createElement('div');
 const gameOver = document.createElement('div');
+const iconSound = document.createElement('div');
+const sound = document.createElement('audio');
+sound.setAttribute ("src", "sounds/tink.wav");
+
 let scores = [];
 // let bestScores = [];
 
@@ -105,10 +108,12 @@ let secStart = '00';
 time.innerHTML = `Time ${minStart} : ${secStart}`;
 moves.innerHTML = `Moves ${movesCount}`;
 pause.innerHTML = 'Pause game';
+iconSound.innerHTML = '<i class="material-icons">volume_off</i>';
 
 currentGame.append(time);
 currentGame.append(pause);
 currentGame.append(moves);
+currentGame.append(iconSound);
 
 menuItemsNames.forEach((elem) => {
   const item = document.createElement('li');
@@ -130,6 +135,7 @@ wrapper.append(currentGame);
 wrapper.append(container);
 
 document.body.append(wrapper);
+document.body.append(sound);
 
 // console.log(wrapper);
 
@@ -263,6 +269,17 @@ bestScoresBtn.addEventListener('click', () => {
 
 });
 
+// console.log (iconSound);
+iconSound.addEventListener('click', () => {
+  console.log (iconSound.innerHTML);
+  if (iconSound.innerHTML = '<i class="material-icons">volume_off</i>') {
+    iconSound.innerHTML = '<i class="material-icons">volume_up</i>';
+  } else {
+    console.log ('true');
+    iconSound.innerHTML = '<i class="material-icons">volume_off</i>';
+  }
+});
+
 function createNewGame(n) {
   clearInterval(timerId);
   currentCellCount = `${Math.sqrt(n)}x${Math.sqrt(n)}`;
@@ -365,6 +382,11 @@ function chipsHandler() {
 
   chips.forEach ((chip) => {
     chip.addEventListener('mousedown', function(e) {
+      console.log (iconSound.innerHTML);
+      if (iconSound.innerHTML = '<i class="material-icons">volume_up</i>') {
+        sound.currentTime = 0;
+        sound.play();
+      }
       
       console.log ('mousedown');
       // console.log (e.target);
