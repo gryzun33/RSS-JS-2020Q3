@@ -163,7 +163,33 @@ let startX = 0;
 let startY = 0;
 let distX = 0;
 let distY = 0;
-let threshold = 50;
+// let threshold = 50;
+
+let imgNumberInRow;
+let imgNumberOfRow;
+let bgPosition = [];
+let bgImageNumber;
+let bgSize;
+
+function createBg() {
+  for (let i = 0; i < count; i++) {
+    bgImageNumber = Math.floor(Math.random() * 150);
+    bgSize = containerLength + 'px';
+    console.log (`bgSize = ${bgSize}`);
+
+    // container.style.backgroundImage = `url(images/${bgImageNumber}.jpg)`; 
+    // container.style.backgroundSize = bgSize ;
+    // container.style.backgroundSize = `${bgSize} ${bgSize}` ;  
+
+    imgNumberInRow = i % Math.sqrt(count);
+    imgNumberOfRow = Math.floor(i / Math.sqrt(count)); 
+    bgPosition[i] = `-${imgNumberInRow * widthCell}px -${imgNumberOfRow * widthCell}px`;
+
+
+  }
+}
+
+
 
 newGameBtn.addEventListener('click', () => {
   createNewGame(count);
@@ -299,6 +325,8 @@ function createNewGame(n) {
   min = 0;
   sec = 0;
   moves.innerHTML = `Moves ${movesCount}`;
+  createBg();
+
   randomArray = [];
   while (randomArray.length < n) {
     currentNumber = Math.floor((Math.random() * n));
@@ -329,6 +357,17 @@ function createNewGame(n) {
     currentChip.style.left = `${(i % Math.sqrt(n)) * widthCell}px`;
     currentChip.style.bottom = `${parseInt(currentChip.style.top) + widthCell}px`;
     currentChip.style.right = `${parseInt(currentChip.style.left) + widthCell}px`;
+
+    
+    
+    if (randomArray[i] !== 0) {
+  
+      currentChip.style.backgroundImage = `url(images/${bgImageNumber}.jpg)`; 
+      currentChip.style.backgroundSize = `${bgSize} ${bgSize}` ;
+      currentChip.style.backgroundPosition = bgPosition[randomArray[i] - 1];
+    }
+  
+
     puzzleBox.append(currentChip);
   }
 
@@ -594,6 +633,8 @@ function isEnd() {
   gameOver.innerHTML = `You solved gem-puzzle in ${currMin} : ${currSec} and ${movesCount} moves!!!`;
   gameOver.classList.add('congrat-show');
   gameOver.classList.remove('congrat-hide');
+  gameOver.style.backgroundImage = `url(images/${bgImageNumber}.jpg)`; 
+  gameOver.style.backgroundSize = `${bgSize} ${bgSize}` ;
   addBestScore();
 }
 
@@ -609,10 +650,12 @@ function checkForSolve() {
   }
   let rowEmpty = Math.ceil((+empty.style.order)/Math.sqrt(count));
   console.log (`rowEmpty= ${rowEmpty}`);
-  counter = counter + rowEmpty;
+  
   // console.log (`counter= ${counter}`);
 
   if (Math.sqrt(count) % 2 === 0) {
+    counter = counter + rowEmpty;
+    console.log (`counter=${counter}`);
     if (counter % 2 === 0) {
       console.log ('good!');
       runTimer();
@@ -623,7 +666,8 @@ function checkForSolve() {
       createNewGame(count);
     }  
   } else {
-    if (counter % 2 !== 0) {
+    if (counter % 2 === 0) {
+      console.log (`counter=${counter}`);
       console.log ('good!');
       runTimer();
       chipsHandler();
