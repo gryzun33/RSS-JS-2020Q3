@@ -82,9 +82,10 @@ const cellCount = {
   '8x8': { number: 64, width: 12.5 } ,
 }
 
-let containerLength = 400;
+// let containerLength = 400;
 let count = cellCount['4x4'].number;
-let widthCell = cellCount['4x4'].width / 100 * containerLength ;
+// let widthCell = cellCount['4x4'].width / 100 * containerLength ;
+let widthCell = cellCount['4x4'].width;
 let currentCellCount = '4x4';
 let movesCount = 0;
 let minStart = '00';
@@ -146,15 +147,21 @@ let imgNumberOfRow;
 let bgPosition = [];
 let bgImageNumber;
 let bgSize;
+let widthBgCell;
 
 function createBg() {
+  bgSize = getComputedStyle(container).width;
+  console.log (bgSize);
+  widthBgCell = widthCell / 100 * parseInt(bgSize);
   for (let i = 0; i < count; i++) {
     bgImageNumber = Math.floor(Math.random() * 150);
-    bgSize = containerLength + 'px';
+    // bgSize = containerLength + 'px';
+
+    
     
     imgNumberInRow = i % Math.sqrt(count);
     imgNumberOfRow = Math.floor(i / Math.sqrt(count)); 
-    bgPosition[i] = `-${imgNumberInRow * widthCell}px -${imgNumberOfRow * widthCell}px`;
+    bgPosition[i] = `-${imgNumberInRow * widthBgCell}px -${imgNumberOfRow * widthBgCell}px`;
   }
 }
 
@@ -232,7 +239,8 @@ settingsBtn.addEventListener('click', () => {
 select.addEventListener('change', () => {
   count = cellCount[select.value].number;
   currentCellCount = select.value;
-  widthCell = cellCount[currentCellCount].width / 100 * containerLength ; 
+  widthCell = cellCount[currentCellCount].width; 
+  // widthCell = cellCount[currentCellCount].width / 100 * containerLength ; 
 }); 
 
 bestScoresBtn.addEventListener('click', () => {
@@ -296,6 +304,7 @@ function createNewGame(n) {
   sec = 0;
   moves.innerHTML = `Moves ${movesCount}`;
   createBg();
+ 
 
   randomArray = [];
   while (randomArray.length < n) {
@@ -319,12 +328,20 @@ function createNewGame(n) {
       currentOrder++;
     }
 
-    currentChip.style.width = `${widthCell}px`;
-    currentChip.style.height = `${widthCell}px`;
-    currentChip.style.top = `${Math.floor((i / Math.sqrt(n))) * widthCell}px`;
-    currentChip.style.left = `${(i % Math.sqrt(n)) * widthCell}px`;
-    currentChip.style.bottom = `${parseInt(currentChip.style.top) + widthCell}px`;
-    currentChip.style.right = `${parseInt(currentChip.style.left) + widthCell}px`;
+    // currentChip.style.width = `${widthCell}px`;
+    // currentChip.style.height = `${widthCell}px`;
+    // currentChip.style.top = `${Math.floor((i / Math.sqrt(n))) * widthCell}px`;
+    // currentChip.style.left = `${(i % Math.sqrt(n)) * widthCell}px`;
+    // currentChip.style.bottom = `${parseInt(currentChip.style.top) + widthCell}px`;
+    // currentChip.style.right = `${parseInt(currentChip.style.left) + widthCell}px`;
+
+    currentChip.style.width = `${widthCell}%`;
+    currentChip.style.height = `${widthCell}%`;
+    currentChip.style.top = `${Math.floor((i / Math.sqrt(n))) * widthCell}%`;
+    currentChip.style.left = `${(i % Math.sqrt(n)) * widthCell}%`;
+    currentChip.style.bottom = `${parseFloat(currentChip.style.top) + widthCell}%`;
+    currentChip.style.right = `${parseFloat(currentChip.style.left) + widthCell}%`;
+
 
     if (randomArray[i] !== 0) {
       currentChip.style.backgroundImage = `url(images/${bgImageNumber}.jpg)`; 
@@ -552,27 +569,47 @@ function addBestScore() {
 
 
 
-// let lastWindowWidth = window.innerWidth;
-// let newWindowWidth;
+let lastWindowWidth = window.innerWidth;
+let newWindowWidth;
 
-// window.addEventListener('resize', function() {
-//   newWindowWidth = window.innerWidth;
-//   if (lastWindowWidth > 500 && newWindowWidth > 500) {
-//     return;
-//   } else if (lastWindowWidth <= 500 && newWindowWidth <= 500) {
-//     return;
-//   } else if (newWindowWidth <= 500) {
-//     containerLength = 300;
-//     widthCell = cellCount[currentCellCount].width / 100 * containerLength ;
-//     bgSize = containerLength + 'px';
-//     chips.forEach((chip) => {
+window.addEventListener('resize', function() {
+  newWindowWidth = window.innerWidth;
+  if (lastWindowWidth > 500 && newWindowWidth > 500) {
+    return;
+  } else if (lastWindowWidth <= 500 && newWindowWidth <= 500) {
+    return;
+  } else {
+    let elements = container.querySelectorAll('div');
+    console.log (elements);
+    bgSize = getComputedStyle(container).width;
+    widthBgCell = widthCell / 100 * parseInt(bgSize); 
+    for (let i = 0; i < count; i++) {
+      imgNumberInRow = i % Math.sqrt(count);
+      imgNumberOfRow = Math.floor(i / Math.sqrt(count)); 
+      bgPosition[i] = `-${imgNumberInRow * widthBgCell}px -${imgNumberOfRow * widthBgCell}px`;
+    }
+    
+    for (let i = 0; i < count; i++) {
 
-//     });
-//   } 
+      if (parseInt(elements[i].innerText) !== 0) {
+        // currentChip.style.backgroundImage = `url(images/${bgImageNumber}.jpg)`; 
+        elements[i].style.backgroundSize = `${bgSize} ${bgSize}` ;
+        elements[i].style.backgroundPosition = bgPosition[parseInt(elements[i].innerText) - 1];
+      }
+
+    }
+
+
+  }
+
+
+  
+   
+  
  
-//   lastWindowWidth = newWindowWidth;
+  lastWindowWidth = newWindowWidth;
 
-// });
+});
 
 
 

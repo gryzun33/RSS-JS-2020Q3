@@ -54,7 +54,7 @@ body {
 .container {
   width: 400px;
   height: 400px;
-  background-color:rgb(230,230,230);
+  background-color: rgb(127,127,127);
   margin: 0 auto;
   margin-top: 20px;
   position: relative;
@@ -123,7 +123,7 @@ body {
 
 .chip {
   position: absolute;
-  border: 2px solid rgb(230,230,230);
+  border: 2px solid rgb(127,127,127);
   color: transparent;
   font-size: 30px;
   display: flex;
@@ -134,11 +134,11 @@ body {
 
 .empty {
   position: absolute;
-  border: 2px solid rgb(230,230,230);
+  border: 2px solid rgb(127,127,127);
   z-index: -1;
 }
 
-#saveGameBtn, #back1, #back2, #back3 {
+#saveGameBtn, #back1, #back2, #back3, #start {
   cursor: pointer;
 }
 
@@ -173,8 +173,8 @@ body {
   }
 
   .container {
-    width: 300px;
-    height: 300px;
+    width: 280px;
+    height: 280px;
   }
 
   .menu {
@@ -206,6 +206,12 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+  }
+
+  .chip {
+    
+    font-size: 20px;
+    
   }
 
 
