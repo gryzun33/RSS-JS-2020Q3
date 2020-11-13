@@ -125,10 +125,10 @@ let bottomMemory;
 let rightMemory;
 let imgNumberInRow;
 let imgNumberOfRow;
-const bgPosition = [];
 let bgImageNumber;
 let bgSize;
 let widthBgCell;
+const bgPosition = [];
 
 let lastWindowWidth = window.innerWidth;
 let newWindowWidth;
