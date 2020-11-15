@@ -286,70 +286,53 @@ function changeOrder(currChip) {
   empty.style.left = leftMemory;
   empty.style.right = rightMemory;
   currChip.style.zIndex = 'auto';
-  enabled = true; 
+  enabled = true;
 }
 
 function chipsHandler() {
   chips.forEach((chip) => {
     chip.addEventListener('mousedown', (e) => {
       if (enabled) {
-        
-        const start = new Date();
         orderMemory = chip.style.order;
         topMemory = chip.style.top;
         bottomMemory = chip.style.bottom;
         leftMemory = chip.style.left;
         rightMemory = chip.style.right;
-    
-
-
-
-        let startX = e.pageX;
-        let startY = e.pageY;
-        let shiftX = e.pageX - chip.getBoundingClientRect().left; 
-        let shiftY = e.pageY - chip.getBoundingClientRect().top;
-
-    
-    
-        if ((chip.style.top === empty.style.bottom && chip.style.left === empty.style.left) || 
-            (chip.style.bottom === empty.style.top && chip.style.left === empty.style.left) ||
-            (chip.style.left === empty.style.right && chip.style.top === empty.style.top) || 
-            (chip.style.right === empty.style.left && chip.style.top === empty.style.top)) {
-              if (iconSound.innerHTML === '<i class="material-icons">volume_up</i>') {
-                sound.currentTime = 0;
-                sound.play();
-              }
-
-              enabled = false; 
-              
-          chip.style.zIndex = 100; 
-          moveAt(e.pageX, e.pageY);
-          document.addEventListener('mousemove', onMouseMove);  
-
-
-
-          
+        const startX = e.pageX;
+        const startY = e.pageY;
+        const shiftX = e.pageX - chip.getBoundingClientRect().left;
+        const shiftY = e.pageY - chip.getBoundingClientRect().top;
+        if ((chip.style.top === empty.style.bottom && chip.style.left === empty.style.left)
+        || (chip.style.bottom === empty.style.top && chip.style.left === empty.style.left)
+        || (chip.style.left === empty.style.right && chip.style.top === empty.style.top)
+        || (chip.style.right === empty.style.left && chip.style.top === empty.style.top)) {
+          if (iconSound.innerHTML === '<i class="material-icons">volume_up</i>') {
+            sound.currentTime = 0;
+            sound.play();
+          }
+          enabled = false;
+          chip.style.zIndex = 100;
+          moveAt(e.pageX, e.pageY, shiftX, shiftY, chip.style.left, chip.style.top);
+          document.addEventListener('mousemove', onMouseMove);
         }
-    
-        function moveAt(pageX, pageY) { 
-          chip.style.left = pageX - shiftX - puzzleBox.getBoundingClientRect().left + 'px';
-          chip.style.top = pageY - shiftY - puzzleBox.getBoundingClientRect().top + 'px'; 
+        function moveAt(pageX, pageY) {
+          chip.style.left = `${pageX - shiftX - puzzleBox.getBoundingClientRect().left}px`;
+          chip.style.top = `${pageY - shiftY - puzzleBox.getBoundingClientRect().top}px`;
         }
 
-        function onMouseMove(e) {
-          moveAt(e.pageX, e.pageY);
+        function onMouseMove(event) {
+          moveAt(event.pageX, event.pageY);
         }
-    
-        chip.onmouseup = function(e) {
+        chip.onmouseup = (ev) => {
           document.removeEventListener('mousemove', onMouseMove);
           chip.onmouseup = null;
-          if ((e.pageX - startX) === 0 && (e.pageY - startY) === 0) {
+          if ((ev.pageX - startX) === 0 && (ev.pageY - startY) === 0) {
             if (topMemory === empty.style.bottom && leftMemory === empty.style.left) {
               movesCount += 1;
               moves.innerHTML = `Moves ${movesCount}`;
               chip.classList.add('to-top');
               empty.classList.add('to-bottom');
-              setTimeout(() => {           
+              setTimeout(() => {
                 changeOrder(chip);
                 chip.classList.remove('to-top');
                 empty.classList.remove('to-bottom');
@@ -361,7 +344,7 @@ function chipsHandler() {
               moves.innerHTML = `Moves ${movesCount}`;
               chip.classList.add('to-bottom');
               empty.classList.add('to-top');
-              setTimeout(() => {              
+              setTimeout(() => {
                 changeOrder(chip);
                 chip.classList.remove('to-bottom');
                 empty.classList.remove('to-top');
@@ -373,7 +356,7 @@ function chipsHandler() {
               moves.innerHTML = `Moves ${movesCount}`;
               chip.classList.add('to-left');
               empty.classList.add('to-right');
-              setTimeout(() => {             
+              setTimeout(() => {
                 changeOrder(chip);
                 chip.classList.remove('to-left');
                 empty.classList.remove('to-right');
@@ -385,34 +368,24 @@ function chipsHandler() {
               moves.innerHTML = `Moves ${movesCount}`;
               chip.classList.add('to-right');
               empty.classList.add('to-left');
-              setTimeout(() => {              
+              setTimeout(() => {
                 changeOrder(chip);
                 chip.classList.remove('to-right');
                 empty.classList.remove('to-left');
                 isEnd(chips);
               }, 300);
             }
-
-
-
-
-          } else if ((topMemory === empty.style.bottom && leftMemory === empty.style.left) || 
-            (bottomMemory === empty.style.top && leftMemory === empty.style.left) ||
-            (leftMemory === empty.style.right && topMemory === empty.style.top) || 
-            (rightMemory === empty.style.left && topMemory === empty.style.top)) {
-           
+          } else if ((topMemory === empty.style.bottom && leftMemory === empty.style.left)
+           || (bottomMemory === empty.style.top && leftMemory === empty.style.left)
+           || (leftMemory === empty.style.right && topMemory === empty.style.top)
+           || (rightMemory === empty.style.left && topMemory === empty.style.top)) {
             movesCount += 1;
             moves.innerHTML = `Moves ${movesCount}`;
-        
             changeOrder(chip);
             isEnd(chips);
           }
-          
         };
-
-      } 
-      
-
+      }
     });
   });
 }
@@ -511,7 +484,7 @@ back1.addEventListener('click', () => {
   settingsField.classList.add('settings-hide');
   if (gameCurrent) {
     runTimer();
-  } 
+  }
 });
 
 back2.addEventListener('click', () => {
@@ -519,7 +492,7 @@ back2.addEventListener('click', () => {
   pauseField.classList.add('pause-hide');
   if (gameCurrent) {
     runTimer();
-  } 
+  }
 });
 
 back3.addEventListener('click', () => {
@@ -527,7 +500,7 @@ back3.addEventListener('click', () => {
   bestField.classList.add('records-hide');
   if (gameCurrent) {
     runTimer();
-  } 
+  }
 });
 
 start.addEventListener('click', () => {
@@ -563,7 +536,6 @@ bestScoresBtn.addEventListener('click', () => {
   pauseField.classList.add('pause-hide');
   settingsField.classList.remove('settings-show');
   settingsField.classList.add('settings-hide');
-  
   if (localStorage.getItem('bestScores')) {
     records.innerHTML = '';
     scores = JSON.parse(localStorage.getItem('bestScores'));
@@ -575,7 +547,6 @@ bestScoresBtn.addEventListener('click', () => {
   } else {
     records.innerHTML = 'No best scores';
   }
-  
 });
 
 iconSound.addEventListener('click', () => {

@@ -14,5 +14,6 @@ module.exports = {
   rules: {
     'no-param-reassign': 'off',
     'no-use-before-define': 'off',
+    'no-inner-declarations': 'off',
   },
 };
