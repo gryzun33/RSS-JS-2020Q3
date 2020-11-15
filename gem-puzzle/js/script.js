@@ -1,3 +1,13 @@
+const notes = document.createElement('div');
+notes.classList.add('notes');
+notes.innerHTML = `
+<p>Инструкция для проверяющих: </p>
+<p>1. Если вы хотите сохранить текущую игру, нажмите "Pause", а затем "Save Game"</p>
+<p>2. Если вы хотите вернуться к сохраненной игре, нажмите "Saved Game"</p>
+<p>3. Добавить цифры можно кликнув на <i class="material-icons">filter_1</i></p>
+<br>`;
+document.body.append(notes);
+
 const wrapper = document.createElement('div');
 const navWrapper = document.createElement('div');
 const menu = document.createElement('ul');
@@ -477,15 +487,19 @@ bestScoresBtn.addEventListener('click', () => {
   pauseField.classList.add('pause-hide');
   settingsField.classList.remove('settings-show');
   settingsField.classList.add('settings-hide');
-  records.innerHTML = '';
+  
   if (localStorage.getItem('bestScores')) {
+    records.innerHTML = '';
     scores = JSON.parse(localStorage.getItem('bestScores'));
+    for (let i = 0; i < scores.length; i += 1) {
+      const record = document.createElement('div');
+      record.innerHTML = `${i + 1}. time: ${scores[i]['score-time']}   moves: ${scores[i]['score-moves']}`;
+      records.append(record);
+    }
+  } else {
+    records.innerHTML = 'No best scores';
   }
-  for (let i = 0; i < scores.length; i += 1) {
-    const record = document.createElement('div');
-    record.innerHTML = `${i + 1}. time: ${scores[i]['score-time']}   moves: ${scores[i]['score-moves']}`;
-    records.append(record);
-  }
+  
 });
 
 iconSound.addEventListener('click', () => {
