@@ -147,6 +147,8 @@ let min = 0;
 let sec = 0;
 let currMin;
 let currSec;
+let enabled = true;
+let gameCurrent = false;
 
 const saveGameBtn = document.getElementById('saveGameBtn');
 const select = document.getElementById('select');
@@ -169,6 +171,7 @@ function createBg() {
 
 function createNewGame(n) {
   clearInterval(timerId);
+  gameCurrent = true;
   currentCellCount = `${Math.sqrt(n)}x${Math.sqrt(n)}`;
   blackout.classList.add('blackout-hide');
   blackout.classList.remove('blackout-show');
@@ -272,78 +275,144 @@ function checkForSolve(cards, empt) {
 }
 
 function changeOrder(currChip) {
-  orderMemory = empty.style.order;
-  topMemory = empty.style.top;
-  bottomMemory = empty.style.bottom;
-  leftMemory = empty.style.left;
-  rightMemory = empty.style.right;
-  empty.style.order = currChip.style.order;
-  empty.style.top = currChip.style.top;
-  empty.style.bottom = currChip.style.bottom;
-  empty.style.left = currChip.style.left;
-  empty.style.right = currChip.style.right;
-  currChip.style.order = orderMemory;
-  currChip.style.top = topMemory;
-  currChip.style.bottom = bottomMemory;
-  currChip.style.left = leftMemory;
-  currChip.style.right = rightMemory;
+  currChip.style.order = empty.style.order;
+  currChip.style.top = empty.style.top;
+  currChip.style.bottom = empty.style.bottom;
+  currChip.style.left = empty.style.left;
+  currChip.style.right = empty.style.right;
+  empty.style.order = orderMemory;
+  empty.style.top = topMemory;
+  empty.style.bottom = bottomMemory;
+  empty.style.left = leftMemory;
+  empty.style.right = rightMemory;
+  currChip.style.zIndex = 'auto';
+  enabled = true; 
 }
 
 function chipsHandler() {
   chips.forEach((chip) => {
-    chip.addEventListener('click', () => {
-      if (iconSound.innerHTML === '<i class="material-icons">volume_up</i>') {
-        sound.currentTime = 0;
-        sound.play();
-      }
-      if (chip.style.top === empty.style.bottom && chip.style.left === empty.style.left) {
-        movesCount += 1;
-        moves.innerHTML = `Moves ${movesCount}`;
-        chip.classList.add('to-top');
-        empty.classList.add('to-bottom');
-        setTimeout(() => {
-          changeOrder(chip);
-          chip.classList.remove('to-top');
-          empty.classList.remove('to-bottom');
-          isEnd(chips);
-        }, 500);
-      }
-      if (chip.style.bottom === empty.style.top && chip.style.left === empty.style.left) {
-        movesCount += 1;
-        moves.innerHTML = `Moves ${movesCount}`;
-        chip.classList.add('to-bottom');
-        empty.classList.add('to-top');
-        setTimeout(() => {
-          changeOrder(chip);
-          chip.classList.remove('to-bottom');
-          empty.classList.remove('to-top');
-          isEnd(chips);
-        }, 500);
-      }
-      if (chip.style.left === empty.style.right && chip.style.top === empty.style.top) {
-        movesCount += 1;
-        moves.innerHTML = `Moves ${movesCount}`;
-        chip.classList.add('to-left');
-        empty.classList.add('to-right');
-        setTimeout(() => {
-          changeOrder(chip);
-          chip.classList.remove('to-left');
-          empty.classList.remove('to-right');
-          isEnd(chips);
-        }, 500);
-      }
-      if (chip.style.right === empty.style.left && chip.style.top === empty.style.top) {
-        movesCount += 1;
-        moves.innerHTML = `Moves ${movesCount}`;
-        chip.classList.add('to-right');
-        empty.classList.add('to-left');
-        setTimeout(() => {
-          changeOrder(chip);
-          chip.classList.remove('to-right');
-          empty.classList.remove('to-left');
-          isEnd(chips);
-        }, 500);
-      }
+    chip.addEventListener('mousedown', (e) => {
+      if (enabled) {
+        
+        const start = new Date();
+        orderMemory = chip.style.order;
+        topMemory = chip.style.top;
+        bottomMemory = chip.style.bottom;
+        leftMemory = chip.style.left;
+        rightMemory = chip.style.right;
+    
+
+
+
+        let startX = e.pageX;
+        let startY = e.pageY;
+        let shiftX = e.pageX - chip.getBoundingClientRect().left; 
+        let shiftY = e.pageY - chip.getBoundingClientRect().top;
+
+    
+    
+        if ((chip.style.top === empty.style.bottom && chip.style.left === empty.style.left) || 
+            (chip.style.bottom === empty.style.top && chip.style.left === empty.style.left) ||
+            (chip.style.left === empty.style.right && chip.style.top === empty.style.top) || 
+            (chip.style.right === empty.style.left && chip.style.top === empty.style.top)) {
+              if (iconSound.innerHTML === '<i class="material-icons">volume_up</i>') {
+                sound.currentTime = 0;
+                sound.play();
+              }
+
+              enabled = false; 
+              
+          chip.style.zIndex = 100; 
+          moveAt(e.pageX, e.pageY);
+          document.addEventListener('mousemove', onMouseMove);  
+
+
+
+          
+        }
+    
+        function moveAt(pageX, pageY) { 
+          chip.style.left = pageX - shiftX - puzzleBox.getBoundingClientRect().left + 'px';
+          chip.style.top = pageY - shiftY - puzzleBox.getBoundingClientRect().top + 'px'; 
+        }
+
+        function onMouseMove(e) {
+          moveAt(e.pageX, e.pageY);
+        }
+    
+        chip.onmouseup = function(e) {
+          document.removeEventListener('mousemove', onMouseMove);
+          chip.onmouseup = null;
+          if ((e.pageX - startX) === 0 && (e.pageY - startY) === 0) {
+            if (topMemory === empty.style.bottom && leftMemory === empty.style.left) {
+              movesCount += 1;
+              moves.innerHTML = `Moves ${movesCount}`;
+              chip.classList.add('to-top');
+              empty.classList.add('to-bottom');
+              setTimeout(() => {           
+                changeOrder(chip);
+                chip.classList.remove('to-top');
+                empty.classList.remove('to-bottom');
+                isEnd(chips);
+              }, 300);
+            }
+            if (bottomMemory === empty.style.top && leftMemory === empty.style.left) {
+              movesCount += 1;
+              moves.innerHTML = `Moves ${movesCount}`;
+              chip.classList.add('to-bottom');
+              empty.classList.add('to-top');
+              setTimeout(() => {              
+                changeOrder(chip);
+                chip.classList.remove('to-bottom');
+                empty.classList.remove('to-top');
+                isEnd(chips);
+              }, 300);
+            }
+            if (leftMemory === empty.style.right && topMemory === empty.style.top) {
+              movesCount += 1;
+              moves.innerHTML = `Moves ${movesCount}`;
+              chip.classList.add('to-left');
+              empty.classList.add('to-right');
+              setTimeout(() => {             
+                changeOrder(chip);
+                chip.classList.remove('to-left');
+                empty.classList.remove('to-right');
+                isEnd(chips);
+              }, 300);
+            }
+            if (rightMemory === empty.style.left && topMemory === empty.style.top) {
+              movesCount += 1;
+              moves.innerHTML = `Moves ${movesCount}`;
+              chip.classList.add('to-right');
+              empty.classList.add('to-left');
+              setTimeout(() => {              
+                changeOrder(chip);
+                chip.classList.remove('to-right');
+                empty.classList.remove('to-left');
+                isEnd(chips);
+              }, 300);
+            }
+
+
+
+
+          } else if ((topMemory === empty.style.bottom && leftMemory === empty.style.left) || 
+            (bottomMemory === empty.style.top && leftMemory === empty.style.left) ||
+            (leftMemory === empty.style.right && topMemory === empty.style.top) || 
+            (rightMemory === empty.style.left && topMemory === empty.style.top)) {
+           
+            movesCount += 1;
+            moves.innerHTML = `Moves ${movesCount}`;
+        
+            changeOrder(chip);
+            isEnd(chips);
+          }
+          
+        };
+
+      } 
+      
+
     });
   });
 }
@@ -381,6 +450,7 @@ function isEnd(cards) {
   gameOver.classList.remove('congrat-hide');
   gameOver.style.backgroundImage = `url(images/${bgImageNumber}.jpg)`;
   gameOver.style.backgroundSize = `${bgSize} ${bgSize}`;
+  gameCurrent = false;
   addBestScore();
 }
 
@@ -439,19 +509,25 @@ savedGameBtn.addEventListener('click', () => {
 back1.addEventListener('click', () => {
   settingsField.classList.remove('settings-show');
   settingsField.classList.add('settings-hide');
-  runTimer();
+  if (gameCurrent) {
+    runTimer();
+  } 
 });
 
 back2.addEventListener('click', () => {
   pauseField.classList.remove('pause-show');
   pauseField.classList.add('pause-hide');
-  runTimer();
+  if (gameCurrent) {
+    runTimer();
+  } 
 });
 
 back3.addEventListener('click', () => {
   bestField.classList.remove('records-show');
   bestField.classList.add('records-hide');
-  runTimer();
+  if (gameCurrent) {
+    runTimer();
+  } 
 });
 
 start.addEventListener('click', () => {
