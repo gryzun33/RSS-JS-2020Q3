@@ -8,8 +8,14 @@ body {
   height: 100vh;
   font-family: Arial;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.notes {
+  width: 440px;
+  margin: 0 auto;
 }
 
 .wrapper {
@@ -142,28 +148,39 @@ body {
   cursor: pointer;
 }
 
+#saveGameBtn:hover, #back1:hover, #back2:hover, #back3:hover, #start:hover {
+  /* font-weight: 600; */
+  text-decoration: underline;
+}
+
 
 .to-top {
-  transition: transform 0.5s ease-out;
+  transition: transform 0.3s ease-out;
   transform: translateY(-100%);
 }
 
 .to-bottom {
-  transition: transform 0.5s ease-out;
+  transition: transform 0.3s ease-out;
   transform: translateY(100%);
 }
 
 .to-left {
-  transition: transform 0.5s ease-out;
+  transition: transform 0.3s ease-out;
   transform: translateX(-100%);
 }
 
 .to-right {
-  transition: transform 0.5s ease-out;
+  transition: transform 0.3s ease-out;
   transform: translateX(100%);
 }
 
 @media (max-width: 500px) {
+
+  .notes {
+    font-size: 14px;
+    width: 300px;
+    margin: 0 auto;
+  }  
 
   .wrapper {
     border: 2px solid black;
