@@ -1,6 +1,9 @@
 /* eslint-disable import/no-unresolved */
 import { changeOrder } from './changeorder';
 import { addBestScore } from './addbestscore';
+import { createBg } from './createbg';
+import { changeIconSound } from './changeiconsound';
+import { showDigits } from './showdigits';
 import soundTink from '../../sounds/tink.wav';
 
 const notes = document.createElement('div');
@@ -30,6 +33,11 @@ const sound = document.createElement('audio');
 sound.setAttribute('src', soundTink);
 pause.classList.add('pause');
 navWrapper.classList.add('nav-wrapper');
+time.classList.add('timer');
+moves.classList.add('moves');
+blackout.classList.add('blackout');
+iconSound.classList.add('icon-sound');
+digit.classList.add('digit');
 
 const settingsField = document.createElement('div');
 settingsField.classList.add('settings-hide');
@@ -52,7 +60,7 @@ settingsField.innerHTML = `
   <div id="back1">Back and continue</div>`;
 
 const pauseField = document.createElement('div');
-pauseField.classList.add('pause-hide');
+pauseField.classList.add('pausefiled', 'pause-hide');
 pauseField.innerHTML = `<div id="saveGameBtn">Save Game</div>
 <div id="back2">Back and Continue</div>`;
 
@@ -163,16 +171,17 @@ const back1 = document.getElementById('back1');
 const back2 = document.getElementById('back2');
 const back3 = document.getElementById('back3');
 
-function createBg() {
-  bgSize = getComputedStyle(container).width;
-  widthBgCell = (widthCell / 100) * parseInt(bgSize, 10);
-  for (let i = 0; i < count; i += 1) {
-    bgImageNumber = Math.floor(Math.random() * 150);
-    imgNumberInRow = i % Math.sqrt(count);
-    imgNumberOfRow = Math.floor(i / Math.sqrt(count));
-    bgPosition[i] = `-${imgNumberInRow * widthBgCell}px -${imgNumberOfRow * widthBgCell}px`;
-  }
-}
+// function createBg() {
+//   bgSize = getComputedStyle(container).width;
+//   widthBgCell = (widthCell / 100) * parseInt(bgSize, 10);
+//   for (let i = 0; i < count; i += 1) {
+//     bgImageNumber = Math.floor(Math.random() * 150);
+//     imgNumberInRow = i % Math.sqrt(count);
+//     imgNumberOfRow = Math.floor(i / Math.sqrt(count));
+//     bgPosition[i] = `-${imgNumberInRow * widthBgCell}px -${imgNumberOfRow * widthBgCell}px`;
+//   }
+// }
+changeIconSound();
 
 function createNewGame(n) {
   clearInterval(timerId);
@@ -194,7 +203,10 @@ function createNewGame(n) {
   min = 0;
   sec = 0;
   moves.innerHTML = `Moves ${movesCount}`;
-  createBg();
+  createBg(bgSize, widthBgCell, count, widthCell,
+    imgNumberInRow, imgNumberOfRow, bgPosition);
+  bgImageNumber = Math.ceil(Math.random() * 150);
+  bgSize = getComputedStyle(container).width;
   randomArray = [];
   while (randomArray.length < n) {
     currentNumber = Math.floor((Math.random() * n));
@@ -223,7 +235,6 @@ function createNewGame(n) {
     currentChip.style.left = `${(i % Math.sqrt(n)) * widthCell}%`;
     currentChip.style.bottom = `${parseFloat(currentChip.style.top) + widthCell}%`;
     currentChip.style.right = `${parseFloat(currentChip.style.left) + widthCell}%`;
-
     if (randomArray[i] !== 0) {
       currentChip.style.backgroundImage = `url(images/${bgImageNumber}.jpg)`;
       currentChip.style.backgroundSize = `${bgSize} ${bgSize}`;
@@ -235,6 +246,7 @@ function createNewGame(n) {
   chips = puzzleBox.querySelectorAll('.chip');
   empty = puzzleBox.querySelector('.empty');
   checkForSolve(chips, empty);
+  showDigits(chips);
 }
 
 function runTimer() {
@@ -473,8 +485,17 @@ savedGameBtn.addEventListener('click', () => {
     sec = puzzle['puzzle-sec'];
     blackout.classList.add('blackout-hide');
     blackout.classList.remove('blackout-show');
+    settingsField.classList.remove('settings-show');
+    settingsField.classList.add('settings-hide');
+    pauseField.classList.remove('pause-show');
+    pauseField.classList.add('pause-hide');
+    bestField.classList.remove('records-show');
+    bestField.classList.add('records-hide');
+    gameOver.classList.remove('congrat-show');
+    gameOver.classList.add('congrat-hide');
     chips = puzzleBox.querySelectorAll('.chip');
     empty = puzzleBox.querySelector('.empty');
+    clearInterval(timerId);
     runTimer();
     chipsHandler();
   }
@@ -550,25 +571,25 @@ bestScoresBtn.addEventListener('click', () => {
   }
 });
 
-iconSound.addEventListener('click', () => {
-  if (iconSound.innerHTML === '<i class="material-icons">volume_off</i>') {
-    iconSound.innerHTML = '<i class="material-icons">volume_up</i>';
-  } else {
-    iconSound.innerHTML = '<i class="material-icons">volume_off</i>';
-  }
-});
+// iconSound.addEventListener('click', () => {
+//   if (iconSound.innerHTML === '<i class="material-icons">volume_off</i>') {
+//     iconSound.innerHTML = '<i class="material-icons">volume_up</i>';
+//   } else {
+//     iconSound.innerHTML = '<i class="material-icons">volume_off</i>';
+//   }
+// });
 
-digit.addEventListener('click', () => {
-  chips.forEach((chip) => {
-    if (getComputedStyle(chip).color === 'rgba(0, 0, 0, 0)') {
-      chip.style.color = 'white';
-      chip.style.textShadow = '1px 1px 5px black';
-    } else {
-      chip.style.color = 'transparent';
-      chip.style.textShadow = '';
-    }
-  });
-});
+// digit.addEventListener('click', () => {
+//   chips.forEach((chip) => {
+//     if (getComputedStyle(chip).color === 'rgba(0, 0, 0, 0)') {
+//       chip.style.color = 'white';
+//       chip.style.textShadow = '1px 1px 5px black';
+//     } else {
+//       chip.style.color = 'transparent';
+//       chip.style.textShadow = '';
+//     }
+//   });
+// });
 
 window.addEventListener('resize', () => {
   newWindowWidth = window.innerWidth;
@@ -578,7 +599,7 @@ window.addEventListener('resize', () => {
   if (lastWindowWidth <= 500 && newWindowWidth <= 500) {
     return;
   }
-  const elements = container.querySelectorAll('div');
+  const elements = puzzleBox.querySelectorAll('div');
   bgSize = getComputedStyle(container).width;
   widthBgCell = (widthCell / 100) * parseInt(bgSize, 10);
   for (let i = 0; i < count; i += 1) {

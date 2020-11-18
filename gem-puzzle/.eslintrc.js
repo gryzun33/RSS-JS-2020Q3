@@ -17,7 +17,7 @@ module.exports = {
   },
   rules: {
     'no-param-reassign': 0,
-    'prefer-default-export': 0,
+    'import/prefer-default-export': 0,
     'no-inner-declarations': 0,
     'no-use-before-define': 0,
     'import/no-unresolved': 0,
