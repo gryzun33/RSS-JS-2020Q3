@@ -1,3 +1,8 @@
+/* eslint-disable import/no-unresolved */
+import { changeOrder } from './changeorder';
+import { addBestScore } from './addbestscore';
+import soundTink from '../../sounds/tink.wav';
+
 const notes = document.createElement('div');
 notes.classList.add('notes');
 notes.innerHTML = `
@@ -22,7 +27,7 @@ const blackout = document.createElement('div');
 const iconSound = document.createElement('div');
 const digit = document.createElement('div');
 const sound = document.createElement('audio');
-sound.setAttribute('src', 'sounds/tink.wav');
+sound.setAttribute('src', soundTink);
 pause.classList.add('pause');
 navWrapper.classList.add('nav-wrapper');
 
@@ -83,8 +88,8 @@ const cellCount = {
 };
 
 let scores = [];
-let totalTime;
-let score;
+// let totalTime;
+// let score;
 let count = cellCount['4x4'].number;
 let widthCell = cellCount['4x4'].width;
 let currentCellCount = '4x4';
@@ -274,21 +279,6 @@ function checkForSolve(cards, empt) {
   }
 }
 
-function changeOrder(currChip) {
-  currChip.style.order = empty.style.order;
-  currChip.style.top = empty.style.top;
-  currChip.style.bottom = empty.style.bottom;
-  currChip.style.left = empty.style.left;
-  currChip.style.right = empty.style.right;
-  empty.style.order = orderMemory;
-  empty.style.top = topMemory;
-  empty.style.bottom = bottomMemory;
-  empty.style.left = leftMemory;
-  empty.style.right = rightMemory;
-  currChip.style.zIndex = 'auto';
-  enabled = true;
-}
-
 function chipsHandler() {
   chips.forEach((chip) => {
     chip.addEventListener('mousedown', (e) => {
@@ -312,7 +302,7 @@ function chipsHandler() {
           }
           enabled = false;
           chip.style.zIndex = 100;
-          moveAt(e.pageX, e.pageY, shiftX, shiftY, chip.style.left, chip.style.top);
+          moveAt(e.pageX, e.pageY);
           document.addEventListener('mousemove', onMouseMove);
         }
         function moveAt(pageX, pageY) {
@@ -323,6 +313,7 @@ function chipsHandler() {
         function onMouseMove(event) {
           moveAt(event.pageX, event.pageY);
         }
+
         chip.onmouseup = (ev) => {
           document.removeEventListener('mousemove', onMouseMove);
           chip.onmouseup = null;
@@ -333,7 +324,9 @@ function chipsHandler() {
               chip.classList.add('to-top');
               empty.classList.add('to-bottom');
               setTimeout(() => {
-                changeOrder(chip);
+                changeOrder(chip, orderMemory, topMemory, bottomMemory, leftMemory,
+                  rightMemory);
+                enabled = true;
                 chip.classList.remove('to-top');
                 empty.classList.remove('to-bottom');
                 isEnd(chips);
@@ -345,7 +338,9 @@ function chipsHandler() {
               chip.classList.add('to-bottom');
               empty.classList.add('to-top');
               setTimeout(() => {
-                changeOrder(chip);
+                changeOrder(chip, orderMemory, topMemory, bottomMemory, leftMemory,
+                  rightMemory);
+                enabled = true;
                 chip.classList.remove('to-bottom');
                 empty.classList.remove('to-top');
                 isEnd(chips);
@@ -357,7 +352,9 @@ function chipsHandler() {
               chip.classList.add('to-left');
               empty.classList.add('to-right');
               setTimeout(() => {
-                changeOrder(chip);
+                changeOrder(chip, orderMemory, topMemory, bottomMemory, leftMemory,
+                  rightMemory);
+                enabled = true;
                 chip.classList.remove('to-left');
                 empty.classList.remove('to-right');
                 isEnd(chips);
@@ -369,7 +366,9 @@ function chipsHandler() {
               chip.classList.add('to-right');
               empty.classList.add('to-left');
               setTimeout(() => {
-                changeOrder(chip);
+                changeOrder(chip, orderMemory, topMemory, bottomMemory, leftMemory,
+                  rightMemory);
+                enabled = true;
                 chip.classList.remove('to-right');
                 empty.classList.remove('to-left');
                 isEnd(chips);
@@ -381,7 +380,9 @@ function chipsHandler() {
            || (rightMemory === empty.style.left && topMemory === empty.style.top)) {
             movesCount += 1;
             moves.innerHTML = `Moves ${movesCount}`;
-            changeOrder(chip);
+            changeOrder(chip, orderMemory, topMemory, bottomMemory, leftMemory,
+              rightMemory);
+            enabled = true;
             isEnd(chips);
           }
         };
@@ -424,28 +425,28 @@ function isEnd(cards) {
   gameOver.style.backgroundImage = `url(images/${bgImageNumber}.jpg)`;
   gameOver.style.backgroundSize = `${bgSize} ${bgSize}`;
   gameCurrent = false;
-  addBestScore();
+  addBestScore(sec, min, currMin, currSec, movesCount, scores);
 }
 
-function addBestScore() {
-  totalTime = sec + min * 60;
-  score = {
-    'score-totaltime': totalTime,
-    'score-time': `${currMin} : ${currSec}`,
-    'score-moves': movesCount,
-  };
-  if (localStorage.getItem('bestScores')) {
-    scores = JSON.parse(localStorage.getItem('bestScores'));
-  }
-  scores.push(score);
-  if (scores.length >= 2) {
-    scores = scores.sort((a, b) => a['score-totaltime'] - b['score-totaltime']);
-  }
-  if (scores.length >= 10) {
-    scores.splice(10, scores.length - 1);
-  }
-  localStorage.setItem('bestScores', JSON.stringify(scores));
-}
+// function addBestScore() {
+//   totalTime = sec + min * 60;
+//   score = {
+//     'score-totaltime': totalTime,
+//     'score-time': `${currMin} : ${currSec}`,
+//     'score-moves': movesCount,
+//   };
+//   if (localStorage.getItem('bestScores')) {
+//     scores = JSON.parse(localStorage.getItem('bestScores'));
+//   }
+//   scores.push(score);
+//   if (scores.length >= 2) {
+//     scores = scores.sort((a, b) => a['score-totaltime'] - b['score-totaltime']);
+//   }
+//   if (scores.length >= 10) {
+//     scores.splice(10, scores.length - 1);
+//   }
+//   localStorage.setItem('bestScores', JSON.stringify(scores));
+// }
 
 newGameBtn.addEventListener('click', () => {
   createNewGame(count);
