@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 export function addBestScore(sec, min, currMin, currSec, movesCount, scores) {
   const totalTime = sec + min * 60;
   const score = {
