@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 export function changeOrder(currChip, orderMemory, topMemory, bottomMemory, leftMemory,
   rightMemory) {
   const empty = document.querySelector('.empty');

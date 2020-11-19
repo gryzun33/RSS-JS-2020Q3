@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 export function createBg(bgSize, widthBgCell, count, widthCell,
   imgNumberInRow, imgNumberOfRow, bgPosition) {
   const container = document.querySelector('.container');

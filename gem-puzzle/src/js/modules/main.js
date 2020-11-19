@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import { changeOrder } from './changeorder';
 import { addBestScore } from './addbestscore';
 import { createBg } from './createbg';
@@ -171,16 +170,6 @@ const back1 = document.getElementById('back1');
 const back2 = document.getElementById('back2');
 const back3 = document.getElementById('back3');
 
-// function createBg() {
-//   bgSize = getComputedStyle(container).width;
-//   widthBgCell = (widthCell / 100) * parseInt(bgSize, 10);
-//   for (let i = 0; i < count; i += 1) {
-//     bgImageNumber = Math.floor(Math.random() * 150);
-//     imgNumberInRow = i % Math.sqrt(count);
-//     imgNumberOfRow = Math.floor(i / Math.sqrt(count));
-//     bgPosition[i] = `-${imgNumberInRow * widthBgCell}px -${imgNumberOfRow * widthBgCell}px`;
-//   }
-// }
 changeIconSound();
 
 function createNewGame(n) {
@@ -440,26 +429,6 @@ function isEnd(cards) {
   addBestScore(sec, min, currMin, currSec, movesCount, scores);
 }
 
-// function addBestScore() {
-//   totalTime = sec + min * 60;
-//   score = {
-//     'score-totaltime': totalTime,
-//     'score-time': `${currMin} : ${currSec}`,
-//     'score-moves': movesCount,
-//   };
-//   if (localStorage.getItem('bestScores')) {
-//     scores = JSON.parse(localStorage.getItem('bestScores'));
-//   }
-//   scores.push(score);
-//   if (scores.length >= 2) {
-//     scores = scores.sort((a, b) => a['score-totaltime'] - b['score-totaltime']);
-//   }
-//   if (scores.length >= 10) {
-//     scores.splice(10, scores.length - 1);
-//   }
-//   localStorage.setItem('bestScores', JSON.stringify(scores));
-// }
-
 newGameBtn.addEventListener('click', () => {
   createNewGame(count);
 });
@@ -570,26 +539,6 @@ bestScoresBtn.addEventListener('click', () => {
     records.innerHTML = 'No best scores';
   }
 });
-
-// iconSound.addEventListener('click', () => {
-//   if (iconSound.innerHTML === '<i class="material-icons">volume_off</i>') {
-//     iconSound.innerHTML = '<i class="material-icons">volume_up</i>';
-//   } else {
-//     iconSound.innerHTML = '<i class="material-icons">volume_off</i>';
-//   }
-// });
-
-// digit.addEventListener('click', () => {
-//   chips.forEach((chip) => {
-//     if (getComputedStyle(chip).color === 'rgba(0, 0, 0, 0)') {
-//       chip.style.color = 'white';
-//       chip.style.textShadow = '1px 1px 5px black';
-//     } else {
-//       chip.style.color = 'transparent';
-//       chip.style.textShadow = '';
-//     }
-//   });
-// });
 
 window.addEventListener('resize', () => {
   newWindowWidth = window.innerWidth;
