@@ -95,8 +95,6 @@ const cellCount = {
 };
 
 let scores = [];
-// let totalTime;
-// let score;
 let count = cellCount['4x4'].number;
 let widthCell = cellCount['4x4'].width;
 let currentCellCount = '4x4';
