@@ -1,11 +1,7 @@
-const hamburger = document.querySelector('.header__hamburger');
-hamburger.innerHTML = `<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bars" 
-class="svg-inline--fa fa-bars fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" 
-viewBox="0 0 448 512"><path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 
-16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 
-160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 
-7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 
-16v40c0 8.837 7.163 16 16 16z"></path></svg>`;
+import { categories, cards } from './cards';
+// import { doc } from 'prettier';
+
+// const hamburger = document.querySelector('.header__hamburger');
 
 const switcher = document.querySelector('.header__switcher');
 const switcherHandle = document.querySelector('.switcher__handle');
@@ -25,4 +21,96 @@ switcher.addEventListener('click', () => {
     switcherTrain.style.display = 'block';
     switcherPlay.style.display = 'none';
   }
+});
+
+function clickOnCard(card, cardElem) {
+  cardElem.addEventListener('click', () => {
+    // console.log('click');
+    new Audio(`../assets/${card.audioSrc}`).play();
+  });
+}
+
+function clickOnBtn(btn, cardElem) {
+  btn.addEventListener('click', () => {
+    console.log('click');
+    cardElem.classList.add('card-box-rotate');
+  });
+  cardElem.addEventListener('mouseleave', () => {
+    cardElem.classList.remove('card-box-rotate');
+  });
+}
+// create cards for all categories
+const mainContainer = document.querySelector('.main-container');
+const allCategoriesContainer = document.createElement('div');
+allCategoriesContainer.classList.add('all-categories');
+mainContainer.append(allCategoriesContainer);
+
+categories.forEach((category) => {
+  const categoryElement = document.createElement('div');
+  categoryElement.classList.add('category-box');
+  categoryElement.innerHTML = `
+    <img src="../assets/images/categories/${category.image}" alt="${category.name}" 
+    height="180px" class="category-card-image">
+    <div class="card-title">${category.name}</div>`;
+  allCategoriesContainer.append(categoryElement);
+});
+
+// create container for each category
+categories.forEach((category) => {
+  const categoryContainer = document.createElement('div');
+  const nameOfClass = category.name;
+  categoryContainer.classList.add('category-container', 'container-hide');
+  categoryContainer.classList.add(`${nameOfClass.toLowerCase()}`);
+  mainContainer.append(categoryContainer);
+});
+
+// create cards for each category
+const categoryContainers = document.querySelectorAll('.category-container');
+categoryContainers.forEach((currContainer, i) => {
+  const categoryTitle = document.createElement('div');
+  categoryTitle.classList.add('category-title');
+  categoryTitle.innerText = categories[i].name;
+
+  const categoryCardBox = document.createElement('div');
+  categoryCardBox.classList.add('category-card-box');
+
+  currContainer.append(categoryTitle);
+  currContainer.append(categoryCardBox);
+
+  cards[i].forEach((card) => {
+    const cardElem = document.createElement('div');
+    cardElem.classList.add('card-box');
+    cardElem.innerHTML = `
+      <div class="card-box-front">  
+        <img src="../assets/images/${card.image}" alt="${card.word}" height="200px" class="card-image">
+        <div class="card-description">
+          <div class="card-title">${card.word}</div>
+          <button class="card-btn"></button>
+        </div>
+      </div>
+      <div class="card-box-back">  
+        <img src="../assets/images/${card.image}" alt="${card.word}" height="200px" class="card-image">
+        <div class="card-description">
+          <div class="card-title">${card.translation}</div>  
+        </div>
+      </div>  `;
+    categoryCardBox.append(cardElem);
+    const btn = cardElem.querySelector('.card-btn');
+    clickOnCard(card, cardElem);
+    clickOnBtn(btn, cardElem);
+  });
+});
+
+// click on category
+const categoryCards = document.querySelectorAll('.category-box');
+// console.log(categoryCards);
+
+categoryCards.forEach((box, i) => {
+  box.addEventListener('click', () => {
+    categoryContainers.forEach((container) => {
+      container.classList.add('container-hide');
+    });
+    categoryContainers[i].classList.remove('container-hide');
+    allCategoriesContainer.classList.add('container-hide');
+  });
 });

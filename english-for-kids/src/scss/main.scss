@@ -6,13 +6,26 @@
   src: url(../assets/fonts/nerko-one/NerkoOne-Regular.ttf);
 }
 
+@font-face {
+  font-family: "Balsamiq Sans";
+
+  src: url(../assets/fonts/balsamiq-sans/BalsamiqSans-Regular.ttf);
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+.body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .header {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -20,13 +33,23 @@
   padding-right: 5%;
   padding-left: 5%;
 
-  .fa-bars {
-    width: 35px;
+  &__hamburger {
+    width: 40px;
+    height: 40px;
+    background-image: url("../assets/icons/bars-solid.svg");
   }
 
+  // .fa-bars {
+  //   width: 35px;
+  // }
+
   &__logo {
-    font-size: 60px;
-    font-family: "Nerko One";
+    position: absolute;
+    left: 50%;
+    font-size: 40px;
+    font-family: "Balsamiq Sans";
+    transform: translateX(-50%);
+    // color: #52c1fb;
   }
 
   &__switcher {
@@ -36,6 +59,8 @@
     align-items: center;
     width: 120px;
     height: 45px;
+    font-size: 20px;
+    font-family: "Balsamiq Sans";
     background-color: #52c1fb;
     border-radius: 45px;
     cursor: pointer;
@@ -86,6 +111,160 @@
     }
   }
 }
+
+.main {
+  display: flex;
+  justify-content: center;
+  // align-items: center; 
+  .main-container {
+    display: flex;
+    // flex-wrap: wrap;
+    width: 1280px;
+    min-height: calc(100vh - 200px);
+    // padding-right: 20px;
+    // padding-left: 20px;
+    // margin-top: 100px;
+    // margin-bottom: 100px;
+
+    .all-categories {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-content: center;
+      width: 100%;
+      height: 100%;
+
+      .category-box {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 280px;
+        height: 250px;
+        margin-top: 20px;
+        margin-right: 20px;
+        margin-left: 20px;
+        border: 1px solid black;
+        border-radius: 5px;
+        box-shadow: 0 10px 10px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.25);
+        transition: transform 0.5s ease-out;
+
+        .card-title {
+          margin-top: 10px;
+          font-size: 25px;
+          font-family: "Balsamiq Sans";
+        }
+      }
+
+      .category-box:hover {
+        transform: scale(1.05);
+        cursor: pointer;
+      }
+    }
+
+    .category-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+
+      .category-title {
+        align-self: center;
+        font-size: 35px;
+        font-family: "Balsamiq Sans";
+      }
+
+      .category-card-box {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: center;
+        width: 100%;
+
+
+        .card-box {
+          position: relative;
+          width: 280px;
+          height: 250px;
+          margin-top: 20px;
+          margin-right: 20px;
+          margin-left: 20px;
+          // background-color: transparent;
+          border: 1px solid black;
+          border-radius: 5px;
+          box-shadow: 0 10px 10px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.25);
+          // backface-visibility: hidden;
+          perspective: 1000px;
+          transform-style: preserve-3d;
+          transition: transform 0.7s ease-out;
+
+
+          .card-box-front,
+          .card-box-back {
+            position: absolute;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            // background-color: white;
+            backface-visibility: hidden;
+            // transition: 1s;
+
+
+
+            .card-description {
+              position: relative;
+              display: flex;
+              justify-content: center;
+              width: 100%;
+              margin-bottom: 15px;
+
+              .card-title {
+                font-size: 25px;
+                font-family: "Balsamiq Sans";
+              }
+
+              .card-btn {
+                position: absolute;
+                right: 10px;
+                width: 30px;
+                height: 30px;
+                background-color: white;
+                background-image: url("../assets/icons/arrow.png");
+                background-size: contain;
+                border: none;
+                outline: none;
+              }
+            }
+          }
+
+          .card-box-back {
+            // background-color: red;
+            transform: rotateY(180deg);
+          }
+        }
+
+        .card-box-rotate {
+          transform: rotateY(180deg);
+
+          // transition: transform 0.6s;
+        }
+
+        .card-box:hover {
+          // transform: scale(1.05);
+          cursor: pointer;
+        }
+      }
+    }
+
+    .container-hide {
+      display: none;
+    }
+  }
+}
 .footer {
   display: flex;
   justify-content: center;
@@ -95,7 +274,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 300px;
+    width: 280px;
     height: 100px;
 
     .year,

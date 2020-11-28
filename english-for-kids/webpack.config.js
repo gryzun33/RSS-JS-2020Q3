@@ -94,7 +94,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.wav$/,
+        test: /\.mp3$/,
         use: [
           {
             loader: 'file-loader',
@@ -114,8 +114,8 @@ module.exports = {
     }),
     new CopyPlugin([
       {
-        from: path.resolve(__dirname, 'src/assets/images/'),
-        to: path.resolve(__dirname, 'dist/assets/images/'),
+        from: path.resolve(__dirname, 'src/assets/'),
+        to: path.resolve(__dirname, 'dist/assets/'),
       },
     ]),
   ],

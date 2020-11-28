@@ -1,61 +1,94 @@
+const categories = [
+  {
+    name: 'Food',
+    image: 'food.png',
+    icon: 'foodIcon.png',
+  },
+  {
+    name: 'Animals',
+    image: 'animals.png',
+    icon: 'animalsIcon.png',
+  },
+  {
+    name: 'Clothes',
+    image: 'clothes.png',
+    icon: 'clothesIcon.png',
+  },
+  {
+    name: 'Kitchen',
+    image: 'kitchen.png',
+    icon: 'animalsIcon.png',
+  },
+  {
+    name: 'Sport',
+    image: 'sport.png',
+    icon: 'sportIcon.png',
+  },
+  {
+    name: 'Building',
+    image: 'building.png',
+    icon: 'buildingIcon.png',
+  },
+  {
+    name: 'Appliances',
+    image: 'appliances.png',
+    icon: 'animalsIcon.png',
+  },
+  {
+    name: 'Transport',
+    image: 'transport.png',
+    icon: 'transportIcon.png',
+  },
+];
+
 const cards = [
-  [
-    'Food',
-    'Animals',
-    'Clothes',
-    'Kitchen',
-    'Sport',
-    'Building',
-    'Appliances',
-    'Transport',
-  ],
   [
     {
       word: 'bacon',
       translation: 'бекон',
-      image: 'img/bacon.jpg',
+      image: 'food/bacon.jpg',
       audioSrc: 'audio/bacon.mp3',
     },
     {
       word: 'carrot',
       translation: 'морковка',
-      image: 'img/carrot.jpg',
+      image: 'food/carrot.jpg',
       audioSrc: 'audio/carrot.mp3',
     },
     {
       word: 'cheese',
       translation: 'сыр',
-      image: 'img/cheese.jpg',
+      image: 'food/cheese.jpg',
       audioSrc: 'audio/cheese.mp3',
     },
     {
       word: 'chicken',
       translation: 'курица',
-      image: 'img/chicken.jpg',
+      image: 'food/chicken.jpg',
       audioSrc: 'audio/chicken.mp3',
     },
     {
       word: 'coffee',
       translation: 'кофе',
-      image: 'img/coffee.jpg',
+      image: 'food/coffee.jpg',
       audioSrc: 'audio/coffee.mp3',
     },
     {
       word: 'donut',
       translation: 'пончик',
-      image: 'img/donut.jpg',
+      image: 'food/donut.jpg',
       audioSrc: 'audio/donut.mp3',
     },
     {
       word: 'egg',
       translation: 'яйцо',
-      image: 'img/egg.jpg',
+      image: 'food/egg.jpg',
       audioSrc: 'audio/egg.mp3',
     },
     {
       word: 'sandwich',
       translation: 'бутерброд',
-      image: 'img/sandwich.jpg',
+      image: 'food/sandwich.jpg',
       audioSrc: 'audio/sandwich.mp3',
     },
   ],
@@ -411,4 +444,4 @@ const cards = [
   ],
 ];
 
-export default cards;
+export { categories, cards };
