@@ -3,12 +3,12 @@ import { categories, cards } from './cards';
 
 // const hamburger = document.querySelector('.header__hamburger');
 const menu = document.createElement('div');
-menu.classList.add('menu', 'menu-hide');
-menu.innerHTML = `<div class="menu-close"><img src="./assets/icons/close.png" alt="close"></div>
+menu.classList.add('menu', 'menu-none');
+menu.innerHTML = `<div class="menu-close"><img src="./assets/icons/close.png" alt="close" width="30" height="30"></div>
 <div class="menu-list">
-  <div class="main-item">Main page</div>
+  <div class="main-item item-enabled">Main page</div>
 </div>`;
-document.querySelector('body').prepend(menu);
+document.body.prepend(menu);
 
 const menuList = document.querySelector('.menu-list');
 categories.forEach((category) => {
@@ -18,6 +18,38 @@ categories.forEach((category) => {
   alt="${category.name}" class="menu-image">
   <div class="menu-title">${category.name}</div>`;
   menuList.append(menuItem);
+});
+
+const blackout = document.querySelector('.blackout');
+const hamburger = document.querySelector('.header__hamburger');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.add('hamburger-rotate');
+  menu.classList.add('menu-show');
+  menu.classList.remove('menu-none', 'menu-hide');
+  blackout.classList.add('blackout-show');
+  blackout.classList.remove('blackout-hide');
+  document.body.style.overflowY = 'hidden';
+});
+
+const menuClose = document.querySelector('.menu-close');
+menuClose.addEventListener('click', () => {
+  hamburger.classList.add('hamburger-unrotate');
+  hamburger.classList.remove('hamburger-rotate');
+  menu.classList.add('menu-hide');
+  menu.classList.remove('menu-show');
+  blackout.classList.remove('blackout-show');
+  blackout.classList.add('blackout-hide');
+  document.body.style.overflowY = '';
+});
+
+blackout.addEventListener('click', () => {
+  hamburger.classList.add('hamburger-unrotate');
+  hamburger.classList.remove('hamburger-rotate');
+  menu.classList.add('menu-hide');
+  menu.classList.remove('menu-show');
+  blackout.classList.remove('blackout-show');
+  blackout.classList.add('blackout-hide');
+  document.body.style.overflowY = '';
 });
 
 const switcher = document.querySelector('.header__switcher');
@@ -129,5 +161,48 @@ categoryCards.forEach((box, i) => {
     });
     categoryContainers[i].classList.remove('container-hide');
     allCategoriesContainer.classList.add('container-hide');
+  });
+});
+
+const mainItem = document.querySelector('.main-item');
+const menuItems = document.querySelectorAll('.menu-item');
+
+mainItem.addEventListener('click', () => {
+  mainItem.classList.add('item-enabled');
+  menuItems.forEach((item) => {
+    item.classList.remove('item-enabled');
+  });
+  allCategoriesContainer.classList.remove('container-hide');
+  categoryContainers.forEach((container) => {
+    container.classList.add('container-hide');
+  });
+  hamburger.classList.add('hamburger-unrotate');
+  hamburger.classList.remove('hamburger-rotate');
+  menu.classList.add('menu-hide');
+  menu.classList.remove('menu-show');
+  blackout.classList.remove('blackout-show');
+  blackout.classList.add('blackout-hide');
+  document.body.style.overflowY = '';
+});
+
+menuItems.forEach((item, i) => {
+  item.addEventListener('click', () => {
+    mainItem.classList.remove('item-enabled');
+    menuItems.forEach((el) => {
+      el.classList.remove('item-enabled');
+    });
+    item.classList.add('item-enabled');
+    categoryContainers.forEach((container) => {
+      container.classList.add('container-hide');
+    });
+    categoryContainers[i].classList.remove('container-hide');
+    allCategoriesContainer.classList.add('container-hide');
+    hamburger.classList.add('hamburger-unrotate');
+    hamburger.classList.remove('hamburger-rotate');
+    menu.classList.add('menu-hide');
+    menu.classList.remove('menu-show');
+    blackout.classList.remove('blackout-show');
+    blackout.classList.add('blackout-hide');
+    document.body.style.overflowY = '';
   });
 });

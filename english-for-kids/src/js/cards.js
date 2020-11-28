@@ -17,7 +17,7 @@ const categories = [
   {
     name: 'Kitchen',
     image: 'kitchen.png',
-    icon: 'animalsicon.png',
+    icon: 'kitchenicon.png',
   },
   {
     name: 'Sport',
@@ -32,7 +32,7 @@ const categories = [
   {
     name: 'Appliances',
     image: 'appliances.png',
-    icon: 'animalsicon.png',
+    icon: 'appliancesicon.png',
   },
   {
     name: 'Transport',

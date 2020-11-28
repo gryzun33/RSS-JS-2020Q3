@@ -32,9 +32,26 @@
   min-height: 100vh;
 }
 
-.menu {
+.blackout {
   position: absolute;
   z-index: 2;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+}
+
+.blackout-show {
+  display: block;
+}
+
+.blackout-hide {
+  display: none;
+}
+
+.menu {
+  position: absolute;
+  left: 0;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   width: 250px;
@@ -43,28 +60,80 @@
   font-family: "Balsamiq Sans";
   color: white;
   background-color: #52c1fb;
+  // transition: left 1s ease-out;
   // justify-content: space-between;
+  // animation: menu-show 1s normal;
 
   .menu-close {
     align-self: flex-end;
     margin-top: 20px;
     margin-right: 20px;
+    transition: transform 0.5s ease-out;
+  }
+
+  .menu-close:hover {
+    transform: scale(1.1);
+    cursor: pointer;
   }
 
   .menu-list {
     display: flex;
     flex-direction: column;
+    margin-left: 30px;
 
     .main-item {
-      text-decoration: underline;
+      width: 170px;
+      height: 50px;
+      padding-top: 15px;
+      text-align: center;
+      // padding-left: 20px;
+      // text-decoration: underline;
+      transition: transform 0.5s ease-out;
     }
 
     .menu-item {
       display: flex;
+      width: 170px;
+      height: 50px;
       margin-top: 20px;
+      transition: transform 0.5s ease-out;
+
+      .menu-title {
+        align-self: center;
+        margin-left: 10px;
+      }
+    }
+
+    .main-item:hover,
+    .menu-item:hover {
+      transform: scale(1.1);
+      cursor: pointer;
+    }
+
+    .item-enabled {
+      background-color: #6dbd83 ;
+      border-radius: 5px;
     }
   }
 }
+
+.menu-none {
+  display: none;
+}
+
+.menu-show {
+  top: 0;
+  left: 0;
+  animation: show-menu 0.5s normal;
+}
+
+.menu-hide {
+  top: 0;
+  left: -250px;
+  animation: hide-menu 0.5s normal;
+}
+
+
 
 .header {
   position: relative;
@@ -81,9 +150,21 @@
     background-image: url("../assets/icons/bars-solid.svg");
   }
 
-  // .fa-bars {
-  //   width: 35px;
-  // }
+  &__hamburger:hover {
+    cursor: pointer;
+  }
+
+
+
+  .hamburger-rotate {
+    transform: rotate(90deg);
+    transition: transform 0.5s ease-out;
+  }
+
+  .humburger-unrotate {
+    transform: rotate(0deg);
+    transition: transform 0.5s ease-out;
+  }
 
   &__logo {
     position: absolute;
@@ -113,7 +194,7 @@
 
     &_play {
       // flex-direction: row-reverse;
-      background-color: #5bfdbf;
+      background-color: #6dbd83;
     }
 
     .switcher__handle {
@@ -188,7 +269,7 @@
         margin-left: 20px;
         border: 1px solid black;
         border-radius: 5px;
-        box-shadow: 0 10px 10px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.25);
+        box-shadow: 0 10px 10px rgba(0,0,0,0.25);
         transition: transform 0.5s ease-out;
 
         .card-title {
@@ -234,7 +315,7 @@
           // background-color: transparent;
           border: 1px solid black;
           border-radius: 5px;
-          box-shadow: 0 10px 10px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.25);
+          box-shadow: 0 10px 10px rgba(0,0,0,0.25);
           // backface-visibility: hidden;
           perspective: 1000px;
           transform-style: preserve-3d;
@@ -256,7 +337,9 @@
             // transition: 1s;
             transition: transform 0.5s ease-out;
 
-
+            .card-image {
+              transition: transform 0.5s ease-out;
+            }
 
             .card-description {
               position: relative;
@@ -280,6 +363,12 @@
                 background-size: contain;
                 border: none;
                 outline: none;
+                // transition: transform 0.5s ease-out;
+              }
+
+              .card-btn:hover {
+                transform: rotate(-360deg);
+                transition: transform 0.5s ease-out;
               }
             }
           }
@@ -289,7 +378,7 @@
             transform: rotateY(180deg);
           }
 
-          .card-box-front:hover {
+          .card-box-front:hover .card-image {
             // background-color: red;
             transform: scale(0.95);
           }
@@ -345,5 +434,23 @@
     .rs-logo:hover {
       transform: scale(1.1);
     }
+  }
+}
+
+@keyframes show-menu {
+  from {
+    left: -250px;
+  }
+  to {
+    left: 0;
+  }
+}
+
+@keyframes hide-menu {
+  from {
+    left: 0;
+  }
+  to {
+    left: -250px;
   }
 }
