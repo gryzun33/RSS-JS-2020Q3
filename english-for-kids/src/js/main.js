@@ -2,6 +2,23 @@ import { categories, cards } from './cards';
 // import { doc } from 'prettier';
 
 // const hamburger = document.querySelector('.header__hamburger');
+const menu = document.createElement('div');
+menu.classList.add('menu', 'menu-hide');
+menu.innerHTML = `<div class="menu-close"><img src="./assets/icons/close.png" alt="close"></div>
+<div class="menu-list">
+  <div class="main-item">Main page</div>
+</div>`;
+document.querySelector('body').prepend(menu);
+
+const menuList = document.querySelector('.menu-list');
+categories.forEach((category) => {
+  const menuItem = document.createElement('div');
+  menuItem.classList.add('menu-item');
+  menuItem.innerHTML = `<img src="./assets/icons/categories/${category.icon}" 
+  alt="${category.name}" class="menu-image">
+  <div class="menu-title">${category.name}</div>`;
+  menuList.append(menuItem);
+});
 
 const switcher = document.querySelector('.header__switcher');
 const switcherHandle = document.querySelector('.switcher__handle');

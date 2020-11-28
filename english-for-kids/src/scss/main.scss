@@ -1,16 +1,23 @@
 @import "normalize";
 
-@font-face {
-  font-family: "Nerko One";
+// @font-face {
+//   font-family: "Nerko One";
 
-  src: url(../assets/fonts/nerko-one/NerkoOne-Regular.ttf);
-}
+//   src: url(../assets/fonts/nerko-one/NerkoOne-Regular.ttf);
+// }
 
 @font-face {
+  font-style: normal;
   font-family: "Balsamiq Sans";
 
   src: url(../assets/fonts/balsamiq-sans/BalsamiqSans-Regular.ttf);
 }
+
+// @font-face {
+//   font-family: "Balsamiq Sans";
+//   font-style: bold;
+//   src: url(../assets/fonts/balsamiq-sans/BalsamiqSans-Bold.ttf);
+// }
 
 * {
   box-sizing: border-box;
@@ -19,9 +26,44 @@
 }
 
 .body {
+  position: relative;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
+
+.menu {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  height: 100%;
+  font-size: 20px;
+  font-family: "Balsamiq Sans";
+  color: white;
+  background-color: #52c1fb;
+  // justify-content: space-between;
+
+  .menu-close {
+    align-self: flex-end;
+    margin-top: 20px;
+    margin-right: 20px;
+  }
+
+  .menu-list {
+    display: flex;
+    flex-direction: column;
+
+    .main-item {
+      text-decoration: underline;
+    }
+
+    .menu-item {
+      display: flex;
+      margin-top: 20px;
+    }
+  }
 }
 
 .header {
