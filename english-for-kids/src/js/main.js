@@ -1,10 +1,23 @@
 import { categories, cards } from './cards';
+import { createArrayOfDOMCards } from './createarrayofdomcards';
+import { randomizer } from './randomizer';
 // import { doc } from 'prettier';
 
-// const hamburger = document.querySelector('.header__hamburger');
+const app = {
+  state: 'train',
+  startGame: 'true',
+  currentContainer: 0,
+  currentCount: 0,
+  numbOfSound: 0,
+  isWordTrue: false,
+  wrongAnswers: 0,
+  randomSounds: [],
+};
+
 const menu = document.createElement('div');
 menu.classList.add('menu', 'menu-none');
-menu.innerHTML = `<div class="menu-close"><img src="./assets/icons/close.png" alt="close" width="30" height="30"></div>
+menu.innerHTML = `<div class="menu-close"><img src="./assets/icons/close.png" alt="close" 
+width="30" height="30"></div>
 <div class="menu-list">
   <div class="main-item item-enabled">Main page</div>
 </div>`;
@@ -52,42 +65,6 @@ blackout.addEventListener('click', () => {
   document.body.style.overflowY = '';
 });
 
-const switcher = document.querySelector('.header__switcher');
-const switcherHandle = document.querySelector('.switcher__handle');
-const switcherTrain = document.querySelector('.switcher__train');
-const switcherPlay = document.querySelector('.switcher__play');
-switcher.addEventListener('click', () => {
-  if (switcher.classList.contains('header__switcher_train')) {
-    switcher.classList.add('header__switcher_play');
-    switcher.classList.remove('header__switcher_train');
-    switcherHandle.classList.add('switcher__handle_right');
-    switcherTrain.style.display = 'none';
-    switcherPlay.style.display = 'block';
-  } else {
-    switcher.classList.add('header__switcher_train');
-    switcher.classList.remove('header__switcher_play');
-    switcherHandle.classList.remove('switcher__handle_right');
-    switcherTrain.style.display = 'block';
-    switcherPlay.style.display = 'none';
-  }
-});
-
-function clickOnCard(card, cardElem) {
-  cardElem.addEventListener('click', () => {
-    // console.log('click');
-    new Audio(`../assets/${card.audioSrc}`).play();
-  });
-}
-
-function clickOnBtn(btn, cardElem) {
-  btn.addEventListener('click', () => {
-    console.log('click');
-    cardElem.classList.add('card-box-rotate');
-  });
-  cardElem.addEventListener('mouseleave', () => {
-    cardElem.classList.remove('card-box-rotate');
-  });
-}
 // create cards for all categories
 const mainContainer = document.querySelector('.main-container');
 const allCategoriesContainer = document.createElement('div');
@@ -123,39 +100,49 @@ categoryContainers.forEach((currContainer, i) => {
   const categoryCardBox = document.createElement('div');
   categoryCardBox.classList.add('category-card-box');
 
+  const categoryCardBtn = document.createElement('div');
+  categoryCardBtn.classList.add('category-btn', 'category-btn-hide');
+  categoryCardBtn.innerHTML = `
+    <div class="category-btn-start">Start game</div>
+    <div class="category-btn-refresh"><img src="../assets/icons/arrow.png"></div>`;
+
   currContainer.append(categoryTitle);
   currContainer.append(categoryCardBox);
+  currContainer.append(categoryCardBtn);
 
   cards[i].forEach((card) => {
     const cardElem = document.createElement('div');
     cardElem.classList.add('card-box');
     cardElem.innerHTML = `
       <div class="card-box-front">  
-        <img src="../assets/images/${card.image}" alt="${card.word}" height="200px" class="card-image">
-        <div class="card-description">
+        <img src="../assets/images/${card.image}" alt="${card.word}" height="200px" 
+        class="card-image">
+        <div class="card-front-description">
           <div class="card-title">${card.word}</div>
           <button class="card-btn"></button>
         </div>
       </div>
       <div class="card-box-back">  
-        <img src="../assets/images/${card.image}" alt="${card.word}" height="200px" class="card-image">
-        <div class="card-description">
+        <img src="../assets/images/${card.image}" alt="${card.word}" height="200px" 
+        class="card-image">
+        <div class="card-back-description">
           <div class="card-title">${card.translation}</div>  
         </div>
       </div>  `;
+    card.domElem = cardElem;
     categoryCardBox.append(cardElem);
-    const btn = cardElem.querySelector('.card-btn');
-    clickOnCard(card, cardElem);
-    clickOnBtn(btn, cardElem);
   });
 });
 
 // click on category
 const categoryCards = document.querySelectorAll('.category-box');
-// console.log(categoryCards);
-
 categoryCards.forEach((box, i) => {
   box.addEventListener('click', () => {
+    console.log('clickbox');
+    app.currentContainer = i;
+    changeFunctionalOfCards();
+    changeCategoryBtn();
+    clickOnCategoryBtn();
     categoryContainers.forEach((container) => {
       container.classList.add('container-hide');
     });
@@ -187,6 +174,10 @@ mainItem.addEventListener('click', () => {
 
 menuItems.forEach((item, i) => {
   item.addEventListener('click', () => {
+    app.currentContainer = i;
+    changeFunctionalOfCards();
+    changeCategoryBtn();
+    clickOnCategoryBtn();
     mainItem.classList.remove('item-enabled');
     menuItems.forEach((el) => {
       el.classList.remove('item-enabled');
@@ -206,3 +197,203 @@ menuItems.forEach((item, i) => {
     document.body.style.overflowY = '';
   });
 });
+
+const cardElements = createArrayOfDOMCards();
+changeStyleOfCards();
+changeFunctionalOfCards();
+
+function changeStyleOfCards() {
+  categoryContainers.forEach((container, i) => {
+    const descriptions = container.querySelectorAll('.card-front-description');
+    const btn = container.querySelector('.category-btn');
+    descriptions.forEach((descr, j) => {
+      if (app.state === 'play') {
+        descr.classList.add('card-description-hide');
+        btn.classList.remove('category-btn-hide');
+        cardElements[i][j].classList.add('card-box-play');
+      } else if (app.state === 'train') {
+        descr.classList.remove('card-description-hide');
+        cardElements[i][j].classList.remove('card-box-play');
+        btn.classList.add('category-btn-hide');
+      }
+    });
+  });
+}
+
+function clickOnCardTrain(e) {
+  const { target } = e;
+  if (target.closest('.card-btn')) {
+    target.closest('.card-box').classList.add('card-box-rotate');
+  }
+  if (target.closest('.card-box') && !target.closest('.card-btn')) {
+    const elem = target.closest('.card-box');
+    const i = app.currentContainer;
+    const j = cards[i].findIndex((card) => card.domElem === elem);
+    new Audio(`../assets/${cards[i][j].audioSrc}`).play();
+  }
+}
+
+function leaveCardTrain(e) {
+  const { target } = e;
+  if (target.closest('.card-box')) {
+    target.closest('.card-box').classList.remove('card-box-rotate');
+  }
+}
+
+function clickOnCardPlay(e) {
+  const numb = app.numbOfSound;
+  const { target } = e;
+  if (target.closest('.card-box')) {
+    const elem = target.closest('.card-box');
+    const i = app.currentContainer;
+    const j = cards[i].findIndex((card) => card.domElem === elem);
+    if (j === numb) {
+      if (app.currentCount === cards[i].length - 1) {
+        setTimeout(() => {
+          new Audio('../assets/audio/correct.mp3').play();
+        }, 300);
+        setTimeout(() => {
+          showEndOfGame();
+        }, 1300);
+        console.log('игра закончена');
+      } else {
+        console.log('true');
+        app.currentCount += 1;
+        setTimeout(() => {
+          new Audio('../assets/audio/correct.mp3').play();
+        }, 300);
+        setTimeout(() => {
+          app.randomSounds[app.currentCount].sound.play();
+          app.numbOfSound = app.randomSounds[app.currentCount].numb;
+        }, 1300);
+      }
+    } else {
+      console.log('false');
+      app.wrongAnswers += 1;
+      setTimeout(() => {
+        new Audio('../assets/audio/error.mp3').play();
+      }, 300);
+    }
+  }
+}
+
+function changeFunctionalOfCards() {
+  const i = app.currentContainer;
+  for (let j = 0; j < cardElements[i].length; j += 1) {
+    if (app.state === 'play' && app.startGame === 'true') {
+      cardElements[i][j].removeEventListener('click', clickOnCardTrain);
+      cardElements[i][j].removeEventListener('mouseleave', leaveCardTrain);
+      cardElements[i][j].removeEventListener('click', clickOnCardPlay);
+    } else if (app.state === 'train') {
+      // app.startGame = 'false';
+      cardElements[i][j].addEventListener('click', clickOnCardTrain);
+      cardElements[i][j].addEventListener('mouseleave', leaveCardTrain);
+      cardElements[i][j].removeEventListener('click', clickOnCardPlay);
+    } else if (app.state === 'play' && app.startGame === 'false') {
+      // app.startGame = 'false';
+      cardElements[i][j].removeEventListener('click', clickOnCardTrain);
+      cardElements[i][j].removeEventListener('mouseleave', leaveCardTrain);
+      cardElements[i][j].addEventListener('click', clickOnCardPlay);
+    }
+  }
+}
+
+const switcher = document.querySelector('.header__switcher');
+const switcherHandle = document.querySelector('.switcher__handle');
+const switcherTrain = document.querySelector('.switcher__train');
+const switcherPlay = document.querySelector('.switcher__play');
+switcher.addEventListener('click', () => {
+  if (app.state === 'train') {
+    app.state = 'play';
+    switcher.classList.add('header__switcher_play');
+    switcher.classList.remove('header__switcher_train');
+    switcherHandle.classList.add('switcher__handle_right');
+    switcherTrain.style.display = 'none';
+    switcherPlay.style.display = 'block';
+  } else {
+    app.state = 'train';
+    switcher.classList.add('header__switcher_train');
+    switcher.classList.remove('header__switcher_play');
+    switcherHandle.classList.remove('switcher__handle_right');
+    switcherTrain.style.display = 'block';
+    switcherPlay.style.display = 'none';
+  }
+  changeStyleOfCards();
+  changeCategoryBtn();
+  clickOnCategoryBtn();
+  changeFunctionalOfCards();
+});
+
+function createRandomSounds() {
+  const i = app.currentContainer;
+  const randomArray = randomizer(8);
+  const randomSounds = [];
+  for (let j = 0; j < randomArray.length; j += 1) {
+    const audioWord = {};
+    audioWord.sound = new Audio(
+      `../assets/${cards[i][randomArray[j]].audioSrc}`,
+    );
+    audioWord.numb = randomArray[j];
+    randomSounds.push(audioWord);
+  }
+
+  return randomSounds;
+}
+
+function changeCategoryBtn() {
+  const i = app.currentContainer;
+  const containerBtn = categoryContainers[i].querySelector('.category-btn');
+  const btnStart = containerBtn.querySelector('.category-btn-start');
+  const btnRefresh = containerBtn.querySelector('.category-btn-refresh');
+  app.startGame = 'true';
+  btnStart.style.display = 'block';
+  btnRefresh.style.display = 'none';
+  btnStart.addEventListener('click', () => {
+    btnStart.style.display = 'none';
+    btnRefresh.style.display = 'block';
+    app.startGame = 'false';
+    changeFunctionalOfCards();
+  });
+}
+
+function clickOnCategoryBtn() {
+  // console.log('clickoncategorybtn');
+  app.currentCount = 0;
+  const i = app.currentContainer;
+  const containerBtn = categoryContainers[i].querySelector('.category-btn');
+  // console.log('startgame=', app.startGame);
+  app.randomSounds = createRandomSounds();
+  containerBtn.addEventListener('click', () => {
+    console.log('click2');
+    app.randomSounds[app.currentCount].sound.play();
+    app.numbOfSound = app.randomSounds[app.currentCount].numb;
+  });
+}
+
+function showEndOfGame() {
+  categoryContainers.forEach((container) => {
+    container.classList.add('container-hide');
+  });
+  if (app.wrongAnswers === 0) {
+    new Audio('../assets/audio/success.mp3').play();
+    document.querySelector('.end-game-success').classList.remove('end-hide');
+    setTimeout(() => {
+      document.querySelector('.end-game-success').classList.add('end-hide');
+      allCategoriesContainer.classList.remove('container-hide');
+      app.startGame = 'true';
+    }, 5000);
+  } else if (app.wrongAnswers > 0) {
+    new Audio('../assets/audio/failure.mp3').play();
+    document.querySelector('.end-game-failure').classList.remove('end-hide');
+    document.querySelector(
+      '.failure-mistakes',
+    ).innerText = `You have ${app.wrongAnswers} mistakes`;
+    setTimeout(() => {
+      document.querySelector('.end-game-failure').classList.add('end-hide');
+      allCategoriesContainer.classList.remove('container-hide');
+      // app.currentCount = 0;
+      // app.randomSounds = [];
+      app.startGame = 'true';
+    }, 5000);
+  }
+}

@@ -49,13 +49,13 @@
 }
 
 .menu {
-  position: absolute;
+  position: fixed;
   left: 0;
   z-index: 3;
   display: flex;
   flex-direction: column;
   width: 250px;
-  height: 100%;
+  height: 100vh;
   font-size: 20px;
   font-family: "Balsamiq Sans";
   color: white;
@@ -249,6 +249,17 @@
     // margin-top: 100px;
     // margin-bottom: 100px;
 
+    .end-game {
+      margin: 0 auto;
+      margin-top: 50px;
+      font-size: 35px;
+      font-family: "Balsamiq Sans";
+    };
+
+    .end-hide {
+      display: none;
+    }
+
     .all-categories {
       display: flex;
       flex-wrap: wrap;
@@ -341,7 +352,8 @@
               transition: transform 0.5s ease-out;
             }
 
-            .card-description {
+            .card-front-description,
+            .card-back-description {
               position: relative;
               display: flex;
               justify-content: center;
@@ -371,6 +383,10 @@
                 transition: transform 0.5s ease-out;
               }
             }
+
+            .card-description-hide {
+              display: none;
+            }
           }
 
           .card-box-back {
@@ -384,6 +400,10 @@
           }
         }
 
+        .card-box-play {
+          height: 220px;
+        }
+
         .card-box-rotate {
           transform: rotateY(180deg);
 
@@ -394,6 +414,57 @@
           // transform: scale(1.05);
           cursor: pointer;
         }
+      }
+
+      .category-btn {
+        align-self: center;
+        margin-top: 20px;
+
+        .category-btn-start {
+          // display: none;
+          width: 200px;
+          height: 50px;
+          padding-top: 13px;
+          font-size: 20px;
+          font-family: "Balsamiq Sans";
+          text-align: center;
+          color: white;
+          background-color: #6dbd83;
+          border-radius: 5px;
+          transition: background-color 0.5s ease-out;
+        }
+
+        .category-btn-start:hover {
+          background-color: #52c1fb;
+          cursor: pointer;
+        }
+
+        .category-btn-refresh {
+          display: none;
+          width: 50px;
+          height: 50px;
+          background-color: #52c1fb;
+          border-radius: 50%;
+          // transition: transform 0.5s ease-out;
+        }
+
+        .category-btn-refresh:hover {
+          transform: rotate(-360deg);
+          cursor: pointer;
+          transition: transform 0.5s ease-out;
+        }
+
+        .category-btn-refresh:active {
+          transform: scale(1.1);
+          cursor: pointer;
+          transition: transform 0.5s ease-out;
+        }
+      }
+
+
+
+      .category-btn-hide {
+        display: none;
       }
     }
 
