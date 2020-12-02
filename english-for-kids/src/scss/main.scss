@@ -294,11 +294,17 @@
         transform: scale(1.05);
         cursor: pointer;
       }
+
+      .category-box-play {
+        background-color: #fffcad;
+        border-color: #fffcad;
+      }
     }
 
     .category-container {
       display: flex;
       flex-direction: column;
+      // flex-wrap: wrap;
       width: 100%;
       height: 100%;
 
@@ -308,12 +314,39 @@
         font-family: "Balsamiq Sans";
       }
 
+
       .category-card-box {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         align-content: center;
-        width: 100%;
+        // width: 100%;
+
+
+        .star-box {
+          // flex-direction: row-reverse;
+          // flex-wrap: wrap;
+          // justify-content: flex-end;
+          // align-content: center;
+          align-self: center;
+          width: 100%;
+          height: 35px;
+          margin-top: 20px;
+          margin-right: 30px;
+          margin-left: 30px;
+          // margin-right: 30px;
+          // margin-left: 30px;
+          overflow: hidden;
+
+          .star {
+            display: inline-block;
+            // flex-shrink: 0;
+          }
+        }
+
+        .star-box-hide {
+          display: none;
+        }
 
 
         .card-box {
@@ -331,6 +364,16 @@
           perspective: 1000px;
           transform-style: preserve-3d;
           transition: transform 0.7s ease-out;
+
+          .card-blackout {
+            position: absolute;
+            z-index: 2;
+            display: none;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            opacity: 0.8;
+          }
 
 
           .card-box-front,
@@ -400,6 +443,10 @@
           }
         }
 
+        .card-box-guess {
+          border: 2px solid #6dbd83;
+        }
+
         .card-box-play {
           height: 220px;
         }
@@ -445,21 +492,17 @@
           height: 50px;
           background-color: #52c1fb;
           border-radius: 50%;
-          // transition: transform 0.5s ease-out;
+          transition: transform 0.5s ease-out;
         }
 
         .category-btn-refresh:hover {
-          transform: rotate(-360deg);
-          cursor: pointer;
-          transition: transform 0.5s ease-out;
-        }
-
-        .category-btn-refresh:active {
           transform: scale(1.1);
+          // transform: rotate(-360deg);
           cursor: pointer;
-          transition: transform 0.5s ease-out;
+          // transition: transform 0.5s ease-out;
         }
       }
+
 
 
 
@@ -523,5 +566,11 @@
   }
   to {
     left: -250px;
+  }
+}
+
+@media (max-width: 680px) {
+  .header__logo {
+    display: none;
   }
 }

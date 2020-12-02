@@ -97,6 +97,9 @@ categoryContainers.forEach((currContainer, i) => {
   categoryTitle.classList.add('category-title');
   categoryTitle.innerText = categories[i].name;
 
+  const starBox = document.createElement('div');
+  starBox.classList.add('star-box', 'star-box-hide');
+
   const categoryCardBox = document.createElement('div');
   categoryCardBox.classList.add('category-card-box');
 
@@ -109,11 +112,13 @@ categoryContainers.forEach((currContainer, i) => {
   currContainer.append(categoryTitle);
   currContainer.append(categoryCardBox);
   currContainer.append(categoryCardBtn);
+  categoryCardBox.append(starBox);
 
   cards[i].forEach((card) => {
     const cardElem = document.createElement('div');
     cardElem.classList.add('card-box');
     cardElem.innerHTML = `
+      <div class="card-blackout"></div> 
       <div class="card-box-front">  
         <img src="../assets/images/${card.image}" alt="${card.word}" height="200px" 
         class="card-image">
@@ -138,7 +143,7 @@ categoryContainers.forEach((currContainer, i) => {
 const categoryCards = document.querySelectorAll('.category-box');
 categoryCards.forEach((box, i) => {
   box.addEventListener('click', () => {
-    console.log('clickbox');
+    // console.log('clickbox');
     app.currentContainer = i;
     changeFunctionalOfCards();
     changeCategoryBtn();
@@ -199,22 +204,31 @@ menuItems.forEach((item, i) => {
 });
 
 const cardElements = createArrayOfDOMCards();
-changeStyleOfCards();
-changeFunctionalOfCards();
+// changeStyleOfCards();
+// changeFunctionalOfCards();
 
 function changeStyleOfCards() {
+  categoryCards.forEach((categoryCard) => {
+    categoryCard.classList.toggle('category-box-play');
+  });
   categoryContainers.forEach((container, i) => {
+    const starBox = container.querySelector('.star-box');
+    starBox.innerHTML = '';
     const descriptions = container.querySelectorAll('.card-front-description');
     const btn = container.querySelector('.category-btn');
     descriptions.forEach((descr, j) => {
+      cardElements[i][j].querySelector('.card-blackout').style.display = 'none';
+      cardElements[i][j].classList.remove('card-box-guess');
       if (app.state === 'play') {
         descr.classList.add('card-description-hide');
         btn.classList.remove('category-btn-hide');
         cardElements[i][j].classList.add('card-box-play');
+        starBox.classList.remove('star-box-hide');
       } else if (app.state === 'train') {
         descr.classList.remove('card-description-hide');
         cardElements[i][j].classList.remove('card-box-play');
         btn.classList.add('category-btn-hide');
+        starBox.classList.add('star-box-hide');
       }
     });
   });
@@ -241,26 +255,45 @@ function leaveCardTrain(e) {
 }
 
 function clickOnCardPlay(e) {
+  const star = document.createElement('div');
+  star.classList.add('star');
+  star.innerHTML = '<img src="../assets/icons/star.svg" alt="star" width="30px" height="30px">';
+
+  const starWin = document.createElement('div');
+  starWin.classList.add('star');
+  starWin.innerHTML = '<img src="../assets/icons/star-win.svg" alt="star" width="30px" height="30px">';
+
   const numb = app.numbOfSound;
   const { target } = e;
+  if (target.closest('.card-blackout')) {
+    return;
+  }
   if (target.closest('.card-box')) {
     const elem = target.closest('.card-box');
     const i = app.currentContainer;
     const j = cards[i].findIndex((card) => card.domElem === elem);
+    const starBox = categoryContainers[i].querySelector('.star-box');
     if (j === numb) {
       if (app.currentCount === cards[i].length - 1) {
+        elem.querySelector('.card-blackout').style.display = 'block';
+        elem.classList.add('card-box-guess');
         setTimeout(() => {
           new Audio('../assets/audio/correct.mp3').play();
+          starBox.prepend(starWin);
         }, 300);
         setTimeout(() => {
           showEndOfGame();
+          starBox.innerHTML = '';
         }, 1300);
-        console.log('игра закончена');
+        // console.log('игра закончена');
       } else {
-        console.log('true');
+        // console.log('true');
+        elem.querySelector('.card-blackout').style.display = 'block';
+        elem.classList.add('card-box-guess');
         app.currentCount += 1;
         setTimeout(() => {
           new Audio('../assets/audio/correct.mp3').play();
+          starBox.prepend(starWin);
         }, 300);
         setTimeout(() => {
           app.randomSounds[app.currentCount].sound.play();
@@ -268,10 +301,11 @@ function clickOnCardPlay(e) {
         }, 1300);
       }
     } else {
-      console.log('false');
+      // console.log('false');
       app.wrongAnswers += 1;
       setTimeout(() => {
         new Audio('../assets/audio/error.mp3').play();
+        starBox.prepend(star);
       }, 300);
     }
   }
@@ -359,12 +393,21 @@ function changeCategoryBtn() {
 function clickOnCategoryBtn() {
   // console.log('clickoncategorybtn');
   app.currentCount = 0;
+  app.wrongAnswers = 0;
   const i = app.currentContainer;
   const containerBtn = categoryContainers[i].querySelector('.category-btn');
   // console.log('startgame=', app.startGame);
   app.randomSounds = createRandomSounds();
   containerBtn.addEventListener('click', () => {
-    console.log('click2');
+    // containerBtn
+    //   .querySelector('.category-btn-refresh')
+    //   .classList.add('.category-btn-refresh-rotate');
+    // setTimeout(() => {
+    //   containerBtn
+    //     .querySelector('.category-btn-refresh')
+    //     .classList.remove('.category-btn-refresh-rotate');
+    // }, 1000);
+    // console.log('click2');
     app.randomSounds[app.currentCount].sound.play();
     app.numbOfSound = app.randomSounds[app.currentCount].numb;
   });
@@ -380,7 +423,7 @@ function showEndOfGame() {
     setTimeout(() => {
       document.querySelector('.end-game-success').classList.add('end-hide');
       allCategoriesContainer.classList.remove('container-hide');
-      app.startGame = 'true';
+      // app.startGame = 'true';
     }, 5000);
   } else if (app.wrongAnswers > 0) {
     new Audio('../assets/audio/failure.mp3').play();
@@ -393,7 +436,13 @@ function showEndOfGame() {
       allCategoriesContainer.classList.remove('container-hide');
       // app.currentCount = 0;
       // app.randomSounds = [];
-      app.startGame = 'true';
+      // app.startGame = 'true';
     }, 5000);
   }
+  app.startGame = 'true';
+  const i = app.currentContainer;
+  cardElements[i].forEach((elem) => {
+    elem.querySelector('.card-blackout').style.display = 'none';
+    elem.classList.remove('card-box-guess');
+  });
 }
