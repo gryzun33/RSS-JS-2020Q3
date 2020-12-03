@@ -134,6 +134,113 @@ const menuItems = document.querySelectorAll('.menu-item');
 const cardElements = createArrayOfDOMCards();
 const categoryCards = document.querySelectorAll('.category-box');
 
+function showEndOfGame() {
+  categoryContainers.forEach((container) => {
+    container.classList.add('container-hide');
+  });
+  if (app.wrongAnswers === 0) {
+    new Audio('../assets/audio/success.mp3').play();
+    document.querySelector('.end-game-success').classList.remove('end-hide');
+    setTimeout(() => {
+      document.querySelector('.end-game-success').classList.add('end-hide');
+      allCategoriesContainer.classList.remove('container-hide');
+    }, 5000);
+  } else if (app.wrongAnswers > 0) {
+    new Audio('../assets/audio/failure.mp3').play();
+    document.querySelector('.end-game-failure').classList.remove('end-hide');
+    document.querySelector(
+      '.failure-mistakes',
+    ).innerText = `You have ${app.wrongAnswers} mistakes`;
+    setTimeout(() => {
+      document.querySelector('.end-game-failure').classList.add('end-hide');
+      allCategoriesContainer.classList.remove('container-hide');
+    }, 5000);
+  }
+  app.startGame = 'true';
+  const i = app.currentContainer;
+  cardElements[i].forEach((elem) => {
+    elem.querySelector('.card-blackout').style.display = 'none';
+    elem.classList.remove('card-box-guess');
+  });
+}
+
+function clickOnCardTrain(e) {
+  const { target } = e;
+  if (target.closest('.card-btn')) {
+    target.closest('.card-box').classList.add('card-box-rotate');
+  }
+  if (target.closest('.card-box') && !target.closest('.card-btn')) {
+    const elem = target.closest('.card-box');
+    const i = app.currentContainer;
+    const j = cards[i].findIndex((card) => card.domElem === elem);
+    new Audio(`../assets/${cards[i][j].audioSrc}`).play();
+  }
+}
+
+function leaveCardTrain(e) {
+  const { target } = e;
+  if (target.closest('.card-box')) {
+    target.closest('.card-box').classList.remove('card-box-rotate');
+  }
+}
+
+function clickOnCardPlay(e) {
+  const star = document.createElement('div');
+  star.classList.add('star');
+  star.innerHTML =
+    '<img src="../assets/icons/star.svg" alt="star" width="30px" height="30px">';
+
+  const starWin = document.createElement('div');
+  starWin.classList.add('star');
+  starWin.innerHTML =
+    '<img src="../assets/icons/star-win.svg" alt="star" width="30px" height="30px">';
+
+  const numb = app.numbOfSound;
+  const { target } = e;
+  if (target.closest('.card-blackout')) {
+    return;
+  }
+  if (target.closest('.card-box')) {
+    const elem = target.closest('.card-box');
+    const i = app.currentContainer;
+    const j = cards[i].findIndex((card) => card.domElem === elem);
+    const starBox = categoryContainers[i].querySelector('.star-box');
+    if (j === numb) {
+      if (app.currentCount === cards[i].length - 1) {
+        elem.querySelector('.card-blackout').style.display = 'block';
+        elem.classList.add('card-box-guess');
+        setTimeout(() => {
+          new Audio('../assets/audio/correct.mp3').play();
+          starBox.prepend(starWin);
+        }, 300);
+        setTimeout(() => {
+          showEndOfGame();
+          starBox.innerHTML = '';
+        }, 1300);
+      } else {
+        elem.querySelector('.card-blackout').style.display = 'block';
+        elem.classList.add('card-box-guess');
+        app.currentCount += 1;
+        setTimeout(() => {
+          new Audio('../assets/audio/correct.mp3').play();
+          starBox.prepend(starWin);
+        }, 300);
+        setTimeout(() => {
+          app.randomSounds[app.currentCount].sound.play();
+          app.numbOfSound = app.randomSounds[app.currentCount].numb;
+        }, 1300);
+      }
+    } else {
+      // console.log('false');
+      app.wrongAnswers += 1;
+      setTimeout(() => {
+        new Audio('../assets/audio/error.mp3').play();
+        starBox.prepend(star);
+      }, 300);
+    }
+  }
+}
+
 function changeFunctionalOfCards() {
   const i = app.currentContainer;
   for (let j = 0; j < cardElements[i].length; j += 1) {
@@ -289,83 +396,6 @@ function changeStyleOfCards() {
   });
 }
 
-function clickOnCardTrain(e) {
-  const { target } = e;
-  if (target.closest('.card-btn')) {
-    target.closest('.card-box').classList.add('card-box-rotate');
-  }
-  if (target.closest('.card-box') && !target.closest('.card-btn')) {
-    const elem = target.closest('.card-box');
-    const i = app.currentContainer;
-    const j = cards[i].findIndex((card) => card.domElem === elem);
-    new Audio(`../assets/${cards[i][j].audioSrc}`).play();
-  }
-}
-
-function leaveCardTrain(e) {
-  const { target } = e;
-  if (target.closest('.card-box')) {
-    target.closest('.card-box').classList.remove('card-box-rotate');
-  }
-}
-
-function clickOnCardPlay(e) {
-  const star = document.createElement('div');
-  star.classList.add('star');
-  star.innerHTML =
-    '<img src="../assets/icons/star.svg" alt="star" width="30px" height="30px">';
-
-  const starWin = document.createElement('div');
-  starWin.classList.add('star');
-  starWin.innerHTML =
-    '<img src="../assets/icons/star-win.svg" alt="star" width="30px" height="30px">';
-
-  const numb = app.numbOfSound;
-  const { target } = e;
-  if (target.closest('.card-blackout')) {
-    return;
-  }
-  if (target.closest('.card-box')) {
-    const elem = target.closest('.card-box');
-    const i = app.currentContainer;
-    const j = cards[i].findIndex((card) => card.domElem === elem);
-    const starBox = categoryContainers[i].querySelector('.star-box');
-    if (j === numb) {
-      if (app.currentCount === cards[i].length - 1) {
-        elem.querySelector('.card-blackout').style.display = 'block';
-        elem.classList.add('card-box-guess');
-        setTimeout(() => {
-          new Audio('../assets/audio/correct.mp3').play();
-          starBox.prepend(starWin);
-        }, 300);
-        setTimeout(() => {
-          showEndOfGame();
-          starBox.innerHTML = '';
-        }, 1300);
-      } else {
-        elem.querySelector('.card-blackout').style.display = 'block';
-        elem.classList.add('card-box-guess');
-        app.currentCount += 1;
-        setTimeout(() => {
-          new Audio('../assets/audio/correct.mp3').play();
-          starBox.prepend(starWin);
-        }, 300);
-        setTimeout(() => {
-          app.randomSounds[app.currentCount].sound.play();
-          app.numbOfSound = app.randomSounds[app.currentCount].numb;
-        }, 1300);
-      }
-    } else {
-      // console.log('false');
-      app.wrongAnswers += 1;
-      setTimeout(() => {
-        new Audio('../assets/audio/error.mp3').play();
-        starBox.prepend(star);
-      }, 300);
-    }
-  }
-}
-
 const switcher = document.querySelector('.header__switcher');
 const switcherHandle = document.querySelector('.switcher__handle');
 const switcherTrain = document.querySelector('.switcher__train');
@@ -391,33 +421,3 @@ switcher.addEventListener('click', () => {
   clickOnCategoryBtn();
   changeFunctionalOfCards();
 });
-
-function showEndOfGame() {
-  categoryContainers.forEach((container) => {
-    container.classList.add('container-hide');
-  });
-  if (app.wrongAnswers === 0) {
-    new Audio('../assets/audio/success.mp3').play();
-    document.querySelector('.end-game-success').classList.remove('end-hide');
-    setTimeout(() => {
-      document.querySelector('.end-game-success').classList.add('end-hide');
-      allCategoriesContainer.classList.remove('container-hide');
-    }, 5000);
-  } else if (app.wrongAnswers > 0) {
-    new Audio('../assets/audio/failure.mp3').play();
-    document.querySelector('.end-game-failure').classList.remove('end-hide');
-    document.querySelector(
-      '.failure-mistakes',
-    ).innerText = `You have ${app.wrongAnswers} mistakes`;
-    setTimeout(() => {
-      document.querySelector('.end-game-failure').classList.add('end-hide');
-      allCategoriesContainer.classList.remove('container-hide');
-    }, 5000);
-  }
-  app.startGame = 'true';
-  const i = app.currentContainer;
-  cardElements[i].forEach((elem) => {
-    elem.querySelector('.card-blackout').style.display = 'none';
-    elem.classList.remove('card-box-guess');
-  });
-}
