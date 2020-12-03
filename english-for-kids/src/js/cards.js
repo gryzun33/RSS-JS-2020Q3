@@ -336,7 +336,7 @@ const cards = [
       audioSrc: 'audio/saw.mp3',
     },
     {
-      word: 'scewdriver',
+      word: 'screwdriver',
       translation: 'отвёртка',
       image: 'building/screwdriver.jpg',
       audioSrc: 'audio/screwdriver.mp3',

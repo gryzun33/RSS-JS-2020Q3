@@ -1,18 +1,8 @@
 import { categories, cards } from './cards';
+import { app } from './app';
 import { createArrayOfDOMCards } from './createarrayofdomcards';
-import { randomizer } from './randomizer';
+import { createRandomSounds } from './randomizer';
 // import { doc } from 'prettier';
-
-const app = {
-  state: 'train',
-  startGame: 'true',
-  currentContainer: 0,
-  currentCount: 0,
-  numbOfSound: 0,
-  isWordTrue: false,
-  wrongAnswers: 0,
-  randomSounds: [],
-};
 
 const menu = document.createElement('div');
 menu.classList.add('menu', 'menu-none');
@@ -120,7 +110,7 @@ categoryContainers.forEach((currContainer, i) => {
     cardElem.innerHTML = `
       <div class="card-blackout"></div> 
       <div class="card-box-front">  
-        <img src="../assets/images/${card.image}" alt="${card.word}" height="200px" 
+        <img src="../assets/images/${card.image}" alt="${card.word}" height="150px" 
         class="card-image">
         <div class="card-front-description">
           <div class="card-title">${card.word}</div>
@@ -128,7 +118,7 @@ categoryContainers.forEach((currContainer, i) => {
         </div>
       </div>
       <div class="card-box-back">  
-        <img src="../assets/images/${card.image}" alt="${card.word}" height="200px" 
+        <img src="../assets/images/${card.image}" alt="${card.word}" height="150px" 
         class="card-image">
         <div class="card-back-description">
           <div class="card-title">${card.translation}</div>  
@@ -139,25 +129,78 @@ categoryContainers.forEach((currContainer, i) => {
   });
 });
 
-// click on category
+const mainItem = document.querySelector('.main-item');
+const menuItems = document.querySelectorAll('.menu-item');
+const cardElements = createArrayOfDOMCards();
 const categoryCards = document.querySelectorAll('.category-box');
+
+function changeFunctionalOfCards() {
+  const i = app.currentContainer;
+  for (let j = 0; j < cardElements[i].length; j += 1) {
+    if (app.state === 'play' && app.startGame === 'true') {
+      cardElements[i][j].removeEventListener('click', clickOnCardTrain);
+      cardElements[i][j].removeEventListener('mouseleave', leaveCardTrain);
+      cardElements[i][j].removeEventListener('click', clickOnCardPlay);
+    } else if (app.state === 'train') {
+      cardElements[i][j].addEventListener('click', clickOnCardTrain);
+      cardElements[i][j].addEventListener('mouseleave', leaveCardTrain);
+      cardElements[i][j].removeEventListener('click', clickOnCardPlay);
+    } else if (app.state === 'play' && app.startGame === 'false') {
+      cardElements[i][j].removeEventListener('click', clickOnCardTrain);
+      cardElements[i][j].removeEventListener('mouseleave', leaveCardTrain);
+      cardElements[i][j].addEventListener('click', clickOnCardPlay);
+    }
+  }
+}
+
+function changeCategoryBtn() {
+  const i = app.currentContainer;
+  const containerBtn = categoryContainers[i].querySelector('.category-btn');
+  const btnStart = containerBtn.querySelector('.category-btn-start');
+  const btnRefresh = containerBtn.querySelector('.category-btn-refresh');
+  app.startGame = 'true';
+  btnStart.style.display = 'block';
+  btnRefresh.style.display = 'none';
+  btnStart.addEventListener('click', () => {
+    btnStart.style.display = 'none';
+    btnRefresh.style.display = 'block';
+    app.startGame = 'false';
+    changeFunctionalOfCards();
+  });
+}
+
+function clickOnCategoryBtn() {
+  app.currentCount = 0;
+  app.wrongAnswers = 0;
+  const i = app.currentContainer;
+  const containerBtn = categoryContainers[i].querySelector('.category-btn');
+  app.randomSounds = createRandomSounds();
+  containerBtn.addEventListener('click', () => {
+    app.randomSounds[app.currentCount].sound.play();
+    app.numbOfSound = app.randomSounds[app.currentCount].numb;
+  });
+}
+
 categoryCards.forEach((box, i) => {
   box.addEventListener('click', () => {
-    // console.log('clickbox');
     app.currentContainer = i;
     changeFunctionalOfCards();
     changeCategoryBtn();
     clickOnCategoryBtn();
+
     categoryContainers.forEach((container) => {
       container.classList.add('container-hide');
     });
     categoryContainers[i].classList.remove('container-hide');
     allCategoriesContainer.classList.add('container-hide');
+
+    mainItem.classList.remove('item-enabled');
+    menuItems.forEach((el) => {
+      el.classList.remove('item-enabled');
+    });
+    menuItems[i].classList.add('item-enabled');
   });
 });
-
-const mainItem = document.querySelector('.main-item');
-const menuItems = document.querySelectorAll('.menu-item');
 
 mainItem.addEventListener('click', () => {
   mainItem.classList.add('item-enabled');
@@ -167,6 +210,8 @@ mainItem.addEventListener('click', () => {
   allCategoriesContainer.classList.remove('container-hide');
   categoryContainers.forEach((container) => {
     container.classList.add('container-hide');
+    const starBox = container.querySelector('.star-box');
+    starBox.innerHTML = '';
   });
   hamburger.classList.add('hamburger-unrotate');
   hamburger.classList.remove('hamburger-rotate');
@@ -175,10 +220,21 @@ mainItem.addEventListener('click', () => {
   blackout.classList.remove('blackout-show');
   blackout.classList.add('blackout-hide');
   document.body.style.overflowY = '';
+
+  app.startGame = 'true';
+  const i = app.currentContainer;
+  cardElements[i].forEach((elem) => {
+    elem.querySelector('.card-blackout').style.display = 'none';
+    elem.classList.remove('card-box-guess');
+  });
 });
 
 menuItems.forEach((item, i) => {
   item.addEventListener('click', () => {
+    cardElements[app.currentContainer].forEach((elem) => {
+      elem.querySelector('.card-blackout').style.display = 'none';
+      elem.classList.remove('card-box-guess');
+    });
     app.currentContainer = i;
     changeFunctionalOfCards();
     changeCategoryBtn();
@@ -200,12 +256,11 @@ menuItems.forEach((item, i) => {
     blackout.classList.remove('blackout-show');
     blackout.classList.add('blackout-hide');
     document.body.style.overflowY = '';
+
+    const starBox = categoryContainers[i].querySelector('.star-box');
+    starBox.innerHTML = '';
   });
 });
-
-const cardElements = createArrayOfDOMCards();
-// changeStyleOfCards();
-// changeFunctionalOfCards();
 
 function changeStyleOfCards() {
   categoryCards.forEach((categoryCard) => {
@@ -257,11 +312,13 @@ function leaveCardTrain(e) {
 function clickOnCardPlay(e) {
   const star = document.createElement('div');
   star.classList.add('star');
-  star.innerHTML = '<img src="../assets/icons/star.svg" alt="star" width="30px" height="30px">';
+  star.innerHTML =
+    '<img src="../assets/icons/star.svg" alt="star" width="30px" height="30px">';
 
   const starWin = document.createElement('div');
   starWin.classList.add('star');
-  starWin.innerHTML = '<img src="../assets/icons/star-win.svg" alt="star" width="30px" height="30px">';
+  starWin.innerHTML =
+    '<img src="../assets/icons/star-win.svg" alt="star" width="30px" height="30px">';
 
   const numb = app.numbOfSound;
   const { target } = e;
@@ -285,9 +342,7 @@ function clickOnCardPlay(e) {
           showEndOfGame();
           starBox.innerHTML = '';
         }, 1300);
-        // console.log('игра закончена');
       } else {
-        // console.log('true');
         elem.querySelector('.card-blackout').style.display = 'block';
         elem.classList.add('card-box-guess');
         app.currentCount += 1;
@@ -307,27 +362,6 @@ function clickOnCardPlay(e) {
         new Audio('../assets/audio/error.mp3').play();
         starBox.prepend(star);
       }, 300);
-    }
-  }
-}
-
-function changeFunctionalOfCards() {
-  const i = app.currentContainer;
-  for (let j = 0; j < cardElements[i].length; j += 1) {
-    if (app.state === 'play' && app.startGame === 'true') {
-      cardElements[i][j].removeEventListener('click', clickOnCardTrain);
-      cardElements[i][j].removeEventListener('mouseleave', leaveCardTrain);
-      cardElements[i][j].removeEventListener('click', clickOnCardPlay);
-    } else if (app.state === 'train') {
-      // app.startGame = 'false';
-      cardElements[i][j].addEventListener('click', clickOnCardTrain);
-      cardElements[i][j].addEventListener('mouseleave', leaveCardTrain);
-      cardElements[i][j].removeEventListener('click', clickOnCardPlay);
-    } else if (app.state === 'play' && app.startGame === 'false') {
-      // app.startGame = 'false';
-      cardElements[i][j].removeEventListener('click', clickOnCardTrain);
-      cardElements[i][j].removeEventListener('mouseleave', leaveCardTrain);
-      cardElements[i][j].addEventListener('click', clickOnCardPlay);
     }
   }
 }
@@ -358,61 +392,6 @@ switcher.addEventListener('click', () => {
   changeFunctionalOfCards();
 });
 
-function createRandomSounds() {
-  const i = app.currentContainer;
-  const randomArray = randomizer(8);
-  const randomSounds = [];
-  for (let j = 0; j < randomArray.length; j += 1) {
-    const audioWord = {};
-    audioWord.sound = new Audio(
-      `../assets/${cards[i][randomArray[j]].audioSrc}`,
-    );
-    audioWord.numb = randomArray[j];
-    randomSounds.push(audioWord);
-  }
-
-  return randomSounds;
-}
-
-function changeCategoryBtn() {
-  const i = app.currentContainer;
-  const containerBtn = categoryContainers[i].querySelector('.category-btn');
-  const btnStart = containerBtn.querySelector('.category-btn-start');
-  const btnRefresh = containerBtn.querySelector('.category-btn-refresh');
-  app.startGame = 'true';
-  btnStart.style.display = 'block';
-  btnRefresh.style.display = 'none';
-  btnStart.addEventListener('click', () => {
-    btnStart.style.display = 'none';
-    btnRefresh.style.display = 'block';
-    app.startGame = 'false';
-    changeFunctionalOfCards();
-  });
-}
-
-function clickOnCategoryBtn() {
-  // console.log('clickoncategorybtn');
-  app.currentCount = 0;
-  app.wrongAnswers = 0;
-  const i = app.currentContainer;
-  const containerBtn = categoryContainers[i].querySelector('.category-btn');
-  // console.log('startgame=', app.startGame);
-  app.randomSounds = createRandomSounds();
-  containerBtn.addEventListener('click', () => {
-    // containerBtn
-    //   .querySelector('.category-btn-refresh')
-    //   .classList.add('.category-btn-refresh-rotate');
-    // setTimeout(() => {
-    //   containerBtn
-    //     .querySelector('.category-btn-refresh')
-    //     .classList.remove('.category-btn-refresh-rotate');
-    // }, 1000);
-    // console.log('click2');
-    app.randomSounds[app.currentCount].sound.play();
-    app.numbOfSound = app.randomSounds[app.currentCount].numb;
-  });
-}
-
 function showEndOfGame() {
   categoryContainers.forEach((container) => {
     container.classList.add('container-hide');
@@ -423,7 +402,6 @@ function showEndOfGame() {
     setTimeout(() => {
       document.querySelector('.end-game-success').classList.add('end-hide');
       allCategoriesContainer.classList.remove('container-hide');
-      // app.startGame = 'true';
     }, 5000);
   } else if (app.wrongAnswers > 0) {
     new Audio('../assets/audio/failure.mp3').play();
@@ -434,9 +412,6 @@ function showEndOfGame() {
     setTimeout(() => {
       document.querySelector('.end-game-failure').classList.add('end-hide');
       allCategoriesContainer.classList.remove('container-hide');
-      // app.currentCount = 0;
-      // app.randomSounds = [];
-      // app.startGame = 'true';
     }, 5000);
   }
   app.startGame = 'true';
