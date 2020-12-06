@@ -5,6 +5,7 @@ $color-b: #6dbd83 ;
 $color-c: #fffcad;
 $color-d: #ffffff;
 $color-e: #000000;
+$color-f: #42d4f5;
 
 @font-face {
   font-style: normal;
@@ -93,8 +94,18 @@ $color-e: #000000;
       }
     }
 
+    .stat-item {
+      width: 170px;
+      height: 50px;
+      margin-top: 30px;
+      padding-top: 15px;
+      text-align: center;
+      transition: transform 0.5s ease-out;
+    }
+
     .main-item:hover,
-    .menu-item:hover {
+    .menu-item:hover,
+    .stat-item:hover {
       transform: scale(1.1);
       cursor: pointer;
     }
@@ -220,6 +231,7 @@ $color-e: #000000;
 
   .main-container {
     display: flex;
+    justify-content: center;
     width: 1280px;
     min-height: calc(100vh - 200px);
 
@@ -462,6 +474,75 @@ $color-e: #000000;
     }
 
     .container-hide {
+      display: none;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      // align-self: center;
+      // max-width: 1200px;
+      min-width: 650px;
+      overflow-x: auto;
+      font-size: 16px;
+      font-family: $font-main;
+      color: $color-d;
+
+      .stat-table {
+        display: block;
+        // width: 650px;
+        min-width: 650px;
+        overflow: auto;
+        // margin: 0 auto;
+        border-collapse: collapse;
+        line-height: 2rem;
+        background-color: $color-a;
+        border-radius: 5px;
+
+        tr {
+          min-width: 650px;
+        }
+
+        .td-category,
+        .td-word,
+        .td-translation {
+          padding-left: 10px;
+        }
+
+        .td-train,
+        .td-correct,
+        .td-incorrect,
+        .td-percent {
+          text-align: center;
+        }
+
+
+
+        // .stat-table th {
+        //   width: 170px;
+        // }
+      }
+      .stat-table th {
+        width: 170px;
+        font-size: 20px;
+        background-color: $color-f;
+        cursor: pointer;
+      }
+
+      .stat-table th:hover {
+        background-color: $color-b;
+        cursor: pointer;
+      }
+
+      .stat-table .stat-body tr:hover {
+        background-color: $color-f;
+        cursor: pointer;
+      }
+    }
+
+    .stat-hide {
       display: none;
     }
   }

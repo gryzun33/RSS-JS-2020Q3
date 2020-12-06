@@ -2,7 +2,26 @@ import { categories, cards } from './cards';
 import { app } from './app';
 import { createArrayOfDOMCards } from './createarrayofdomcards';
 import { createRandomSounds } from './randomizer';
+import { createStatistics } from './statistic';
 // import { doc } from 'prettier';
+
+let cardsM = cards;
+function getCardsfromLocalStorage() {
+  const memory = localStorage.getItem('cards');
+  if (memory) {
+    cardsM = JSON.parse(memory);
+  } else {
+    const cardsMemory = JSON.stringify(cardsM);
+    localStorage.setItem('cards', cardsMemory);
+  }
+}
+
+function setCardstoLocalStorage() {
+  const cardsMemory = JSON.stringify(cardsM);
+  localStorage.setItem('cards', cardsMemory);
+}
+
+getCardsfromLocalStorage();
 
 const menu = document.createElement('div');
 menu.classList.add('menu', 'menu-none');
@@ -60,6 +79,14 @@ const mainContainer = document.querySelector('.main-container');
 const allCategoriesContainer = document.createElement('div');
 allCategoriesContainer.classList.add('all-categories');
 mainContainer.append(allCategoriesContainer);
+
+const stat = document.querySelector('.stat');
+mainContainer.append(stat);
+
+const statItem = document.createElement('div');
+statItem.classList.add('stat-item');
+statItem.innerText = 'Statistics';
+menuList.append(statItem);
 
 categories.forEach((category) => {
   const categoryElement = document.createElement('div');
@@ -138,6 +165,7 @@ function showEndOfGame() {
   categoryContainers.forEach((container) => {
     container.classList.add('container-hide');
   });
+  // clearMainContainer();
   if (app.wrongAnswers === 0) {
     new Audio('../assets/audio/success.mp3').play();
     document.querySelector('.end-game-success').classList.remove('end-hide');
@@ -174,6 +202,8 @@ function clickOnCardTrain(e) {
     const i = app.currentContainer;
     const j = cards[i].findIndex((card) => card.domElem === elem);
     new Audio(`../assets/${cards[i][j].audioSrc}`).play();
+    cardsM[i][j].train += 1;
+    setCardstoLocalStorage();
   }
 }
 
@@ -206,6 +236,8 @@ function clickOnCardPlay(e) {
     const j = cards[i].findIndex((card) => card.domElem === elem);
     const starBox = categoryContainers[i].querySelector('.star-box');
     if (j === numb) {
+      cardsM[i][j].correct += 1;
+      setCardstoLocalStorage();
       if (app.currentCount === cards[i].length - 1) {
         elem.querySelector('.card-blackout').style.display = 'block';
         elem.classList.add('card-box-guess');
@@ -231,6 +263,8 @@ function clickOnCardPlay(e) {
         }, 1300);
       }
     } else {
+      cardsM[i][j].incorrect += 1;
+      setCardstoLocalStorage();
       // console.log('false');
       app.wrongAnswers += 1;
       setTimeout(() => {
@@ -334,6 +368,8 @@ mainItem.addEventListener('click', () => {
     elem.querySelector('.card-blackout').style.display = 'none';
     elem.classList.remove('card-box-guess');
   });
+  stat.classList.add('stat-hide');
+  statItem.classList.remove('item-enabled');
 });
 
 menuItems.forEach((item, i) => {
@@ -366,6 +402,9 @@ menuItems.forEach((item, i) => {
 
     const starBox = categoryContainers[i].querySelector('.star-box');
     starBox.innerHTML = '';
+
+    stat.classList.add('stat-hide');
+    statItem.classList.remove('item-enabled');
   });
 });
 
@@ -420,4 +459,28 @@ switcher.addEventListener('click', () => {
   changeCategoryBtn();
   clickOnCategoryBtn();
   changeFunctionalOfCards();
+});
+
+statItem.addEventListener('click', () => {
+  // getCardsfromLocalStorage();
+  createStatistics();
+  hamburger.classList.add('hamburger-unrotate');
+  hamburger.classList.remove('hamburger-rotate');
+  menu.classList.add('menu-hide');
+  menu.classList.remove('menu-show');
+  blackout.classList.remove('blackout-show');
+  blackout.classList.add('blackout-hide');
+  document.body.style.overflowY = '';
+
+  mainItem.classList.remove('item-enabled');
+  menuItems.forEach((el) => {
+    el.classList.remove('item-enabled');
+  });
+  statItem.classList.add('item-enabled');
+  categoryContainers.forEach((container) => {
+    container.classList.add('container-hide');
+  });
+  allCategoriesContainer.classList.add('container-hide');
+
+  stat.classList.remove('stat-hide');
 });
