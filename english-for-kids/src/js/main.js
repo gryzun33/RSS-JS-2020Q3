@@ -4,8 +4,18 @@ import { statistic } from './stat';
 import { createArrayOfDOMCards } from './createarrayofdomcards';
 import { createRandomSounds } from './randomizer';
 import { createStatistics } from './createstatistic';
+import { showEndOfGame } from './showendofgame';
+import { changeStyleOfCards } from './changestyleofcards';
+import { createMenu } from './menu';
 
+createMenu();
 const main = document.querySelector('.main');
+const menu = document.querySelector('.menu');
+const hamburger = document.querySelector('.header__hamburger');
+const blackout = document.querySelector('.blackout');
+const statItem = document.querySelector('.stat-item');
+const stat = document.querySelector('.stat');
+
 let cardsM = cards;
 function getCardsfromLocalStorage() {
   const memory = localStorage.getItem('cards');
@@ -17,75 +27,18 @@ function getCardsfromLocalStorage() {
   }
 }
 
+getCardsfromLocalStorage();
+
 function setCardstoLocalStorage() {
   const cardsMemory = JSON.stringify(cardsM);
   localStorage.setItem('cards', cardsMemory);
 }
-
-getCardsfromLocalStorage();
-
-const menu = document.createElement('div');
-menu.classList.add('menu', 'menu-none');
-menu.innerHTML = `<div class="menu-close"><img src="./assets/icons/close.png" alt="close" 
-width="30" height="30"></div>
-<div class="menu-list">
-  <div class="main-item item-enabled">Main page</div>
-</div>`;
-document.body.prepend(menu);
-
-const menuList = document.querySelector('.menu-list');
-categories.forEach((category) => {
-  const menuItem = document.createElement('div');
-  menuItem.classList.add('menu-item');
-  menuItem.innerHTML = `<img src="./assets/icons/categories/${category.icon}" 
-  alt="${category.name}" class="menu-image">
-  <div class="menu-title">${category.name}</div>`;
-  menuList.append(menuItem);
-});
-
-const blackout = document.querySelector('.blackout');
-const hamburger = document.querySelector('.header__hamburger');
-hamburger.addEventListener('click', () => {
-  hamburger.classList.add('hamburger-rotate');
-  menu.classList.add('menu-show');
-  menu.classList.remove('menu-none', 'menu-hide');
-  blackout.classList.add('blackout-show');
-  blackout.classList.remove('blackout-hide');
-  document.body.style.overflowY = 'hidden';
-});
-
-const menuClose = document.querySelector('.menu-close');
-menuClose.addEventListener('click', () => {
-  hamburger.classList.add('hamburger-unrotate');
-  hamburger.classList.remove('hamburger-rotate');
-  menu.classList.add('menu-hide');
-  menu.classList.remove('menu-show');
-  blackout.classList.remove('blackout-show');
-  blackout.classList.add('blackout-hide');
-  document.body.style.overflowY = '';
-});
-
-blackout.addEventListener('click', () => {
-  hamburger.classList.add('hamburger-unrotate');
-  hamburger.classList.remove('hamburger-rotate');
-  menu.classList.add('menu-hide');
-  menu.classList.remove('menu-show');
-  blackout.classList.remove('blackout-show');
-  blackout.classList.add('blackout-hide');
-  document.body.style.overflowY = '';
-});
 
 // create cards for all categories
 const mainContainer = document.querySelector('.main-container');
 const allCategoriesContainer = document.createElement('div');
 allCategoriesContainer.classList.add('all-categories');
 mainContainer.append(allCategoriesContainer);
-
-const stat = document.querySelector('.stat');
-const statItem = document.createElement('div');
-statItem.classList.add('stat-item');
-statItem.innerText = 'Statistics';
-menuList.append(statItem);
 
 categories.forEach((category) => {
   const categoryElement = document.createElement('div');
@@ -160,44 +113,6 @@ const menuItems = document.querySelectorAll('.menu-item');
 const cardElements = createArrayOfDOMCards();
 const categoryCards = document.querySelectorAll('.category-box');
 
-function showEndOfGame() {
-  categoryContainers.forEach((container) => {
-    container.classList.add('container-hide');
-  });
-  if (app.wrongAnswers === 0) {
-    new Audio('../assets/audio/success.mp3').play();
-    document.querySelector('.end-game-success').classList.remove('end-hide');
-    setTimeout(() => {
-      document.querySelector('.end-game-success').classList.add('end-hide');
-      allCategoriesContainer.classList.remove('container-hide');
-      mainItem.classList.add('item-enabled');
-      menuItems.forEach((item) => {
-        item.classList.remove('item-enabled');
-      });
-    }, 4000);
-  } else if (app.wrongAnswers > 0) {
-    new Audio('../assets/audio/failure.mp3').play();
-    document.querySelector('.end-game-failure').classList.remove('end-hide');
-    document.querySelector(
-      '.failure-mistakes',
-    ).innerText = `You have ${app.wrongAnswers} mistakes`;
-    setTimeout(() => {
-      document.querySelector('.end-game-failure').classList.add('end-hide');
-      allCategoriesContainer.classList.remove('container-hide');
-      mainItem.classList.add('item-enabled');
-      menuItems.forEach((item) => {
-        item.classList.remove('item-enabled');
-      });
-    }, 4000);
-  }
-  app.startGame = 'true';
-  const i = app.currentContainer;
-  cardElements[i].forEach((elem) => {
-    elem.querySelector('.card-blackout').style.display = 'none';
-    elem.classList.remove('card-box-guess');
-  });
-}
-
 function clickOnCardTrain(e) {
   const { target } = e;
   if (target.closest('.card-btn')) {
@@ -250,7 +165,7 @@ function clickOnCardPlay(e) {
           starBox.prepend(starWin);
         }, 300);
         setTimeout(() => {
-          showEndOfGame();
+          showEndOfGame(cardElements);
           starBox.innerHTML = '';
         }, 1300);
       } else {
@@ -414,33 +329,6 @@ menuItems.forEach((item, i) => {
   });
 });
 
-function changeStyleOfCards() {
-  categoryCards.forEach((categoryCard) => {
-    categoryCard.classList.toggle('category-box-play');
-  });
-  categoryContainers.forEach((container, i) => {
-    const starBox = container.querySelector('.star-box');
-    starBox.innerHTML = '';
-    const descriptions = container.querySelectorAll('.card-front-description');
-    const btn = container.querySelector('.category-btn');
-    descriptions.forEach((descr, j) => {
-      cardElements[i][j].querySelector('.card-blackout').style.display = 'none';
-      cardElements[i][j].classList.remove('card-box-guess');
-      if (app.state === 'play') {
-        descr.classList.add('card-description-hide');
-        btn.classList.remove('category-btn-hide');
-        cardElements[i][j].classList.add('card-box-play');
-        starBox.classList.remove('star-box-hide');
-      } else if (app.state === 'train') {
-        descr.classList.remove('card-description-hide');
-        cardElements[i][j].classList.remove('card-box-play');
-        btn.classList.add('category-btn-hide');
-        starBox.classList.add('star-box-hide');
-      }
-    });
-  });
-}
-
 // toggle switcher train-play
 const switcher = document.querySelector('.header__switcher');
 const switcherHandle = document.querySelector('.switcher__handle');
@@ -462,7 +350,7 @@ switcher.addEventListener('click', () => {
     switcherTrain.style.display = 'block';
     switcherPlay.style.display = 'none';
   }
-  changeStyleOfCards();
+  changeStyleOfCards(cardElements);
   changeCategoryBtn();
   clickOnCategoryBtn();
   changeFunctionalOfCards();
