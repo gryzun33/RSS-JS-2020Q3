@@ -193,7 +193,6 @@ $color-g: #56db89;
 
     .switcher__handle {
       position: absolute;
-      // top: 5px;
       left: 2px;
       width: 35px;
       height: 35px;
@@ -224,6 +223,103 @@ $color-g: #56db89;
       left: 37px;
     }
   }
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-right: 10px;
+  padding-left: 10px;
+  font-size: 16px;
+  font-family: $font-main;
+  color: $color-d;
+
+  .stat-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 250px;
+    margin-bottom: 10px;
+
+    .stat-repeat,
+    .stat-reset {
+      height: 40px;
+      padding-top: 10px;
+      padding-right: 10px;
+      padding-left: 10px;
+      font-size: 16px;
+      font-family: $font-main;
+      color: $color-d;
+      background-color: $color-b;
+      border-radius: 5px;
+      transition: background-color 0.5s ease-out;
+    }
+
+    .stat-repeat:hover,
+    .stat-reset:hover {
+      background-color: $color-g;
+      cursor: pointer;
+    }
+  }
+
+  .stat-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+
+    .stat-table {
+      display: block;
+      min-width: 650px;
+      overflow-x: auto;
+      border-collapse: collapse;
+      table-layout: auto;
+      font-size: 20px;
+      background-color: $color-a;
+      border-radius: 5px;
+
+      .td-category,
+      .td-word,
+      .td-translation {
+        height: 35px;
+        padding-right: 10px;
+        padding-left: 10px;
+        font-size: 16px;
+        line-height: 15px;
+      }
+
+      .td-train,
+      .td-correct,
+      .td-incorrect,
+      .td-percent {
+        height: 35px;
+        font-size: 16px;
+        line-height: 15px;
+        text-align: center;
+      }
+    }
+    .stat-table th {
+      width: 180px;
+      line-height: 40px;
+      background-color: $color-f;
+      cursor: pointer;
+    }
+
+    .stat-table th:hover {
+      background-color: $color-b;
+      cursor: pointer;
+    }
+
+    .stat-table .stat-body tr:hover {
+      background-color: $color-f;
+      cursor: pointer;
+    }
+  }
+}
+
+.stat-hide {
+  display: none;
 }
 
 .main {
@@ -476,88 +572,6 @@ $color-g: #56db89;
     .container-hide {
       display: none;
     }
-
-    .stat {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      overflow-x: auto;
-      font-size: 16px;
-      font-family: $font-main;
-      color: $color-d;
-
-      .stat-buttons {
-        display: flex;
-        justify-content: space-between;
-        width: 250px;
-        margin-bottom: 10px;
-
-        .stat-repeat,
-        .stat-reset {
-          height: 40px;
-          padding-top: 10px;
-          padding-right: 10px;
-          padding-left: 10px;
-          font-size: 16px;
-          font-family: $font-main;
-          color: $color-d;
-          background-color: $color-b;
-          border-radius: 5px;
-          transition: background-color 0.5s ease-out;
-        }
-
-        .stat-repeat:hover,
-        .stat-reset:hover {
-          background-color: $color-g;
-          cursor: pointer;
-        }
-      }
-
-      .stat-table {
-        display: block;
-        min-width: 650px;
-        overflow-x: auto;
-        border-collapse: collapse;
-        table-layout: auto;
-        line-height: 2rem;
-        background-color: $color-a;
-        border-radius: 5px;
-
-        .td-category,
-        .td-word,
-        .td-translation {
-          padding-left: 10px;
-        }
-
-        .td-train,
-        .td-correct,
-        .td-incorrect,
-        .td-percent {
-          text-align: center;
-        }
-      }
-      .stat-table th {
-        width: 170px;
-        font-size: 20px;
-        background-color: $color-f;
-        cursor: pointer;
-      }
-
-      .stat-table th:hover {
-        background-color: $color-b;
-        cursor: pointer;
-      }
-
-      .stat-table .stat-body tr:hover {
-        background-color: $color-f;
-        cursor: pointer;
-      }
-    }
-
-    .stat-hide {
-      display: none;
-    }
   }
 }
 
@@ -617,6 +631,17 @@ $color-g: #56db89;
 @media (max-width: 680px) {
   .header__logo {
     display: none;
+  }
+
+  .stat-table {
+    align-self: flex-start;
+  }
+
+  .stat-table th {
+    font-size: 18px;
+  }
+  .stat-table td {
+    font-size: 14px;
   }
 
   .main {

@@ -16,6 +16,27 @@
       <div class="switcher__play">Play</div>
     </div>
   </header>
+  <div class="stat stat-hide">
+    <div class="stat-buttons">
+      <div class="stat-repeat">Repeat difficult words</div>
+      <div class="stat-reset">Reset</div>
+    </div>
+    <div class="stat-table-wrapper">
+      <table class="stat-table">
+        <tr>
+          <th data-cat="category">Category</th>
+          <th data-cat="word">Word</th>
+          <th data-cat="translation">Translation</th>
+          <th data-cat="train">Trained</th>
+          <th data-cat="correct">Correct</th>
+          <th data-cat="incorrect">Incorrect</th>
+          <th data-cat="percent">%</th>
+        </tr>
+        <tbody class ="stat-body">
+        </tbody>
+      </table>
+    </div> 
+  </div>
   <main class="main">
     <div class="main-container">
       <div class="end-game end-game-success end-hide">
@@ -25,25 +46,6 @@
       <div class="end-game end-game-failure end-hide">
         <div class="failure-image"><img src="./assets/images/endofgame/failure.jpg" alt="failure"></div>
         <div class="failure-mistakes"></div>
-      </div>
-      <div class="stat stat-hide">
-        <div class="stat-buttons">
-          <div class="stat-repeat">Repeat difficult words</div>
-          <div class="stat-reset">Reset</div>
-        </div>
-        <table class="stat-table">
-          <tr>
-            <th data-cat="category">Category</th>
-            <th data-cat="word">Word</th>
-            <th data-cat="translation">Translation</th>
-            <th data-cat="train">Trained</th>
-            <th data-cat="correct">Correct</th>
-            <th data-cat="incorrect">Incorrect</th>
-            <th data-cat="percent">%</th>
-          </tr>
-          <tbody class ="stat-body">
-          </tbody>
-        </table>
       </div>
     </div>
   </main> 

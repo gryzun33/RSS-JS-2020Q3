@@ -5,6 +5,7 @@ import { createArrayOfDOMCards } from './createarrayofdomcards';
 import { createRandomSounds } from './randomizer';
 import { createStatistics } from './createstatistic';
 
+const main = document.querySelector('.main');
 let cardsM = cards;
 function getCardsfromLocalStorage() {
   const memory = localStorage.getItem('cards');
@@ -81,8 +82,6 @@ allCategoriesContainer.classList.add('all-categories');
 mainContainer.append(allCategoriesContainer);
 
 const stat = document.querySelector('.stat');
-mainContainer.append(stat);
-
 const statItem = document.createElement('div');
 statItem.classList.add('stat-item');
 statItem.innerText = 'Statistics';
@@ -349,6 +348,7 @@ categoryCards.forEach((box, i) => {
 });
 
 mainItem.addEventListener('click', () => {
+  main.style.display = 'flex';
   mainItem.classList.add('item-enabled');
   menuItems.forEach((item) => {
     item.classList.remove('item-enabled');
@@ -379,6 +379,7 @@ mainItem.addEventListener('click', () => {
 
 menuItems.forEach((item, i) => {
   item.addEventListener('click', () => {
+    main.style.display = 'flex';
     cardElements[app.currentContainer].forEach((elem) => {
       elem.querySelector('.card-blackout').style.display = 'none';
       elem.classList.remove('card-box-guess');
@@ -470,6 +471,7 @@ switcher.addEventListener('click', () => {
 // click on statistics
 statItem.addEventListener('click', () => {
   createStatistics();
+  main.style.display = 'none';
   hamburger.classList.add('hamburger-unrotate');
   hamburger.classList.remove('hamburger-rotate');
   menu.classList.add('menu-hide');
