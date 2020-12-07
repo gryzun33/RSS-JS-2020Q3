@@ -7,4 +7,5 @@ export const app = {
   isWordTrue: false,
   wrongAnswers: 0,
   randomSounds: [],
+  sortStat: false,
 };

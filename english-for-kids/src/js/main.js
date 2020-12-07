@@ -1,9 +1,9 @@
 import { categories, cards } from './cards';
 import { app } from './app';
+import { statistic } from './stat';
 import { createArrayOfDOMCards } from './createarrayofdomcards';
 import { createRandomSounds } from './randomizer';
-import { createStatistics } from './statistic';
-// import { doc } from 'prettier';
+import { createStatistics } from './createstatistic';
 
 let cardsM = cards;
 function getCardsfromLocalStorage() {
@@ -165,14 +165,17 @@ function showEndOfGame() {
   categoryContainers.forEach((container) => {
     container.classList.add('container-hide');
   });
-  // clearMainContainer();
   if (app.wrongAnswers === 0) {
     new Audio('../assets/audio/success.mp3').play();
     document.querySelector('.end-game-success').classList.remove('end-hide');
     setTimeout(() => {
       document.querySelector('.end-game-success').classList.add('end-hide');
       allCategoriesContainer.classList.remove('container-hide');
-    }, 5000);
+      mainItem.classList.add('item-enabled');
+      menuItems.forEach((item) => {
+        item.classList.remove('item-enabled');
+      });
+    }, 4000);
   } else if (app.wrongAnswers > 0) {
     new Audio('../assets/audio/failure.mp3').play();
     document.querySelector('.end-game-failure').classList.remove('end-hide');
@@ -182,7 +185,11 @@ function showEndOfGame() {
     setTimeout(() => {
       document.querySelector('.end-game-failure').classList.add('end-hide');
       allCategoriesContainer.classList.remove('container-hide');
-    }, 5000);
+      mainItem.classList.add('item-enabled');
+      menuItems.forEach((item) => {
+        item.classList.remove('item-enabled');
+      });
+    }, 4000);
   }
   app.startGame = 'true';
   const i = app.currentContainer;
@@ -219,12 +226,10 @@ function clickOnCardPlay(e) {
   star.classList.add('star');
   star.innerHTML =
     '<img src="../assets/icons/star.svg" alt="star" width="30px" height="30px">';
-
   const starWin = document.createElement('div');
   starWin.classList.add('star');
   starWin.innerHTML =
     '<img src="../assets/icons/star-win.svg" alt="star" width="30px" height="30px">';
-
   const numb = app.numbOfSound;
   const { target } = e;
   if (target.closest('.card-blackout')) {
@@ -265,7 +270,6 @@ function clickOnCardPlay(e) {
     } else {
       cardsM[i][j].incorrect += 1;
       setCardstoLocalStorage();
-      // console.log('false');
       app.wrongAnswers += 1;
       setTimeout(() => {
         new Audio('../assets/audio/error.mp3').play();
@@ -322,6 +326,7 @@ function clickOnCategoryBtn() {
   });
 }
 
+// click on categoryCards
 categoryCards.forEach((box, i) => {
   box.addEventListener('click', () => {
     app.currentContainer = i;
@@ -435,6 +440,7 @@ function changeStyleOfCards() {
   });
 }
 
+// toggle switcher train-play
 const switcher = document.querySelector('.header__switcher');
 const switcherHandle = document.querySelector('.switcher__handle');
 const switcherTrain = document.querySelector('.switcher__train');
@@ -461,8 +467,8 @@ switcher.addEventListener('click', () => {
   changeFunctionalOfCards();
 });
 
+// click on statistics
 statItem.addEventListener('click', () => {
-  // getCardsfromLocalStorage();
   createStatistics();
   hamburger.classList.add('hamburger-unrotate');
   hamburger.classList.remove('hamburger-rotate');
@@ -481,6 +487,49 @@ statItem.addEventListener('click', () => {
     container.classList.add('container-hide');
   });
   allCategoriesContainer.classList.add('container-hide');
-
   stat.classList.remove('stat-hide');
+});
+
+// sortStatistic
+const statItems = document.querySelectorAll('.stat-table th');
+statItems.forEach((item, j) => {
+  item.addEventListener('click', () => {
+    app.sortStat = true;
+    let arrOfCards = [];
+    for (let i = 0; i < cardsM.length; i += 1) {
+      arrOfCards = arrOfCards.concat(cardsM[i]);
+    }
+    const param = item.getAttribute('data-cat');
+    statistic[j].sortedUp = !statistic[j].sortedUp;
+    if (statistic[j].sortedUp) {
+      arrOfCards = arrOfCards.sort((a, b) => {
+        if (a[param] > b[param]) {
+          return 1;
+        }
+        if (a[param] < b[param]) {
+          return -1;
+        }
+        return 0;
+      });
+    } else {
+      arrOfCards = arrOfCards.sort((a, b) => {
+        if (a[param] < b[param]) {
+          return 1;
+        }
+        if (a[param] > b[param]) {
+          return -1;
+        }
+        return 0;
+      });
+    }
+    createStatistics(arrOfCards);
+  });
+});
+
+// reset statistics
+const resetBtn = document.querySelector('.stat-reset');
+resetBtn.addEventListener('click', () => {
+  cardsM = cards;
+  setCardstoLocalStorage();
+  createStatistics();
 });
