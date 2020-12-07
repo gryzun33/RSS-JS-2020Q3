@@ -1,0 +1,252 @@
+.main {
+  display: flex;
+  justify-content: center;
+
+  .main-container {
+    display: flex;
+    justify-content: center;
+    max-width: 1280px;
+    min-height: calc(100vh - 200px);
+
+    .end-game {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      margin-top: 50px;
+      font-size: 35px;
+      font-family: "Balsamiq Sans";
+    };
+
+    .end-hide {
+      display: none;
+    }
+
+    .all-categories {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-content: center;
+      width: 100%;
+      height: 100%;
+
+      .category-box {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 280px;
+        height: 250px;
+        margin-top: 20px;
+        margin-right: 20px;
+        margin-left: 20px;
+        border: 1px solid $color-e;
+        border-radius: 5px;
+        box-shadow: 0 10px 10px rgba(0,0,0,0.25);
+        transition: transform 0.5s ease-out;
+
+        .card-title {
+          margin-top: 10px;
+          font-size: 25px;
+          font-family: "Balsamiq Sans";
+        }
+      }
+
+      .category-box:hover {
+        transform: scale(1.05);
+        cursor: pointer;
+      }
+
+      .category-box-play {
+        background-color: $color-c;
+        border-color: $color-c;
+      }
+    }
+
+    .category-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+
+      .category-title {
+        align-self: center;
+        font-size: 35px;
+        font-family: "Balsamiq Sans";
+      }
+
+      .category-card-box {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: center;
+
+        .star-box {
+          align-self: center;
+          width: 100%;
+          height: 35px;
+          margin-right: 30px;
+          margin-left: 30px;
+          overflow: hidden;
+
+          .star {
+            display: inline-block;
+          }
+        }
+
+        .star-box-hide {
+          display: none;
+        }
+
+        .card-box {
+          position: relative;
+          width: 280px;
+          height: 250px;
+          margin-top: 20px;
+          margin-right: 20px;
+          margin-left: 20px;
+          border: 1px solid $color-e;
+          border-radius: 5px;
+          box-shadow: 0 10px 10px rgba(0,0,0,0.25);
+          perspective: 1000px;
+          transform-style: preserve-3d;
+          transition: transform 0.7s ease-out;
+
+          .card-blackout {
+            position: absolute;
+            z-index: 2;
+            display: none;
+            width: 100%;
+            height: 100%;
+            background-color: $color-d;
+            opacity: 0.8;
+          }
+
+          .card-box-front,
+          .card-box-back {
+            position: absolute;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            transition: transform 0.5s ease-out;
+
+            .card-image {
+              margin-top: 20px;
+              transition: transform 0.5s ease-out;
+            }
+
+            .card-front-description,
+            .card-back-description {
+              position: relative;
+              display: flex;
+              justify-content: center;
+              width: 100%;
+              margin-bottom: 15px;
+
+              .card-title {
+                font-size: 25px;
+                font-family: "Balsamiq Sans";
+              }
+
+              .card-btn {
+                position: absolute;
+                right: 10px;
+                width: 30px;
+                height: 30px;
+                background-color: $color-d;
+                background-image: url("../assets/icons/arrow.png");
+                background-size: contain;
+                border: none;
+                outline: none;
+              }
+
+              .card-btn:hover {
+                transform: rotate(-360deg);
+                transition: transform 0.5s ease-out;
+              }
+            }
+
+            .card-description-hide {
+              display: none;
+            }
+          }
+
+          .card-box-back {
+            transform: rotateY(180deg);
+          }
+
+          .card-box-front:hover .card-image {
+            transform: scale(1.1);
+          }
+        }
+
+        .card-box-guess {
+          border: 2px solid $color-b;
+        }
+
+        .card-box-play {
+          height: 220px;
+        }
+
+        .card-box-rotate {
+          transform: rotateY(180deg);
+        }
+
+        .card-box:hover {
+          cursor: pointer;
+        }
+      }
+
+      .category-btn {
+        align-self: center;
+        margin-top: 20px;
+
+        .category-btn-start {
+          width: 200px;
+          height: 50px;
+          padding-top: 13px;
+          font-size: 20px;
+          font-family: "Balsamiq Sans";
+          text-align: center;
+          color: white;
+          background-color: $color-b;
+          border-radius: 5px;
+          transition: background-color 0.5s ease-out;
+        }
+
+        .category-btn-start:hover {
+          background-color: $color-a;
+          cursor: pointer;
+        }
+
+        .category-btn-refresh {
+          display: none;
+          width: 50px;
+          height: 50px;
+          background-color: $color-a;
+          border-radius: 50%;
+          transition: transform 0.5s ease-out;
+        }
+
+        .category-btn-refresh:hover {
+          transform: scale(1.1);
+          cursor: pointer;
+        }
+      }
+
+      .category-btn-hide {
+        display: none;
+      }
+    }
+
+    .container-hide {
+      display: none;
+    }
+  }
+}

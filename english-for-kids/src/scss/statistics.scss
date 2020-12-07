@@ -1,0 +1,96 @@
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-right: 10px;
+  padding-left: 10px;
+  font-size: 16px;
+  font-family: $font-main;
+  color: $color-d;
+
+  .stat-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 250px;
+    margin-bottom: 10px;
+
+    .stat-repeat,
+    .stat-reset {
+      height: 40px;
+      padding-top: 10px;
+      padding-right: 10px;
+      padding-left: 10px;
+      font-size: 16px;
+      font-family: $font-main;
+      color: $color-d;
+      background-color: $color-b;
+      border-radius: 5px;
+      transition: background-color 0.5s ease-out;
+    }
+
+    .stat-repeat:hover,
+    .stat-reset:hover {
+      background-color: $color-g;
+      cursor: pointer;
+    }
+  }
+
+  .stat-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+
+    .stat-table {
+      display: block;
+      min-width: 650px;
+      overflow-x: auto;
+      border-collapse: collapse;
+      table-layout: auto;
+      font-size: 20px;
+      background-color: $color-a;
+      border-radius: 5px;
+
+      .td-category,
+      .td-word,
+      .td-translation {
+        height: 35px;
+        padding-right: 10px;
+        padding-left: 10px;
+        font-size: 16px;
+        line-height: 15px;
+      }
+
+      .td-train,
+      .td-correct,
+      .td-incorrect,
+      .td-percent {
+        height: 35px;
+        font-size: 16px;
+        line-height: 15px;
+        text-align: center;
+      }
+    }
+    .stat-table th {
+      width: 180px;
+      line-height: 40px;
+      background-color: $color-f;
+      cursor: pointer;
+    }
+
+    .stat-table th:hover {
+      background-color: $color-b;
+      cursor: pointer;
+    }
+
+    .stat-table .stat-body tr:hover {
+      background-color: $color-f;
+      cursor: pointer;
+    }
+  }
+}
+
+.stat-hide {
+  display: none;
+}

@@ -1,0 +1,31 @@
+@media (max-width: 680px) {
+  .header__logo {
+    display: none;
+  }
+
+  .stat-table {
+    align-self: flex-start;
+  }
+
+  .stat-table th {
+    font-size: 18px;
+  }
+  .stat-table td {
+    font-size: 14px;
+  }
+
+  .main {
+    .end-game {
+      .success-image > img,
+      .failure-image > img {
+        width: 250px;
+      }
+
+      .success-mistakes,
+      .failure-mistakes {
+        font-size: 25px;
+        text-align: center;
+      }
+    }
+  }
+}
