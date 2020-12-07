@@ -233,7 +233,7 @@ $color-g: #56db89;
   .main-container {
     display: flex;
     justify-content: center;
-    width: 1280px;
+    max-width: 1280px;
     min-height: calc(100vh - 200px);
 
     .end-game {
@@ -482,7 +482,6 @@ $color-g: #56db89;
       flex-direction: column;
       align-items: center;
       width: 100%;
-      min-width: 650px;
       overflow-x: auto;
       font-size: 16px;
       font-family: $font-main;
@@ -518,8 +517,9 @@ $color-g: #56db89;
       .stat-table {
         display: block;
         min-width: 650px;
-        overflow: auto;
+        overflow-x: auto;
         border-collapse: collapse;
+        table-layout: auto;
         line-height: 2rem;
         background-color: $color-a;
         border-radius: 5px;
