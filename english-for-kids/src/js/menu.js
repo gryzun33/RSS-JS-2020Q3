@@ -1,4 +1,5 @@
-import { categories } from './cards';
+import { categories } from './categories';
+import { changeStylesOfMenu } from './changeStylesOfMenu';
 
 export function createMenu() {
   const menu = document.createElement('div');
@@ -33,23 +34,11 @@ export function createMenu() {
 
   const menuClose = document.querySelector('.menu-close');
   menuClose.addEventListener('click', () => {
-    hamburger.classList.add('hamburger-unrotate');
-    hamburger.classList.remove('hamburger-rotate');
-    menu.classList.add('menu-hide');
-    menu.classList.remove('menu-show');
-    blackout.classList.remove('blackout-show');
-    blackout.classList.add('blackout-hide');
-    document.body.style.overflowY = '';
+    changeStylesOfMenu();
   });
 
   blackout.addEventListener('click', () => {
-    hamburger.classList.add('hamburger-unrotate');
-    hamburger.classList.remove('hamburger-rotate');
-    menu.classList.add('menu-hide');
-    menu.classList.remove('menu-show');
-    blackout.classList.remove('blackout-show');
-    blackout.classList.add('blackout-hide');
-    document.body.style.overflowY = '';
+    changeStylesOfMenu();
   });
 
   const statItem = document.createElement('div');

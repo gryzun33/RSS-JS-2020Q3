@@ -1,4 +1,5 @@
-import { categories, cards } from './cards';
+import { cards } from './cards';
+import { categories } from './categories';
 import { app } from './app';
 import { statistic } from './stat';
 import { createArrayOfDOMCards } from './createarrayofdomcards';
@@ -7,12 +8,14 @@ import { createStatistics } from './createstatistic';
 import { showEndOfGame } from './showendofgame';
 import { changeStyleOfCards } from './changestyleofcards';
 import { createMenu } from './menu';
+import { createCardHTML } from './createCardHTML';
+import { changeStylesOfMenu } from './changeStylesOfMenu';
 
 createMenu();
 const main = document.querySelector('.main');
-const menu = document.querySelector('.menu');
-const hamburger = document.querySelector('.header__hamburger');
-const blackout = document.querySelector('.blackout');
+// const menu = document.querySelector('.menu');
+// const hamburger = document.querySelector('.header__hamburger');
+// const blackout = document.querySelector('.blackout');
 const statItem = document.querySelector('.stat-item');
 const stat = document.querySelector('.stat');
 
@@ -86,23 +89,7 @@ categoryContainers.forEach((currContainer, i) => {
   cards[i].forEach((card) => {
     const cardElem = document.createElement('div');
     cardElem.classList.add('card-box');
-    cardElem.innerHTML = `
-      <div class="card-blackout"></div> 
-      <div class="card-box-front">  
-        <img src="../assets/images/${card.image}" alt="${card.word}" height="150px" 
-        class="card-image">
-        <div class="card-front-description">
-          <div class="card-title">${card.word}</div>
-          <button class="card-btn"></button>
-        </div>
-      </div>
-      <div class="card-box-back">  
-        <img src="../assets/images/${card.image}" alt="${card.word}" height="150px" 
-        class="card-image">
-        <div class="card-back-description">
-          <div class="card-title">${card.translation}</div>  
-        </div>
-      </div>  `;
+    cardElem.innerHTML = createCardHTML(card.image, card.word, card.translation);
     card.domElem = cardElem;
     categoryCardBox.append(cardElem);
   });
@@ -265,6 +252,7 @@ categoryCards.forEach((box, i) => {
 mainItem.addEventListener('click', () => {
   main.style.display = 'flex';
   mainItem.classList.add('item-enabled');
+
   menuItems.forEach((item) => {
     item.classList.remove('item-enabled');
   });
@@ -274,13 +262,7 @@ mainItem.addEventListener('click', () => {
     const starBox = container.querySelector('.star-box');
     starBox.innerHTML = '';
   });
-  hamburger.classList.add('hamburger-unrotate');
-  hamburger.classList.remove('hamburger-rotate');
-  menu.classList.add('menu-hide');
-  menu.classList.remove('menu-show');
-  blackout.classList.remove('blackout-show');
-  blackout.classList.add('blackout-hide');
-  document.body.style.overflowY = '';
+  changeStylesOfMenu();
 
   app.startGame = 'true';
   const i = app.currentContainer;
@@ -303,6 +285,7 @@ menuItems.forEach((item, i) => {
     changeFunctionalOfCards();
     changeCategoryBtn();
     clickOnCategoryBtn();
+    changeStylesOfMenu();
     mainItem.classList.remove('item-enabled');
     menuItems.forEach((el) => {
       el.classList.remove('item-enabled');
@@ -313,17 +296,8 @@ menuItems.forEach((item, i) => {
     });
     categoryContainers[i].classList.remove('container-hide');
     allCategoriesContainer.classList.add('container-hide');
-    hamburger.classList.add('hamburger-unrotate');
-    hamburger.classList.remove('hamburger-rotate');
-    menu.classList.add('menu-hide');
-    menu.classList.remove('menu-show');
-    blackout.classList.remove('blackout-show');
-    blackout.classList.add('blackout-hide');
-    document.body.style.overflowY = '';
-
     const starBox = categoryContainers[i].querySelector('.star-box');
     starBox.innerHTML = '';
-
     stat.classList.add('stat-hide');
     statItem.classList.remove('item-enabled');
   });
@@ -359,15 +333,8 @@ switcher.addEventListener('click', () => {
 // click on statistics
 statItem.addEventListener('click', () => {
   createStatistics();
+  changeStylesOfMenu();
   main.style.display = 'none';
-  hamburger.classList.add('hamburger-unrotate');
-  hamburger.classList.remove('hamburger-rotate');
-  menu.classList.add('menu-hide');
-  menu.classList.remove('menu-show');
-  blackout.classList.remove('blackout-show');
-  blackout.classList.add('blackout-hide');
-  document.body.style.overflowY = '';
-
   mainItem.classList.remove('item-enabled');
   menuItems.forEach((el) => {
     el.classList.remove('item-enabled');

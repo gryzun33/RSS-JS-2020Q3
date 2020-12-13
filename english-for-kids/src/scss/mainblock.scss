@@ -143,9 +143,7 @@
                 right: 10px;
                 width: 30px;
                 height: 30px;
-                // background: url("../assets/icons/arrow.png") contain $color-d;
-                background-color: $color-d;
-                background-image: url("../assets/icons/arrow.png");
+                background: url("../assets/icons/arrow.png") $color-d;
                 background-size: contain;
                 border: none;
                 outline: none;

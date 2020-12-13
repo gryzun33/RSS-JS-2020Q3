@@ -1,19 +1,19 @@
-@mixin font16($font-main: "Balsamiq Sans") {
+@mixin font16 {
   font-size: 16px;
   font-family: $font-main;
 }
 
-@mixin font20($font-main: "Balsamiq Sans") {
+@mixin font20 {
   font-size: 20px;
   font-family: $font-main;
 }
 
-@mixin font35($font-main: "Balsamiq Sans") {
+@mixin font35 {
   font-size: 35px;
   font-family: $font-main;
 }
 
-@mixin font40($font-main: "Balsamiq Sans") {
+@mixin font40 {
   font-size: 40px;
   font-family: $font-main;
 }
