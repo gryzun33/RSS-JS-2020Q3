@@ -1,11 +1,9 @@
 .header {
   position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   height: 100px;
-  padding-right: 5%;
-  padding-left: 5%;
+  padding: 0 5%;
+
+  @include flex-space;
 
   &__hamburger {
     width: 40px;
@@ -30,9 +28,9 @@
   &__logo {
     position: absolute;
     left: 50%;
-    font-size: 40px;
-    font-family: "Balsamiq Sans";
     transform: translateX(-50%);
+
+    @include font40;
   }
 
   &__switcher {
@@ -41,11 +39,11 @@
     align-items: center;
     width: 120px;
     height: 45px;
-    font-size: 20px;
-    font-family: "Balsamiq Sans";
     background-color: $color-a;
     border-radius: 45px;
     cursor: pointer;
+
+    @include font20;
 
     &_train {
       background-color: $color-a;

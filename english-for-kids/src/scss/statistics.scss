@@ -5,11 +5,10 @@
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  padding-right: 10px;
-  padding-left: 10px;
-  font-size: 16px;
-  font-family: $font-main;
+  padding: 0 10px;
   color: $color-d;
+
+  @include font16;
 
   .stat-buttons {
     display: flex;
@@ -20,15 +19,13 @@
     .stat-repeat,
     .stat-reset {
       height: 40px;
-      padding-top: 10px;
-      padding-right: 10px;
-      padding-left: 10px;
-      font-size: 16px;
-      font-family: $font-main;
+      padding: 10px 10px 0 10px;
       color: $color-d;
       background-color: $color-b;
       border-radius: 5px;
       transition: background-color 0.5s ease-out;
+
+      @include font16;
     }
 
     .stat-repeat:hover,
@@ -56,8 +53,7 @@
       .td-word,
       .td-translation {
         height: 35px;
-        padding-right: 10px;
-        padding-left: 10px;
+        padding: 0 10px;
         font-size: 16px;
         line-height: 15px;
       }

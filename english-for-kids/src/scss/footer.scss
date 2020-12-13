@@ -4,15 +4,14 @@
   height: 80px;
 
   &__wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     width: 280px;
     height: 80px;
 
+    @include flex-space;
+
     .year,
     .author {
-      color: gray;
+      color: $color-h;
     }
 
     .github {
@@ -20,7 +19,7 @@
     }
 
     .github:hover {
-      color: black;
+      color: $color-e;
     }
 
     .rs-logo {
