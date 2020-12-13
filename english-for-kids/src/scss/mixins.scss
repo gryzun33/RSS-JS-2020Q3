@@ -8,9 +8,19 @@
   font-family: $font-main;
 }
 
+@mixin font35($font-main: "Balsamiq Sans") {
+  font-size: 35px;
+  font-family: $font-main;
+}
+
 @mixin font40($font-main: "Balsamiq Sans") {
   font-size: 40px;
   font-family: $font-main;
+}
+
+@mixin flex($justify: center) {
+  display: flex;
+  justify-content: $justify;
 }
 
 @mixin flex-center($justify: center, $align: center) {
@@ -30,4 +40,18 @@
   flex-direction: $direction;
   justify-content: $justify;
   align-items: $align;
+}
+
+@mixin flex-column-center($justify: center, $align: center, $direction: column) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin flexwrap ($justify: center, $align: center) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: $justify;
+  align-content: $align;
 }
