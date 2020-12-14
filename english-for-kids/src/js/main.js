@@ -3,39 +3,24 @@ import { categories } from './categories';
 import { app } from './app';
 import { statistic } from './stat';
 import { createArrayOfDOMCards } from './createarrayofdomcards';
-import { createRandomSounds } from './randomizer';
+import { clickOnCategoryBtn } from './clickOnCategoryBtn';
 import { createStatistics } from './createstatistic';
-import { showEndOfGame } from './showendofgame';
 import { changeStyleOfCards } from './changestyleofcards';
 import { createMenu } from './menu';
 import { createCardHTML } from './createCardHTML';
 import { changeStylesOfMenu } from './changeStylesOfMenu';
+import { getCardsfromLocalStorage } from './getFromLocalStorage';
+import { setCardstoLocalStorage } from './setLocalStorage';
+import { changeFunctionalOfCards } from './changeFunctionalOfCards';
+import { changeCategoryBtn } from './changeCategoryBtn';
 
 createMenu();
 const main = document.querySelector('.main');
-// const menu = document.querySelector('.menu');
-// const hamburger = document.querySelector('.header__hamburger');
-// const blackout = document.querySelector('.blackout');
 const statItem = document.querySelector('.stat-item');
 const stat = document.querySelector('.stat');
 
-let cardsM = cards;
-function getCardsfromLocalStorage() {
-  const memory = localStorage.getItem('cards');
-  if (memory) {
-    cardsM = JSON.parse(memory);
-  } else {
-    const cardsMemory = JSON.stringify(cardsM);
-    localStorage.setItem('cards', cardsMemory);
-  }
-}
-
-getCardsfromLocalStorage();
-
-function setCardstoLocalStorage() {
-  const cardsMemory = JSON.stringify(cardsM);
-  localStorage.setItem('cards', cardsMemory);
-}
+let cardsM;
+cardsM = getCardsfromLocalStorage(cardsM);
 
 // create cards for all categories
 const mainContainer = document.querySelector('.main-container');
@@ -68,13 +53,10 @@ categoryContainers.forEach((currContainer, i) => {
   const categoryTitle = document.createElement('div');
   categoryTitle.classList.add('category-title');
   categoryTitle.innerText = categories[i].name;
-
   const starBox = document.createElement('div');
   starBox.classList.add('star-box', 'star-box-hide');
-
   const categoryCardBox = document.createElement('div');
   categoryCardBox.classList.add('category-card-box');
-
   const categoryCardBtn = document.createElement('div');
   categoryCardBtn.classList.add('category-btn', 'category-btn-hide');
   categoryCardBtn.innerHTML = `
@@ -99,133 +81,6 @@ const mainItem = document.querySelector('.main-item');
 const menuItems = document.querySelectorAll('.menu-item');
 const cardElements = createArrayOfDOMCards();
 const categoryCards = document.querySelectorAll('.category-box');
-
-function clickOnCardTrain(e) {
-  const { target } = e;
-  if (target.closest('.card-btn')) {
-    target.closest('.card-box').classList.add('card-box-rotate');
-  }
-  if (target.closest('.card-box') && !target.closest('.card-btn')) {
-    const elem = target.closest('.card-box');
-    const i = app.currentContainer;
-    const j = cards[i].findIndex((card) => card.domElem === elem);
-    new Audio(`../assets/${cards[i][j].audioSrc}`).play();
-    cardsM[i][j].train += 1;
-    setCardstoLocalStorage();
-  }
-}
-
-function leaveCardTrain(e) {
-  const { target } = e;
-  if (target.closest('.card-box')) {
-    target.closest('.card-box').classList.remove('card-box-rotate');
-  }
-}
-
-function clickOnCardPlay(e) {
-  const star = document.createElement('div');
-  star.classList.add('star');
-  star.innerHTML =
-    '<img src="../assets/icons/star.svg" alt="star" width="30px" height="30px">';
-  const starWin = document.createElement('div');
-  starWin.classList.add('star');
-  starWin.innerHTML =
-    '<img src="../assets/icons/star-win.svg" alt="star" width="30px" height="30px">';
-  const numb = app.numbOfSound;
-  const { target } = e;
-  if (target.closest('.card-blackout')) {
-    return;
-  }
-  if (target.closest('.card-box')) {
-    const elem = target.closest('.card-box');
-    const i = app.currentContainer;
-    const j = cards[i].findIndex((card) => card.domElem === elem);
-    const starBox = categoryContainers[i].querySelector('.star-box');
-    if (j === numb) {
-      cardsM[i][j].correct += 1;
-      setCardstoLocalStorage();
-      if (app.currentCount === cards[i].length - 1) {
-        elem.querySelector('.card-blackout').style.display = 'block';
-        elem.classList.add('card-box-guess');
-        setTimeout(() => {
-          new Audio('../assets/audio/correct.mp3').play();
-          starBox.prepend(starWin);
-        }, 300);
-        setTimeout(() => {
-          showEndOfGame(cardElements);
-          starBox.innerHTML = '';
-        }, 1300);
-      } else {
-        elem.querySelector('.card-blackout').style.display = 'block';
-        elem.classList.add('card-box-guess');
-        app.currentCount += 1;
-        setTimeout(() => {
-          new Audio('../assets/audio/correct.mp3').play();
-          starBox.prepend(starWin);
-        }, 300);
-        setTimeout(() => {
-          app.randomSounds[app.currentCount].sound.play();
-          app.numbOfSound = app.randomSounds[app.currentCount].numb;
-        }, 1300);
-      }
-    } else {
-      cardsM[i][j].incorrect += 1;
-      setCardstoLocalStorage();
-      app.wrongAnswers += 1;
-      setTimeout(() => {
-        new Audio('../assets/audio/error.mp3').play();
-        starBox.prepend(star);
-      }, 300);
-    }
-  }
-}
-
-function changeFunctionalOfCards() {
-  const i = app.currentContainer;
-  for (let j = 0; j < cardElements[i].length; j += 1) {
-    if (app.state === 'play' && app.startGame === 'true') {
-      cardElements[i][j].removeEventListener('click', clickOnCardTrain);
-      cardElements[i][j].removeEventListener('mouseleave', leaveCardTrain);
-      cardElements[i][j].removeEventListener('click', clickOnCardPlay);
-    } else if (app.state === 'train') {
-      cardElements[i][j].addEventListener('click', clickOnCardTrain);
-      cardElements[i][j].addEventListener('mouseleave', leaveCardTrain);
-      cardElements[i][j].removeEventListener('click', clickOnCardPlay);
-    } else if (app.state === 'play' && app.startGame === 'false') {
-      cardElements[i][j].removeEventListener('click', clickOnCardTrain);
-      cardElements[i][j].removeEventListener('mouseleave', leaveCardTrain);
-      cardElements[i][j].addEventListener('click', clickOnCardPlay);
-    }
-  }
-}
-
-function changeCategoryBtn() {
-  const i = app.currentContainer;
-  const containerBtn = categoryContainers[i].querySelector('.category-btn');
-  const btnStart = containerBtn.querySelector('.category-btn-start');
-  const btnRefresh = containerBtn.querySelector('.category-btn-refresh');
-  app.startGame = 'true';
-  btnStart.style.display = 'block';
-  btnRefresh.style.display = 'none';
-  btnStart.addEventListener('click', () => {
-    btnStart.style.display = 'none';
-    btnRefresh.style.display = 'block';
-    app.startGame = 'false';
-    changeFunctionalOfCards();
-  });
-}
-
-function clickOnCategoryBtn() {
-  app.currentCount = 0;
-  app.wrongAnswers = 0;
-  const i = app.currentContainer;
-  const containerBtn = categoryContainers[i].querySelector('.category-btn');
-  app.randomSounds = createRandomSounds();
-  containerBtn.addEventListener('click', () => {
-    app.randomSounds[app.currentCount].sound.play();
-    app.numbOfSound = app.randomSounds[app.currentCount].numb;
-  });
-}
 
 // click on categoryCards
 categoryCards.forEach((box, i) => {
@@ -252,7 +107,6 @@ categoryCards.forEach((box, i) => {
 mainItem.addEventListener('click', () => {
   main.style.display = 'flex';
   mainItem.classList.add('item-enabled');
-
   menuItems.forEach((item) => {
     item.classList.remove('item-enabled');
   });
@@ -263,7 +117,6 @@ mainItem.addEventListener('click', () => {
     starBox.innerHTML = '';
   });
   changeStylesOfMenu();
-
   app.startGame = 'true';
   const i = app.currentContainer;
   cardElements[i].forEach((elem) => {
@@ -386,7 +239,7 @@ statItems.forEach((item, j) => {
 // reset statistics
 const resetBtn = document.querySelector('.stat-reset');
 resetBtn.addEventListener('click', () => {
-  cardsM = cards;
-  setCardstoLocalStorage();
+  cardsM = JSON.parse(JSON.stringify(cards));
+  setCardstoLocalStorage(cardsM);
   createStatistics();
 });
